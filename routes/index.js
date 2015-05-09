@@ -6,8 +6,6 @@ var lagarto = require('./lagarto')
 
 
 
-
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -42,6 +40,7 @@ router.post('/control/startExperiment', function(req, res, next) {
 });
 
 router.post('/control/startSession', function(req, res, next) {
+  lagarto.sendMessage();
   res.send('Session Started');
 });
 
