@@ -87,6 +87,12 @@ var vehicleSignal = new machina.Fsm( {
                 this.timer = setTimeout( function() {
                     this.handle( "timeout" );
                 }.bind( this ), 5000 );
+
+                request('http://10.1.1.4:8080/index.html', function (error, response, body) {
+                  if (!error && response.statusCode == 200) {
+                    console.log("Sent") // Show the HTML for the Google homepage. 
+                }
+
                 // machina FSMs are event emitters. Here we're
                 // emitting a custom event and data, etc.
                 this.emit( "vehicles", { status: 'YELLOW' } );
@@ -148,7 +154,7 @@ router.post('/control/initialize', function(req, res, next) {
   vehicleSignal.pedestrianWaiting();
   // Once the FSM is in the "red" state, we can reset it to "green" by calling:
   vehicleSignal.reset();
-  
+
   res.send('Initialized');
 });
 
