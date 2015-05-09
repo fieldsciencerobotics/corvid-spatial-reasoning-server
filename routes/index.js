@@ -33,9 +33,9 @@ router.post('/control/initialize', function(req, res, next) {
   // causes a transition to green-interruptible....which immediately
   // transitions to yellow since we have a pedestrian waiting. After the
   // next timeout, we end up in "red".
-  vehicleSignal.pedestrianWaiting();
+  FSM.vehicleSignal.pedestrianWaiting();
   // Once the FSM is in the "red" state, we can reset it to "green" by calling:
-  vehicleSignal.reset();
+  FSM.vehicleSignal.reset();
 
   res.send('Initialized');
 });

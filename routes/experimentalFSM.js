@@ -116,4 +116,4 @@ vehicleSignal.on("*", function (eventName, data){
     console.log("this thing happened:", eventName);
 });
 
-module.export = vehicleSignal;
+module.export.vehicleSignal = vehicleSignal;
