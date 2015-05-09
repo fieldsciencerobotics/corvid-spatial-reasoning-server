@@ -122,6 +122,11 @@ var vehicleSignal = new machina.Fsm( {
     }
 } );
 
+vehicleSignal.on("*", function (eventName, data){
+    console.log("this thing happened:", eventName);
+});
+
+
 // Now, to use it:
 // This call causes the FSM to transition from uninitialized -> green
 // & queues up pedestrianWaiting input, which replays after the timeout
@@ -134,9 +139,7 @@ vehicleSignal.reset();
 
 
 
-vehicleSignal.on("*", function (eventName, data){
-    console.log("this thing happened:", eventName);
-});
+
 
 
 
