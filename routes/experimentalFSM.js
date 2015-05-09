@@ -1,8 +1,5 @@
 /* Machinajs */
-
 var machina = require('machina');
-
-
 
 var vehicleSignal = new machina.Fsm( {
 
@@ -116,3 +113,5 @@ var vehicleSignal = new machina.Fsm( {
 vehicleSignal.on("*", function (eventName, data){
     console.log("this thing happened:", eventName);
 });
+
+module.export = vehicleSignal;
