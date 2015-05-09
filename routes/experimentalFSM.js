@@ -1,3 +1,5 @@
+var request = require('request')
+
 /* Machinajs */
 var machina = require('machina');
 
