@@ -1,7 +1,7 @@
-var request = require('request')
-
-/* Machinajs */
+var request = require('request');
 var machina = require('machina');
+
+
 
 var vehicleSignal = new machina.Fsm( {
 
