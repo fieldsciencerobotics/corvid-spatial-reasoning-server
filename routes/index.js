@@ -18,9 +18,11 @@ router.post('/control/startExperiment', function(req, res, next) {
   request('http://10.1.1.4:8080', function (error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log(body) // Show the HTML for the Google homepage. 
+
+      res.send('Experiment Started');
     }
   })
-  res.send('Experiment Started');
+  
 });
 
 router.post('/control/startSession', function(req, res, next) {
