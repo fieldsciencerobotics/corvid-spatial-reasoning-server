@@ -1,7 +1,7 @@
 var express = require('express');
 var request = require('request')
 var router = express.Router();
-var vehicleSignal = require('experimentalFSM')
+var vehicleSignal = require('./experimentalFSM')
 
 /* ZeroMQ */ 
 var zmq = require('zmq')
