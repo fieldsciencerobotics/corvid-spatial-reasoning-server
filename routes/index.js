@@ -2,7 +2,7 @@ var express = require('express');
 var request = require('request')
 var router = express.Router();
 
-// subber.js 
+/* ZeroMQ */ 
 var zmq = require('zmq')
   , sock = zmq.socket('sub');
  
@@ -13,6 +13,8 @@ console.log('Subscriber connected to port 3000');
 sock.on('message', function(topic, message) {
   console.log('received a message related to:', topic, 'containing message:', message);
 });
+
+/* Machinajs */
 
 
 
