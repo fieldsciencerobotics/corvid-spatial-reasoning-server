@@ -91,7 +91,8 @@ var vehicleSignal = new machina.Fsm( {
                 request('http://10.1.1.4:8080/index.html', function (error, response, body) {
                   if (!error && response.statusCode == 200) {
                     console.log("Sent") // Show the HTML for the Google homepage. 
-                }
+                  }
+                })
 
                 // machina FSMs are event emitters. Here we're
                 // emitting a custom event and data, etc.
