@@ -1,0 +1,45 @@
+<h2> Experiments</h2>
+<span ng-click="openNewBird()">New bird</span>
+<br />
+<span ng-click="openNewStage()">New stage</span>
+
+<!-- New Bird - Modal Window -->
+<script type="text/ng-template" id="newBird.html">
+
+	<div class="modal-header">
+		<h3>Add New Bird</h3> 
+	</div>
+
+	<div class="modal-body">
+
+		<label>Enter a name: </label>
+		<div class="input-group" style="margin: 5px">
+			<span class="input-group-addon">@</span>
+			<input type="text" class="form-control" placeholder="Bird Name" ng-model="newBird.name">
+		</div>
+
+
+
+	</div>
+
+</script>
+
+<!-- New Stage - Modal Window -->
+<script type="text/ng-template" id="newStage.html">
+
+	<div class="modal-header">
+		<h3>Add New Stage</h3> 
+	</div>
+
+	<div class="modal-body">
+
+		<label>Enter a name: </label>
+		<div class="input-group" style="margin: 5px">
+			<span class="input-group-addon">@</span>
+			<input type="text" class="form-control" placeholder="Stage Name" ng-model="newStage.name">
+		</div>
+
+
+	</div>
+
+</script>

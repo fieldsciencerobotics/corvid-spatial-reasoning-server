@@ -1,0 +1,25 @@
+
+<div id="experimentNodesContainer" style="width=100%">
+
+	<div id="lights">
+		<div class="light" ng-repeat="light in lights" ng-click="lightSwitch(light)">
+			<svg height="80" width="80">
+			  <circle cx="40" cy="40" r="25" stroke="black" stroke-width="3" ng-attr-fill="{{light.colour}}"/>
+			</svg>
+			{{light.on}}
+		</div>
+	</div>
+
+	<div id="feeders">
+		<div class="feeder" ng-repeat="feeder in feeders">
+			<svg height="80" width="80">
+			  <rect x="20" y="20" width="30" height="50" stroke="black" stroke-width="3" fill="red" />
+			</svg>
+
+			Feeder: {{feeder.id}}
+			Connected?: {{feeder.connected}}
+		</div>
+	</div>
+
+</div>
+
