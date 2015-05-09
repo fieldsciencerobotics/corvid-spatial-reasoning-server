@@ -15,8 +15,7 @@ router.post('/control/initialize', function(req, res, next) {
 });
 
 router.post('/control/startExperiment', function(req, res, next) {
-  var request = require('request');
-    request('http://10.1.1.4:8080', function (error, response, body) {
+  request('http://10.1.1.4:8080', function (error, response, body) {
     (!error && response.statusCode == 200) {
       console.log(body) // Show the HTML for the Google homepage. 
     }
