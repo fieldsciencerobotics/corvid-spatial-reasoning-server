@@ -1,5 +1,6 @@
 var request = require('request');
 var machina = require('machina');
+var data = require('./data');
 
 
 
@@ -70,6 +71,8 @@ var vehicleSignal = new machina.Fsm( {
                 this.timer = setTimeout( function() {
                     this.handle( "timeout" );
                 }.bind( this ), 5000 );
+
+                data.logTrial();
 
                 request('http://10.1.1.4:8080/index.html', function (error, response, body) {
                   if (!error && response.statusCode == 200) {

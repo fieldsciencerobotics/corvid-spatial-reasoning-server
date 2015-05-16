@@ -1,8 +1,8 @@
 var express = require('express');
 var request = require('request')
 var router = express.Router();
-var FSM = require('./experimentalFSM')
-var lagarto = require('./lagarto')
+var FSM = require('./experimentalFSM');
+var lagarto = require('./lagarto');
 
 
 
