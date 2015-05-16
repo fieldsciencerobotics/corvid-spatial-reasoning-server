@@ -74,7 +74,7 @@ var vehicleSignal = new machina.Fsm( {
 
                 data.logTrial();
 
-                request('http://10.1.1.4:8080/index.html', function (error, response, body) {
+                request('http://10.1.1.4:8080/index. html', function (error, response, body) {
                   if (!error && response.statusCode == 200) {
                     console.log("Sent") // Show the HTML for the Google homepage. 
                   }
@@ -116,7 +116,7 @@ var vehicleSignal = new machina.Fsm( {
 } );
 
 vehicleSignal.on("*", function (eventName, data){
-    console.log("this thing happened:", eventName);
+    console.log("this thing happened:", eventName, data);
 });
 
 module.exports.vehicleSignal = vehicleSignal;
