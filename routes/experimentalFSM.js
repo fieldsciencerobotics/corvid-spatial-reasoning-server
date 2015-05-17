@@ -1,5 +1,5 @@
-var request = require('request');
 var machina = require('machina');
+var request = require('request');
 var data = require('./data');
 
 
@@ -116,7 +116,7 @@ var vehicleSignal = new machina.Fsm( {
 } );
 
 vehicleSignal.on("*", function (eventName, data){
-    console.log("this thing happened:", eventName, data);
+    console.log("this thing happened:", eventName);
 });
 
 module.exports.vehicleSignal = vehicleSignal;

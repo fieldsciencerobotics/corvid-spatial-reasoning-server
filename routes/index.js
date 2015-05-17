@@ -2,7 +2,8 @@ var express = require('express');
 var request = require('request')
 var router = express.Router();
 var FSM = require('./experimentalFSM');
-var lagarto = require('./lagarto');
+var controller = require('./controller');
+var lagarto = require('./devices');
 
 
 
@@ -15,6 +16,9 @@ router.get('/', function(req, res, next) {
 /* Control Flow Routes */
 
 router.post('/control/initialize', function(req, res, next) {
+  
+  controller.initialize();
+
   // Now, to use it:
   // This call causes the FSM to transition from uninitialized -> green
   // & queues up pedestrianWaiting input, which replays after the timeout
@@ -29,6 +33,9 @@ router.post('/control/initialize', function(req, res, next) {
 });
 
 router.post('/control/startExperiment', function(req, res, next) {
+  
+  controller.startExperiment();
+
   request('http://10.1.1.3:8080', function (error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log(body) // Show the HTML for the Google homepage. 
@@ -40,11 +47,17 @@ router.post('/control/startExperiment', function(req, res, next) {
 });
 
 router.post('/control/startSession', function(req, res, next) {
+  
+  controller.startSession();
+
   lagarto.sendMessage();
   res.send('Session Started');
 });
 
 router.post('/control/endSession', function(req, res, next) {
+  
+  controller.endSession();
+
   res.send('Session Ended');
 });
 
@@ -52,6 +65,9 @@ router.post('/control/endSession', function(req, res, next) {
 /* Add New Items */
 
 router.post('/addNew/bird', function(req, res, next) {
+  
+
+
   res.send('Bird Added');
 });
 
@@ -63,14 +79,23 @@ router.post('/addNew/stageDefinition', function(req, res, next) {
 /* Freeform Mode Commands */
 
 router.post('/freeForm/dropMeat', function(req, res, next) {
+  
+  controller.dropMeat();
+
   res.send('Meat Dropped');
 });
 
 router.post('/freeForm/lightOn', function(req, res, next) {
+  
+  controller.lightOn();
+
   res.send('Light Turned On');
 });
 
 router.post('/freeForm/lightsOff', function(req, res, next) {
+  
+  controller.lightsOff();
+
   res.send('Lights turned Off');
 });
 
