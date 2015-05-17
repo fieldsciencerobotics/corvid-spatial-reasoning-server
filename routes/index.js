@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/control/initialize', function(req, res, next) {
   
-  //controller.experiment.initialize();
+  controller.experiment.initializeDevices();
 
   // Now, to use it:
   // This call causes the FSM to transition from uninitialized -> green

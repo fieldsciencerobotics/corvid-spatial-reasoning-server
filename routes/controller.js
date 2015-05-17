@@ -169,8 +169,8 @@ var experiment = new machina.Fsm( {
     },
     // External Facing API
 
-    initialize2: function() {
-        console.log("initialize API 2");
+    initializeDevices: function() {
+        console.log("initialize API");
         this.handle( "initialize" );
     },
 
