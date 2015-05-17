@@ -51,7 +51,7 @@ var controller = new machina.Fsm( {
 
     pedestrianWaiting: function() {
         this.handle( "pedestrianWaiting" );
-    }
+    },
 
 
     // External Facing API
@@ -59,42 +59,42 @@ var controller = new machina.Fsm( {
     initialize: function() {
         console.log("initialize API");
         this.handle( "__handler_name" );
-    }
+    },
 
     startExperiment: function() {
         console.log("startExperiment API");
         this.handle( "__handler_name" );
-    }
+    },
 
     startSession: function() {
         console.log("startSession API");
         this.handle( "__handler_name" );
-    }
+    },
 
     endSession: function() {
         console.log("endSession API");
         this.handle( "__handler_name" );
-    }
+    },
 
     dropMeat: function() {
         console.log("dropMeat API");
         this.handle( "__handler_name" );
-    }
+    },
 
     lightOn: function() {
         console.log("lightOn API");
         this.handle( "__handler_name" );
-    }
+    },
 
     lightsOff: function() {
         console.log("lightsOff API");
         this.handle( "__handler_name" );
-    }
+    },
 
     perchEvent: function() {
         console.log("perchEvent API");
         this.handle( "__handler_name" );
-    }
+    },
 
 } );
 
