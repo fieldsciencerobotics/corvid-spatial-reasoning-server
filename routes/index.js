@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/control/initialize', function(req, res, next) {
   
-  controller.initialize();
+  controller.experiment.initialize();
 
   // Now, to use it:
   // This call causes the FSM to transition from uninitialized -> green
@@ -34,9 +34,9 @@ router.post('/control/initialize', function(req, res, next) {
 
 router.post('/control/startExperiment', function(req, res, next) {
   
-  controller.startExperiment();
+  controller.experiment.startExperiment();
 
-  request('http://10.1.1.3:8080', function (error, response, body) {
+  request('http://192.168.1.14:8080', function (error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log(body) // Show the HTML for the Google homepage. 
 
@@ -48,7 +48,7 @@ router.post('/control/startExperiment', function(req, res, next) {
 
 router.post('/control/startSession', function(req, res, next) {
   
-  controller.startSession();
+  controller.experiment.startSession();
 
   lagarto.sendMessage();
   res.send('Session Started');
@@ -56,7 +56,7 @@ router.post('/control/startSession', function(req, res, next) {
 
 router.post('/control/endSession', function(req, res, next) {
   
-  controller.endSession();
+  controller.experiment.endSession();
 
   res.send('Session Ended');
 });
@@ -80,21 +80,21 @@ router.post('/addNew/stageDefinition', function(req, res, next) {
 
 router.post('/freeForm/dropMeat', function(req, res, next) {
   
-  controller.dropMeat();
+  controller.experiment.dropMeat();
 
   res.send('Meat Dropped');
 });
 
 router.post('/freeForm/lightOn', function(req, res, next) {
   
-  controller.lightOn();
+  controller.experiment.lightOn();
 
   res.send('Light Turned On');
 });
 
 router.post('/freeForm/lightsOff', function(req, res, next) {
   
-  controller.lightsOff();
+  controller.experiment.lightsOff();
 
   res.send('Lights turned Off');
 });

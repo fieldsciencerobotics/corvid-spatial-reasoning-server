@@ -4,7 +4,7 @@ var data = require('./data');
 
 
 
-var controller = new machina.Fsm( {
+var experiment = new machina.Fsm( {
 
     // the initialize method is called right after the FSM
     // instance is constructed, giving you a place for any
@@ -98,8 +98,8 @@ var controller = new machina.Fsm( {
 
 } );
 
-controller.on("*", function (eventName, data){
+experiment.on("*", function (eventName, data){
     console.log("this thing happened:", eventName, data);
 });
 
-module.exports.controller = controller;
+module.exports.experiment = experiment;

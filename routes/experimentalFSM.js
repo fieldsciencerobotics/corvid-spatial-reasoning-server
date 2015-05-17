@@ -74,7 +74,7 @@ var vehicleSignal = new machina.Fsm( {
 
                 data.logTrial();
 
-                request('http://10.1.1.4:8080/index. html', function (error, response, body) {
+                request('http://192.168.1.14:8080/index. html', function (error, response, body) {
                   if (!error && response.statusCode == 200) {
                     console.log("Sent") // Show the HTML for the Google homepage. 
                   }
