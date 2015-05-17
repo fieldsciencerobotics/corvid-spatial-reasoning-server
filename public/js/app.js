@@ -64,6 +64,20 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
 
 
+    $scope.dropMeat = function() {
+
+        $http({
+            url: '/freeForm/dropMeat',
+            method: "POST",
+            data: angular.toJson([{'id': 2}),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
     $scope.selectedBird = {'id': 'red', 'colour': ['red']};
 
     $scope.lightSwitch = function (light) {

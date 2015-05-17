@@ -54,6 +54,11 @@ var experiment = new machina.Fsm( {
             },
 
             dropMeat: function() {
+                request('http://192.168.1.16:8001/values?id=23.11.0&value=2', function (error, response, body) {
+                  if (!error && response.statusCode == 200) {
+                    console.log("Sent") // Show the HTML for the Google homepage. 
+                  }
+                })
                 console.log("MEAT DROPPED");
             },
 
