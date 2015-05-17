@@ -170,7 +170,7 @@ var experiment = new machina.Fsm( {
     // External Facing API
 
     initialize: function() {
-        console.log("initialize API");
+        console.log("initialize API 2");
         this.handle( "initialize" );
     },
 

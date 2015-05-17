@@ -1,7 +1,7 @@
 var express = require('express');
 var request = require('request')
 var router = express.Router();
-var FSM = require('./experimentalFSM');
+//var FSM = require('./experimentalFSM');
 var controller = require('./controller');
 var lagarto = require('./devices');
 
@@ -36,13 +36,13 @@ router.post('/control/startExperiment', function(req, res, next) {
   
   controller.experiment.startExperiment();
 
-  request('http://192.168.1.14:8080', function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      console.log(body) // Show the HTML for the Google homepage. 
+  //request('http://192.168.1.14:8080', function (error, response, body) {
+  //  if (!error && response.statusCode == 200) {
+  //    console.log(body) // Show the HTML for the Google homepage. 
 
       res.send('Experiment Started');
-    }
-  })
+  //  }
+  //})
   
 });
 
@@ -50,7 +50,7 @@ router.post('/control/startSession', function(req, res, next) {
   
   controller.experiment.startSession();
 
-  lagarto.sendMessage();
+  //lagarto.sendMessage();
   res.send('Session Started');
 });
 
