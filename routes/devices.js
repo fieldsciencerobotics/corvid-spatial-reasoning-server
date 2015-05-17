@@ -3,7 +3,7 @@ var zmq = require('zmq')
   , sock = zmq.socket('sub');
  
 sock.connect('tcp://192.168.1.16:5001');
-sock.subscribe('kitty cats');
+//sock.subscribe('kitty cats');
 console.log('Subscriber connected to port 5001');
  
 sock.on('message', function(topic, message) {
