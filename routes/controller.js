@@ -33,20 +33,11 @@ var experiment = new machina.Fsm( {
             _onExit: function() {
 
             },
-            // Input handlers are usually functions. They can
-            // take arguments, too (even though this one doesn't)
-            // The "*" handler is special (more on that in a bit)
-            "*": function() {
-                //this.deferUntilTransition();
-                // the `transition` method takes a target state (as a string)
-                // and transitions to it. You should NEVER directly assign the
-                // state property on an FSM. Also - while it's certainly OK to
-                // call `transition` externally, you usually end up with the
-                // cleanest approach if you endeavor to transition *internally*
-                // and just pass input to the FSM.
-                
-                //this.transition( "green" );
+
+            initialize: function() {
+
             }
+
         },
 
         freeForm: {
@@ -64,7 +55,19 @@ var experiment = new machina.Fsm( {
 
             dropMeat: function() {
                 console.log("MEAT DROPPED");
-            }
+            },
+
+            lightOn: function() {
+
+            },
+
+            lightsOff: function() {
+
+            },
+
+            startExperiment: function() {
+
+            },
 
         },
 
@@ -78,6 +81,10 @@ var experiment = new machina.Fsm( {
             },
 
             _onExit: function() {
+
+            },
+
+            startSession: function() {
 
             },
 
@@ -96,6 +103,12 @@ var experiment = new machina.Fsm( {
 
             },
 
+            endSession: function() {
+
+            },
+
+
+
         },
 
         trial: {
@@ -108,6 +121,10 @@ var experiment = new machina.Fsm( {
             },
 
             _onExit: function() {
+
+            },
+
+            perchEvent: function() {
 
             },
 
@@ -149,22 +166,22 @@ var experiment = new machina.Fsm( {
 
     initialize: function() {
         console.log("initialize API");
-        this.handle( "__handler_name" );
+        this.handle( "initialize" );
     },
 
     startExperiment: function() {
         console.log("startExperiment API");
-        this.handle( "__handler_name" );
+        this.handle( "startExperiment" );
     },
 
     startSession: function() {
         console.log("startSession API");
-        this.handle( "__handler_name" );
+        this.handle( "startSession" );
     },
 
     endSession: function() {
         console.log("endSession API");
-        this.handle( "__handler_name" );
+        this.handle( "endSession" );
     },
 
     dropMeat: function() {
@@ -174,17 +191,17 @@ var experiment = new machina.Fsm( {
 
     lightOn: function() {
         console.log("lightOn API");
-        this.handle( "__handler_name" );
+        this.handle( "lightOn" );
     },
 
     lightsOff: function() {
         console.log("lightsOff API");
-        this.handle( "__handler_name" );
+        this.handle( "lightsOff" );
     },
 
     perchEvent: function() {
         console.log("perchEvent API");
-        this.handle( "__handler_name" );
+        this.handle( "perchEvent" );
     },
 
 } );
