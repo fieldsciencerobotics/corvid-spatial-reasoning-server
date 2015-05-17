@@ -69,7 +69,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $http({
             url: '/freeForm/dropMeat',
             method: "POST",
-            data: angular.toJson([{'id': 2}),
+            data: angular.toJson([{'id': 2}]),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
