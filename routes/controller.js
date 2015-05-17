@@ -16,17 +16,23 @@ var experiment = new machina.Fsm( {
 
     namespace: "controller",
 
-    // `initialState` tells machina what state to start the FSM in.
-    // The default value is "uninitialized". Not providing
-    // this value will throw an exception in v1.0+
+    // The initial State the FSM will be started in
     initialState: "uninitialized",
 
-    // The states object's top level properties are the
-    // states in which the FSM can exist. Each state object
-    // contains input handlers for the different inputs
-    // handled while in that state.
+    // Experimental States
     states: {
         uninitialized: {
+            _onEnter: function() {
+                this.transition( "freeForm" );
+            },
+
+            "*": function() {
+
+            },
+
+            _onExit: function() {
+
+            },
             // Input handlers are usually functions. They can
             // take arguments, too (even though this one doesn't)
             // The "*" handler is special (more on that in a bit)
@@ -43,17 +49,102 @@ var experiment = new machina.Fsm( {
             }
         },
 
+        freeForm: {
+            _onEnter: function() {
+
+            },
+
+            "*": function() {
+
+            },
+
+            _onExit: function() {
+
+            },
+
+            dropMeat: function() {
+                console.log("MEAT DROPPED");
+            }
+
+        },
+
+        experiment: {
+            _onEnter: function() {
+
+            },
+
+            "*": function() {
+
+            },
+
+            _onExit: function() {
+
+            },
+
+        },
+
+        session: {
+            _onEnter: function() {
+
+            },
+
+            "*": function() {
+
+            },
+
+            _onExit: function() {
+
+            },
+
+        },
+
+        trial: {
+            _onEnter: function() {
+
+            },
+
+            "*": function() {
+
+            },
+
+            _onExit: function() {
+
+            },
+
+        },
+
+        failedSession: {
+            _onEnter: function() {
+
+            },
+
+            "*": function() {
+
+            },
+
+            _onExit: function() {
+
+            },
+
+        },
+
+        endedSession: {
+            _onEnter: function() {
+
+            },
+
+            "*": function() {
+
+            },
+
+            _onExit: function() {
+
+            },
+
+        },
+
 
     },
-    reset: function() {
-        this.handle( "_reset" );
-    },
-
-    pedestrianWaiting: function() {
-        this.handle( "pedestrianWaiting" );
-    },
-
-
     // External Facing API
 
     initialize: function() {
@@ -78,7 +169,7 @@ var experiment = new machina.Fsm( {
 
     dropMeat: function() {
         console.log("dropMeat API");
-        this.handle( "__handler_name" );
+        this.handle( "dropMeat" );
     },
 
     lightOn: function() {
