@@ -9,7 +9,7 @@
   <script type="text/javascript" src="js/ui-bootstrap-tpls-0.12.1.js"></script>
   <script type="text/javascript" src="js/angular-ui-router.js"></script>
 
-  <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+  <link rel="stylesheet" href="stylesheets/bootstrapPaper.css">
   <link rel="stylesheet" href="stylesheets/myApp.css">
 
 </head>
@@ -17,25 +17,26 @@
   <!-- views will be injected here -->
   <div class="container-fluid" style="height: 100%" ng-controller="myController">
 
-    <h1>Corvid Spatial Reasoning</h1>
+    <h2>Spatial Reasoning Experiment</h2>
 
-    <div id="main" style="height: 85%; border: 1px solid;">
+    <div id="main" style="height: 85%;">
       
-      <div id="heading" style="height: 15%; border: 1px solid;">
+      <div id="heading" class="list-group" style="height: 15%; margin-bottom:0px">
 
-        <a ui-sref="experiment" style="width:33%; height: 100%; ; border: 1px solid; padding:3px; float:left">
-          Experiment
+        
+        <a ui-sref="experiment" class="list-group-item" ng-class="{'active':currentTab[0]}" ng-click="tabSelect(0)" style="width:33.3%; height: 100%; padding:3px; float:left; padding-left:45px; padding-top:20px">
+          <h2 class="list-group-item-heading"><span class="glyphicon glyphicon-tasks" /><b> Experiment</b></h2>
         </a>
-        <a ui-sref="data" style="width:33%; height: 100%; ; border: 1px solid; padding:3px; float:left">
-          Data
+        <a ui-sref="data" class="list-group-item" ng-class="{'active':currentTab[1]}" ng-click="tabSelect(1)" style="width:33.3%; height: 100%; padding:3px; float:left; padding-left:120px; padding-top:20px">
+          <h2 class="list-group-item-heading"><span class="glyphicon glyphicon-stats" /><b> Data</b></h2>
         </a>
-        <a ui-sref="feeders" style="width:33%; height: 100%; ; border: 1px solid; padding:3px; float:left">
-          Feeders
+        <a ui-sref="feeders" class="list-group-item" ng-class="{'active':currentTab[2]}" ng-click="tabSelect(2)" style="width:33.3%; height: 100%; padding:3px; float:left; padding-left:80px; padding-top:20px">
+          <h2 class="list-group-item-heading"><span class="glyphicon glyphicon-random" /><b> Freeform</b></h2>
         </a>
         
       </div>
 
-      <div ui-view style="height: 85%; border: 1px solid; padding:3px;">
+      <div ui-view class="panel panel-primary" style="height: 85%">
         
       </div>
 

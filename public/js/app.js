@@ -29,6 +29,13 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 
 myApp.controller('myController', function($scope, $modal, $log, $http) {
 
+    $scope.currentTab = [false, false, true];
+
+    $scope.tabSelect = function(tab) {
+        $scope.currentTab = [false, false, false];
+        $scope.currentTab[tab] = true;
+    }
+
     $scope.lights = [{'on': true, 'colour': 'yellow'}, 
                     {'on': true, 'colour': 'yellow'}, 
                     {'on': true, 'colour': 'yellow'}, 
@@ -40,16 +47,16 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
                     {'on': true, 'colour': 'yellow'}, 
                     {'on': true, 'colour': 'yellow'}];
 
-    $scope.feeders = [{'id': 1, 'connected': true }, 
-                    {'id': 2, 'connected': true },
-                    {'id': 3, 'connected': true },
-                    {'id': 4, 'connected': true },
-                    {'id': 5, 'connected': true },
-                    {'id': 6, 'connected': true },
-                    {'id': 7, 'connected': true },
-                    {'id': 8, 'connected': true },
-                    {'id': 9, 'connected': true },
-                    {'id': 10, 'connected': true }];
+    $scope.feeders = [{'id': 1, 'connected': true, 'colour': 'red', 'perch-colour': 'black' }, 
+                    {'id': 2, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
+                    {'id': 3, 'connected': true, 'colour': 'red', 'perch-colour': 'black'  },
+                    {'id': 4, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
+                    {'id': 5, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
+                    {'id': 6, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
+                    {'id': 7, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
+                    {'id': 8, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
+                    {'id': 9, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
+                    {'id': 10, 'connected': true, 'colour': 'red', 'perch-colour': 'black'  }];
 
     $scope.birds = [
                     {'id': 'RYB', 'gender': 'male', 'age': 'adult'},
@@ -62,6 +69,17 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
                     {'name': 'experiment part three', 'desc': "This is experiment part three", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []}
                     ];
 
+
+    $scope.resetColour = function(feeder) {
+        myVar = setTimeout(function(){
+            feeder.colour = 'red';
+        },300);
+    }
+
+    $scope.freeFormDropMeat = function(feeder) {
+        feeder.colour = 'green';
+        $scope.resetColour(feeder);
+    }
 
 
     $scope.dropMeat = function() {
