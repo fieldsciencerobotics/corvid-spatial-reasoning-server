@@ -74,6 +74,10 @@ var experiment = new machina.Fsm( {
 
             },
 
+            perchEvent: function() {
+                
+            }
+
         },
 
         experiment: {
