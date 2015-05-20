@@ -110,7 +110,9 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
     $scope.existingStages = [
                     {'name': 'training part one', 'desc': "This is training part one", 'delay': 20, 'autoEnd': false, 'autoEndTime': 180, 'feederArrangement': []},
-                    {'name': 'experiment part three', 'desc': "This is experiment part three", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []}
+                    {'name': 'exp part one', 'desc': "This is experiment part one", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
+                    {'name': 'exp part two', 'desc': "This is experiment part two", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
+                    {'name': 'exp part three', 'desc': "This is experiment part three", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
                     ];
 
 

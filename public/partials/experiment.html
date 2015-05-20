@@ -12,8 +12,8 @@
 	  <div class="panel-body">
 
 		  <ul class="nav nav-pills nav-justified">
-			  <li ng-class="{'active':currentBirdOrStage[0]}"><a href="#" ng-click="birdStageSelect(0)">Birds <span class="badge">4</span></a></li>
-			  <li ng-class="{'active':currentBirdOrStage[1]}"><a href="#" ng-click="birdStageSelect(1)">Stages <span class="badge">5</span></a></li>
+			  <li ng-class="{'active':currentBirdOrStage[0]}"><a href="#" ng-click="birdStageSelect(0)">Birds <span class="badge">{{existingBirds.length}}</span></a></li>
+			  <li ng-class="{'active':currentBirdOrStage[1]}"><a href="#" ng-click="birdStageSelect(1)">Stages <span class="badge">{{existingStages.length}}</span></a></li>
 		  </ul>
 
 		  <div id="savedBirds" ng-show="currentBirdOrStage[0]">
@@ -27,20 +27,8 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr>
-			      <td>Green</td>
-			    </tr>
-			    <tr>
-			      <td>Blue</td>
-			    </tr>
-			    <tr> 
-			      <td>Red</td>
-			    </tr>
-			    <tr>
-			      <td>Red-Yellow</td>
-			    </tr>
-			    <tr>
-			      <td>Red-Blue</td>
+			    <tr ng-repeat="bird in existingBirds">
+			      <td>{{bird.id}}</td>
 			    </tr>
 			  </tbody>
 			</table>
@@ -59,17 +47,8 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr class="info">
-			      <td>Stage 1</td>
-			    </tr>
-			    <tr class="success">
-			      <td>Stage 2</td>
-			    </tr>
-			    <tr class="info"> 
-			      <td>Stage 3</td>
-			    </tr>
-			    <tr class="success">
-			      <td>Stage 4</td>
+			    <tr ng-repeat="stage in existingStages">
+			      <td>{{stage.name}}</td>
 			    </tr>
 			  </tbody>
 			</table>
@@ -97,11 +76,7 @@
 						      <div class="col-lg-10">
 						        <select class="form-control" id="select" placeholder="Bird">
 						          <option></option>
-						          <option>Green</option>
-						          <option>Blue</option>
-						          <option>Red</option>
-						          <option>Red-Yellow</option>
-						          <option>Red-Blue</option>
+						          <option ng-repeat="bird in existingBirds">{{bird.id}}</option>
 						        </select>
 						      </div>
 						    </div>
@@ -110,10 +85,7 @@
 						      <div class="col-lg-10">
 						        <select class="form-control" id="select" placeholder="Stage">
 						          <option></option>
-						          <option>Stage 1</option>
-						          <option>Stage 2</option>
-						          <option>Stage 3</option>
-						          <option>Stage 4</option>
+						          <option ng-repeat="stage in existingStages">{{stage.name}}</option>
 						        </select>
 						      </div>
 			    			</div>
