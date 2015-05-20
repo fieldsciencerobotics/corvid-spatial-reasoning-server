@@ -27,7 +27,12 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
         });
 });
 
+// My Monolithic Controll (should be refactored into smaller units)
+// =============================================================================
 myApp.controller('myController', function($scope, $modal, $log, $http) {
+
+    // View Controls - For tabbed sections
+    // =========================================================================
 
     // Which Main Tab is currently Showing
     $scope.currentTab = [false, false, true];
@@ -46,12 +51,24 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     }
 
     // In the experiment tab, what stage of definiting the session are you currently in
-    $scope.currentExperimentStage = [true, false];
+    $scope.currentExperimentStage = [true, false, false, false];
 
     $scope.experimentStageSelect = function(stage) {
-        $scope.currentExperimentStage = [false, false];
+        $scope.currentExperimentStage = [false, false, false, false];
         $scope.currentExperimentStage[stage] = true;
     }
+
+    // In the data tab, what data is currently being explored
+    $scope.currentDataBeingExplored = [true, false];
+
+    $scope.dataExploreSelect = function(stage) {
+        $scope.currentDataBeingExplored = [false, false];
+        $scope.currentDataBeingExplored[stage] = true;
+    }
+
+
+    // Data Values (To be factored out and retrived from the server)
+    // =========================================================================
 
     $scope.lights = [{'on': true, 'colour': 'yellow'}, 
                     {'on': true, 'colour': 'yellow'}, 
@@ -87,6 +104,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
                     ];
 
 
+
+
     $scope.resetColour = function(feeder) {
         myVar = setTimeout(function(){
             feeder.colour = 'red';
@@ -99,8 +118,29 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     }
 
 
-    $scope.dropMeat = function() {
+    $scope.selectedBird = {'id': 'red', 'colour': ['red']};
 
+    $scope.lightSwitch = function (light) {
+        if(light.on == true){
+            light.on = false;
+            light.colour = 'black';
+        } else {
+            light.on = true;
+            light.colour = 'yellow';
+        }
+    }
+
+
+
+    // HTTP Methods for communicating with the Server
+    // =========================================================================
+
+    //
+    // FREEFORM METHODS:
+    // 
+
+    // DROP MEAT: Used in Freeform mode to command a particulr Feeder to drop meat
+    $scope.sendToServerDropMeat = function() {
         $http({
             url: '/freeForm/dropMeat',
             method: "POST",
@@ -113,17 +153,177 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         });
     };
 
-    $scope.selectedBird = {'id': 'red', 'colour': ['red']};
+    //TURN LIGHT ON: Used in FreeForm mode to turn an indicator light on
+    $scope.sendToServerTurnLightOn = function() {
+        $http({
+            url: '/freeForm/lightOn',
+            method: "POST",
+            data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
 
-    $scope.lightSwitch = function (light) {
-        if(light.on == true){
-            light.on = false;
-            light.colour = 'black';
-        } else {
-            light.on = true;
-            light.colour = 'yellow';
-        }
-    }
+    //TURN LIGHTS OFF: Used in FreeForm mode to turn all indicator lights off
+    $scope.sendToServerTurnLightOn = function() {
+        $http({
+            url: '/freeForm/lightsOFF',
+            method: "POST",
+            data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+    //
+    // ADD NEW ITEMS METHODS:
+    // 
+
+    //ADD NEW BIRD: Used to add a new bird into the database
+    $scope.sendToServerAddNewBird = function() {
+        $http({
+            url: '/addNew/newBird',
+            method: "POST",
+            data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+    //ADD NEW STAGE: Used to add a new experimental stage into the database
+    $scope.sendToServerAddNewStage = function() {
+        $http({
+            url: '/addNew/newStage',
+            method: "POST",
+            data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+    //
+    // STATE CONTROL METHODS:
+    // 
+
+    //INITIALIZE: Used to initialize the workbench, primarily selection the available feeders for use
+    $scope.sendToServerInitialize = function() {
+        $http({
+            url: '/control/initialize',
+            method: "POST",
+            data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+    //START EXPERIMENT: Used to start off an Experiment, primarily selection the bird and the stage
+    $scope.sendToServerStartExperiment = function() {
+        $http({
+            url: '/control/startExperiment',
+            method: "POST",
+            data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+    //CANCEL EXPERIMENT: Used to cancel an Experiment before beginning
+    $scope.sendToServerCancelExperiment = function() {
+        $http({
+            url: '/control/cancelExperiment',
+            method: "POST",
+            data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+    //START EXPERIMENTAL SESSION: Used to start an Experiment Session
+    $scope.sendToServerStartExperimentalSession = function() {
+        $http({
+            url: '/control/startSession',
+            method: "POST",
+            data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+    //END EXPERIMENTAL SESSION: Used to end an Experiment Session, primarily before it would have naturally ended
+    $scope.sendToServerEndExperimentalSession = function() {
+        $http({
+            url: '/control/endSession',
+            method: "POST",
+            data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+    //
+    // GET DATA METHODS:
+    // 
+
+    //GET EXISTING BIRDS: Used to retrieve all the existing birds defiend in the database
+    $scope.sendToServerGetBirds = function() {
+        $http({
+            url: '/data/getBirds',
+            method: "POST",
+            data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+    //GET EXISTING STAGES: Used to retrieve all the existing stages defiend in the database
+    $scope.sendToServerGetStages = function() {
+        $http({
+            url: '/data/getStages',
+            method: "POST",
+            data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+
+
+
+    // Modal Window Controllers
+    // =========================================================================
 
     // New Bird Modal Window
     $scope.openNewBird = function () {
@@ -164,8 +364,12 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     };
 
 
+// END OF CONTROLLER
 });
 
+
+// Modal Windows
+// =============================================================================
 
 // New Stage Modal Controller
 var NewBirdModalInstanceCtrl = function ($scope, $modalInstance) {

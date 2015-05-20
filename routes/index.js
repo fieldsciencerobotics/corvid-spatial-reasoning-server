@@ -46,6 +46,20 @@ router.post('/control/startExperiment', function(req, res, next) {
   
 });
 
+router.post('/control/cancelExperiment', function(req, res, next) {
+  
+  controller.experiment.cancelExperiment();
+
+  //request('http://192.168.1.14:8080', function (error, response, body) {
+  //  if (!error && response.statusCode == 200) {
+  //    console.log(body) // Show the HTML for the Google homepage. 
+
+      res.send('Experiment Canceled');
+  //  }
+  //})
+  
+});
+
 router.post('/control/startSession', function(req, res, next) {
   
   controller.experiment.startSession();
@@ -104,6 +118,10 @@ router.post('/freeForm/lightsOff', function(req, res, next) {
 
 router.post('/data/getBirds', function(req, res, next) {
   res.send('Bird Data');
+});
+
+router.post('/data/getStages', function(req, res, next) {
+  res.send('Stage Data');
 });
 
 

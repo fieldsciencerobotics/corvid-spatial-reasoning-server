@@ -179,6 +179,11 @@ var experiment = new machina.Fsm( {
         this.handle( "startExperiment" );
     },
 
+    cancelExperiment: function() {
+        console.log("cancelExperiment API");
+        this.handle( "cancelExperiment" );
+    },
+
     startSession: function() {
         console.log("startSession API");
         this.handle( "startSession" );
