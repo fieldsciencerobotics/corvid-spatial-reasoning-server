@@ -116,22 +116,28 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
                     ];
 
 
+    //
+    // UI Methods (Called from clicking on various UI elements)
+    // =========================================================================
 
+    //
+    // Freeform
+    //
 
+    // Part of the Drop meat method (though it is not working currently)
     $scope.resetColour = function(feeder) {
         myVar = setTimeout(function(){
             feeder.colour = 'red';
         },300);
     }
 
+    // Drop meat
     $scope.freeFormDropMeat = function(feeder) {
         feeder.colour = 'green';
         $scope.resetColour(feeder);
     }
 
-
-    $scope.selectedBird = {'id': 'red', 'colour': ['red']};
-
+    // Toggle Ligh
     $scope.lightSwitch = function (light) {
         if(light.on == true){
             light.on = false;
@@ -141,6 +147,68 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             light.colour = 'yellow';
         }
     }
+
+
+    //
+    // Data
+    //
+
+
+
+    //
+    // Experiments
+    //
+
+    $scope.selectedBird = "";
+    $scope.selectedStage = "";
+    $scope.numOfTrials = 0;
+
+    // Start Experiment
+    $scope.startExperiment = function() {
+        //$scope.sendToServerStartExperiment($scope.selectedBird, $scope.selectedStage);
+        
+        // Reset the values
+        $scope.selectedBird = "";
+        $scope.selectedStage = "";
+        $scope.experimentStageSelect(1);
+    }
+
+    // Cancel Experiment
+    $scope.cancelExperiment = function() {
+        //$scope.sendToServerCancelExperimentSession();
+
+        $scope.experimentStageSelect(0);
+    }
+
+    // Start Session
+    $scope.startSession = function() {
+        //$scope.sendToServerStartExperimentalSession($scope.numOfTrials);
+
+        // Reset the number of trials value
+        $scope.numOfTrials = 0;
+        $scope.experimentStageSelect(2);
+    }
+
+    // End Session
+    $scope.endSession = function() {
+        //$scope.sendToServerEndExperimentalSession();
+
+        $scope.experimentStageSelect(3);
+    }
+
+    // Completed Wrapup
+    $scope.finishWrapup = function() {
+        //$scope.sendToServerEndExperimentalSession();
+
+        $scope.experimentStageSelect(0);
+    }
+
+    
+
+
+    $scope.selectedBird = {'id': 'red', 'colour': ['red']};
+
+    
 
 
     //
@@ -244,7 +312,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     };
 
     //START EXPERIMENT: Used to start off an Experiment, primarily selection the bird and the stage
-    $scope.sendToServerStartExperiment = function() {
+    $scope.sendToServerStartExperiment = function(bird, stage) {
         $http({
             url: '/control/startExperiment',
             method: "POST",
@@ -334,6 +402,10 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
 
 
+
+
+
+    //
     // Modal Window Controllers
     // =========================================================================
 
@@ -350,7 +422,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         // Handles the Submittion or cancelation of the Modal Window
         NewBirdModalInstance.result.then(function (newBird) {
             // add bird to the existing list
-            $scope.birds.push(newBird)
+            $scope.existingBirds.push(newBird)
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });
@@ -369,7 +441,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         // Handles the Submittion or cancelation of the Modal Window
         NewStageModalInstance.result.then(function (newStage) {
             // add new stage to the existing list
-            $scope.stages.push(newStage);
+            $scope.existingStages.push(newStage);
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });
@@ -405,7 +477,7 @@ var NewStageModalInstanceCtrl = function ($scope, $modalInstance) {
     $scope.newStage = {};
 
     $scope.ok = function () {
-        console.log($scope.Licenses);
+        console.log($scope.newStage);
         $modalInstance.close($scope.newStage);
     };
 

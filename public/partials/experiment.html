@@ -1,6 +1,11 @@
 <!-- 
 Experiments Tab
 -->
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
 
 <div class="panel-heading">
 	<h3 class="panel-title">Experiment</h3>
@@ -36,7 +41,7 @@ Experiments Tab
 					</thead>
 					<tbody>
 						<tr ng-repeat="bird in existingBirds">
-							<td>{{bird.id}}</td>
+							<td tooltip-placement="right" tooltip="{{bird.gender}}">{{bird.id}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -55,7 +60,7 @@ Experiments Tab
 					</thead>
 					<tbody>
 						<tr ng-repeat="stage in existingStages">
-							<td>{{stage.name}}</td>
+							<td tooltip-placement="right" tooltip="{{stage.desc}}">{{stage.name}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -82,7 +87,7 @@ Experiments Tab
 								<div class="form-group has-success">
 									<label for="select" class="col-lg-2 control-label">Select Bird</label>
 									<div class="col-lg-10">
-										<select class="form-control" id="select" placeholder="Bird" />
+										<select class="form-control" id="select" placeholder="Bird" ng-model="selectBird"/>
 										<option></option>
 										<option ng-repeat="bird in existingBirds">{{bird.id}}</option>
 									</select>
@@ -91,7 +96,7 @@ Experiments Tab
 							<div class="form-group has-success">
 								<label for="select" class="col-lg-2 control-label">Select Stage</label>
 								<div class="col-lg-10">
-									<select class="form-control" id="select" placeholder="Stage" />
+									<select class="form-control" id="select" placeholder="Stage" ng-model="selectStage" />
 									<option></option>
 									<option ng-repeat="stage in existingStages">{{stage.name}}</option>
 								</select>
@@ -99,7 +104,7 @@ Experiments Tab
 						</div>
 						<div class="form-group">
 							<div class="col-lg-10 col-lg-offset-2">
-								<button type="submit" class="btn btn-primary" ng-click="experimentStageSelect(1)">Continue</button>
+								<button type="submit" class="btn btn-primary" ng-click="startExperiment()">Continue</button>
 							</div>
 						</div>
 					</fieldset>
@@ -125,15 +130,15 @@ Experiments Tab
 							<label class="col-lg-2 control-label">Number of Trials</label>
 							<div class="col-lg-5">
 								<div class="input-group">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" ng-model="numOfTrials">
 								</div>
 								<span class="help-block">Desired / Max Number of Trials</span>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-lg-10 col-lg-offset-2">
-								<button type="reset" class="btn btn-default" ng-click="experimentStageSelect(0)">Cancel</button>
-								<button type="submit" class="btn btn-primary" ng-click="experimentStageSelect(2)">Begin Session!</button>
+								<button type="reset" class="btn btn-default" ng-click="cancelExperiment()">Cancel</button>
+								<button type="submit" class="btn btn-primary" ng-click="startSession()">Begin Session!</button>
 							</div>
 						</div>
 					</fieldset>
@@ -211,14 +216,14 @@ Experiments Tab
 				</tr>
 			</tbody>
 		</table> 
-		<span class="btn btn-danger" ng-click="experimentStageSelect(3)"></span> STOP! </a>
+		<span class="btn btn-danger" ng-click="endSession()">STOP! </span>
 	</div>
 
 	<!-- Ended Experiment -->
 	<div id="stoppedExperiment" ng-show="currentExperimentStage[3]">
 		<div class="jumbotron" style="padding-top: 20px; padding-bottom: 20px;">
 			<h2>Session Stopped</h2>
-			<span class="btn btn-warning" ng-click="experimentStageSelect(0)"></span> Return to Start</a>
+			<span class="btn btn-warning" ng-click="finishWrapup()"> Return to Start</span>
 		</div>
 	</div>
 
@@ -248,7 +253,7 @@ Scrips for the Modal Windows
 				<div class="form-group">
 					<label for="inputBirdName" class="col-lg-2 control-label">Name</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="inputBirdName" placeholder="Bird Name" ng-model="newBird.name">
+						<input type="text" class="form-control" id="inputBirdName" placeholder="Bird Name" ng-model="newBird.id">
 					</div>
 				</div>
 
@@ -301,8 +306,8 @@ Scrips for the Modal Windows
 
 				<div class="form-group">
 					<div class="col-lg-10 col-lg-offset-2">
-						<button type="reset" class="btn btn-default">Cancel</button>
-						<button type="submit" class="btn btn-primary">Submit</button>
+						<button type="reset" class="btn btn-default" ng-click="cancel()">Cancel</button>
+						<button type="submit" class="btn btn-primary" ng-click="ok()">Submit</button>
 					</div>
 				</div>
 			</fieldset>
@@ -345,34 +350,34 @@ Scrips for the Modal Windows
 					<label for="inputPassword" class="col-lg-2 control-label">Feeders</label>
 					<div class="col-lg-10">
 						<label class="checkbox-inline">
-							<input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+							<input type="checkbox" id="inlineCheckbox1" value="feeder1" ng-model="newStage.feeders[0]"> 1
 						</label>
 						<label class="checkbox-inline">
-							<input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+							<input type="checkbox" id="inlineCheckbox2" value="feeder2" ng-model="newStage.feeders[1]"> 2
 						</label>
 						<label class="checkbox-inline">
-							<input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+							<input type="checkbox" id="inlineCheckbox3" value="feeder3" ng-model="newStage.feeders[2]"> 3
 						</label>
 						<label class="checkbox-inline">
-							<input type="checkbox" id="inlineCheckbox3" value="option3"> 4
+							<input type="checkbox" id="inlineCheckbox3" value="feeder4" ng-model="newStage.feeders[3]"> 4
 						</label>
 						<label class="checkbox-inline">
-							<input type="checkbox" id="inlineCheckbox3" value="option3"> 5
+							<input type="checkbox" id="inlineCheckbox3" value="feeder5" ng-model="newStage.feeders[4]"> 5
 						</label>
 						<label class="checkbox-inline">
-							<input type="checkbox" id="inlineCheckbox3" value="option3"> 6
+							<input type="checkbox" id="inlineCheckbox3" value="feeder6" ng-model="newStage.feeders[5]"> 6
 						</label>
 						<label class="checkbox-inline">
-							<input type="checkbox" id="inlineCheckbox3" value="option3"> 7
+							<input type="checkbox" id="inlineCheckbox3" value="feeder7" ng-model="newStage.feeders[6]"> 7
 						</label>
 						<label class="checkbox-inline">
-							<input type="checkbox" id="inlineCheckbox3" value="option3"> 8
+							<input type="checkbox" id="inlineCheckbox3" value="feeder8" ng-model="newStage.feeders[7]"> 8
 						</label>
 						<label class="checkbox-inline">
-							<input type="checkbox" id="inlineCheckbox3" value="option3"> 9
+							<input type="checkbox" id="inlineCheckbox3" value="feeder9" ng-model="newStage.feeders[8]"> 9
 						</label>
 						<label class="checkbox-inline">
-							<input type="checkbox" id="inlineCheckbox3" value="option3"> 10
+							<input type="checkbox" id="inlineCheckbox3" value="feeder10" ng-model="newStage.feeders[9]"> 10
 						</label>
 						<span class="help-block">Select the feeders required for this stage</span>
 					</div>
@@ -383,7 +388,7 @@ Scrips for the Modal Windows
 					<label class="col-lg-2 control-label">Delay between Trials</label>
 					<div class="col-lg-5">
 						<div class="input-group">
-							<input type="text" class="form-control">
+							<input type="text" class="form-control" id="trialDelay" placeholder="Delay (secs)" ng-model="newStage.delay">
 						</div>
 						<span class="help-block">Measured in Seconds</span>
 					</div>
@@ -403,7 +408,7 @@ Scrips for the Modal Windows
 						</div>
 						<div class="col-lg-5">
 							<div class="input-group">
-								<input type="text" class="form-control">
+								<input type="text" class="form-control" id="autoEndTime" placeholder="Delay (secs)" ng-model="newStage.autoEndTime">
 							</div>
 							<span class="help-block">Measured in Seconds</span>
 						</div>
@@ -412,8 +417,8 @@ Scrips for the Modal Windows
 
 				<div class="form-group">
 					<div class="col-lg-10 col-lg-offset-2">
-						<button type="reset" class="btn btn-default">Cancel</button>
-						<button type="submit" class="btn btn-primary">Submit</button>
+						<button type="reset" class="btn btn-default" ng-click="cancel()">Cancel</button>
+						<button type="submit" class="btn btn-primary" ng-click="ok()">Submit</button>
 					</div>
 				</div>
 			</fieldset>
