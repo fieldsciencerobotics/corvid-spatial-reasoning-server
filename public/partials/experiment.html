@@ -2,14 +2,147 @@
   <h3 class="panel-title">Experiment</h3>
 </div>
 
-<div  class="panel-body">
-	<h2> Experiments</h2>
-	<span ng-click="openNewBird()">New bird</span>
-	<br />
-	<span ng-click="openNewStage()">New stage</span>
+<div class="panel-body" style="height:90%">
 
-	<a class="list-group-item" ng-click="dropMeat()"> DROP MEAT! </a>
-	          
+	<div class="panel panel-success" style="width:20%; height:100%; float:left">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Saved Items</h3>
+	  </div>
+
+	  <div class="panel-body">
+
+		  <ul class="nav nav-pills nav-justified">
+			  <li ng-class="{'active':currentBirdOrStage[0]}"><a href="#" ng-click="birdStageSelect(0)">Birds <span class="badge">4</span></a></li>
+			  <li ng-class="{'active':currentBirdOrStage[1]}"><a href="#" ng-click="birdStageSelect(1)">Stages <span class="badge">5</span></a></li>
+		  </ul>
+
+		  <div id="savedBirds" ng-show="currentBirdOrStage[0]">
+		  	<br />
+		  	<span class="btn btn-info"ng-click="openNewBird()">New bird</span>
+		  	<br />
+		  	<table class="table table-striped table-hover ">
+		  	  <thead>
+			    <tr>
+			      <th>Birds</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <td>Green</td>
+			    </tr>
+			    <tr>
+			      <td>Blue</td>
+			    </tr>
+			    <tr> 
+			      <td>Red</td>
+			    </tr>
+			    <tr>
+			      <td>Red-Yellow</td>
+			    </tr>
+			    <tr>
+			      <td>Red-Blue</td>
+			    </tr>
+			  </tbody>
+			</table>
+
+		  </div>
+
+
+		  <div id="savedStages" ng-show="currentBirdOrStage[1]">
+		  	<br />
+		  	<span class="btn btn-warning" ng-click="openNewStage()">New stage</span>
+			<br />
+		  	<table class="table table-striped table-hover ">
+		  	  <thead>
+			    <tr>
+			      <th>Stages</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr class="info">
+			      <td>Stage 1</td>
+			    </tr>
+			    <tr class="success">
+			      <td>Stage 2</td>
+			    </tr>
+			    <tr class="info"> 
+			      <td>Stage 3</td>
+			    </tr>
+			    <tr class="success">
+			      <td>Stage 4</td>
+			    </tr>
+			  </tbody>
+			</table>
+		  </div>
+
+		<span class="btn btn-danger" ng-click="dropMeat()"> DROP MEAT! </a>
+		</div>
+	</div>
+
+	<div class="panel panel-warning" style="width:77%; height:100%; float:right">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Run Experiment</h3>
+	  </div>
+
+	  <div class="panel-body">
+	  		<!-- Choose Sesion -->
+	  	  <div id="chooseSession" ng-show="currentExperimentStage[0]">
+			  <div class="jumbotron">
+
+			  	<div style="float: right; width:300px">
+			  		<form class="form-horizontal">
+			  			<fieldset>
+					  		<div class="form-group">
+						      <label for="select" class="col-lg-2 control-label">Select Bird</label>
+						      <div class="col-lg-10">
+						        <select class="form-control" id="select" placeholder="Bird">
+						          <option></option>
+						          <option>Green</option>
+						          <option>Blue</option>
+						          <option>Red</option>
+						          <option>Red-Yellow</option>
+						          <option>Red-Blue</option>
+						        </select>
+						      </div>
+						    </div>
+						    <div class="form-group">
+						      <label for="select" class="col-lg-2 control-label">Select Stage</label>
+						      <div class="col-lg-10">
+						        <select class="form-control" id="select" placeholder="Stage">
+						          <option></option>
+						          <option>Stage 1</option>
+						          <option>Stage 2</option>
+						          <option>Stage 3</option>
+						          <option>Stage 4</option>
+						        </select>
+						      </div>
+			    			</div>
+			    			<div class="form-group">
+						      <div class="col-lg-10 col-lg-offset-2">
+						        <button type="submit" class="btn btn-primary" ng-click="experimentStageSelect(1)">Continue</button>
+						      </div>
+						    </div>
+			    		</fieldset>
+			    	</form>
+			  	</div>
+
+			  	<h1>Begin Session</h1>
+		  		<p>Select Bird and Desired Stage</p>
+
+			  </div>
+		  </div>
+
+		  <!-- Start Experiment -->
+		  <div id="startExperiment" ng-show="currentExperimentStage[1]">
+
+		  hello
+		  </div>
+
+	  </div>
+
+
+
+
 </div>
 
 
@@ -22,12 +155,71 @@
 	</div>
 
 	<div class="modal-body">
+		<form class="form-horizontal">
+		  <fieldset>
+		    <!-- Input Bird Name -->
+		    <div class="form-group">
+		      <label for="inputBirdName" class="col-lg-2 control-label">Name</label>
+		      <div class="col-lg-10">
+		        <input type="text" class="form-control" id="inputBirdName" placeholder="Bird Name" ng-model="newBird.name">
+		      </div>
+		    </div>
 
-		<label>Enter a name: </label>
-		<div class="input-group" style="margin: 5px">
-			<span class="input-group-addon">@</span>
-			<input type="text" class="form-control" placeholder="Bird Name" ng-model="newBird.name">
-		</div>
+		    <!-- Input Bird Gender -->
+		    <div class="form-group">
+		      <label class="col-lg-2 control-label">Gender</label>
+		      <div class="col-lg-10">
+		        <div class="radio">
+		          <label>
+		            <input type="radio" name="inputBirdGender" id="birdGenderMale" value="male" checked="" ng-model="newBird.gender">
+		            Male
+		          </label>
+		        </div>
+		        <div class="radio">
+		          <label>
+		            <input type="radio" name="inputBirdGender" id="birdGenderFemale" value="female" ng-model="newBird.gender">
+		            Female
+		          </label>
+		        </div>
+		      </div>
+		    </div>
+
+		    <!-- Input Bird Age -->
+		    <div class="form-group">
+		      <label class="col-lg-2 control-label">Age</label>
+		      <div class="col-lg-10">
+		        <div class="radio">
+		          <label>
+		            <input type="radio" name="inputBirdAge" id="BirdAgeAdult" value="adult" checked="" ng-model="newBird.age">
+		            Adult
+		          </label>
+		        </div>
+		        <div class="radio">
+		          <label>
+		            <input type="radio" name="inputBirdAge" id="BirdAgeJuvenile" value="juvenile" ng-model="newBird.age">
+		            Juvenile
+		          </label>
+		        </div>
+		      </div>
+		    </div>
+
+		    <!-- Input Additional Notes -->
+		    <div class="form-group">
+		      <label for="textArea" class="col-lg-2 control-label">Notes</label>
+		      <div class="col-lg-10">
+		        <textarea class="form-control" rows="3" id="textArea" ng-model="newBird.notes"></textarea>
+		        <span class="help-block">Optional Field for making any additional notes</span>
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+		      <div class="col-lg-10 col-lg-offset-2">
+		        <button type="reset" class="btn btn-default">Cancel</button>
+		        <button type="submit" class="btn btn-primary">Submit</button>
+		      </div>
+		    </div>
+		  </fieldset>
+		</form>
 
 	</div>
 
@@ -42,11 +234,103 @@
 
 	<div class="modal-body">
 
-		<label>Enter a name: </label>
-		<div class="input-group" style="margin: 5px">
-			<span class="input-group-addon">@</span>
-			<input type="text" class="form-control" placeholder="Stage Name" ng-model="newStage.name">
-		</div>
+		<form class="form-horizontal">
+		  <fieldset>
+		    <!-- Input Stage Name -->
+		    <div class="form-group">
+		      <label for="inputBirdName" class="col-lg-2 control-label">Name</label>
+		      <div class="col-lg-10">
+		        <input type="text" class="form-control" id="inputStageName" placeholder="Stage Name" ng-model="newStage.name">
+		      </div>
+		    </div>
+
+		    <!-- Input Stage Description -->
+		    <div class="form-group">
+		      <label for="textArea" class="col-lg-2 control-label">Notes</label>
+		      <div class="col-lg-10">
+		        <textarea class="form-control" rows="3" id="textArea" ng-model="newStage.description"></textarea>
+		        <span class="help-block">Description of the Stage for reference</span>
+		      </div>
+		    </div>
+
+
+		    <div class="form-group">
+		      <label for="inputPassword" class="col-lg-2 control-label">Feeders</label>
+		      <div class="col-lg-10">
+	          	<label class="checkbox-inline">
+					<input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+				</label>
+				<label class="checkbox-inline">
+					<input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+				</label>
+				<label class="checkbox-inline">
+					<input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+				</label>
+				<label class="checkbox-inline">
+					<input type="checkbox" id="inlineCheckbox3" value="option3"> 4
+				</label>
+				<label class="checkbox-inline">
+					<input type="checkbox" id="inlineCheckbox3" value="option3"> 5
+				</label>
+				<label class="checkbox-inline">
+					<input type="checkbox" id="inlineCheckbox3" value="option3"> 6
+				</label>
+				<label class="checkbox-inline">
+					<input type="checkbox" id="inlineCheckbox3" value="option3"> 7
+				</label>
+				<label class="checkbox-inline">
+					<input type="checkbox" id="inlineCheckbox3" value="option3"> 8
+				</label>
+				<label class="checkbox-inline">
+					<input type="checkbox" id="inlineCheckbox3" value="option3"> 9
+				</label>
+				<label class="checkbox-inline">
+					<input type="checkbox" id="inlineCheckbox3" value="option3"> 10
+				</label>
+				<span class="help-block">Select the feeders required for this stage</span>
+		      </div>
+		    </div>
+
+		    <!-- Delay Between Trials -->
+		    <div class="form-group">
+			  <label class="col-lg-2 control-label">Delay between Trials</label>
+			  <div class="col-lg-5">
+				  <div class="input-group">
+				    <input type="text" class="form-control">
+				  </div>
+				  <span class="help-block">Measured in Seconds</span>
+			  </div>
+			</div>
+
+		    <!-- Input Auto Abandon Setting -->
+		    <div class="form-group">
+		      <label class="col-lg-2 control-label">Auto End after</label>
+		      <div class="col-lg-10">
+		      	<div class="col-lg-4">
+		          	<label class="radio-inline">
+					  <input type="radio" name="autoEndBlock" id="autoEndBlockTrue" value="True" ng-model="newStage.autoEnd"> Yes
+					</label>
+					<label class="radio-inline">
+					  <input type="radio" name="autoEndBlock" id="autoEndBlockFalse" value="False" ng-model="newStage.autoEnd"> No
+					</label>
+				</div>
+				<div class="col-lg-5">
+				  <div class="input-group">
+				    <input type="text" class="form-control">
+				  </div>
+				  <span class="help-block">Measured in Seconds</span>
+			  	</div>
+		      </div>
+		    </div>
+
+		    <div class="form-group">
+		      <div class="col-lg-10 col-lg-offset-2">
+		        <button type="reset" class="btn btn-default">Cancel</button>
+		        <button type="submit" class="btn btn-primary">Submit</button>
+		      </div>
+		    </div>
+		  </fieldset>
+		</form>
 
 
 	</div>

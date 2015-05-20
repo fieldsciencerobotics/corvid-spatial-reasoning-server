@@ -29,11 +29,28 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 
 myApp.controller('myController', function($scope, $modal, $log, $http) {
 
+    // Which Main Tab is currently Showing
     $scope.currentTab = [false, false, true];
 
     $scope.tabSelect = function(tab) {
         $scope.currentTab = [false, false, false];
         $scope.currentTab[tab] = true;
+    }
+
+    // In the experiment Tab, is the right panel showing Birds or Stages
+    $scope.currentBirdOrStage = [true, false];
+
+    $scope.birdStageSelect = function(choice) {
+        $scope.currentBirdOrStage = [false, false];
+        $scope.currentBirdOrStage[choice] = true;
+    }
+
+    // In the experiment tab, what stage of definiting the session are you currently in
+    $scope.currentExperimentStage = [true, false];
+
+    $scope.experimentStageSelect = function(stage) {
+        $scope.currentExperimentStage = [false, false];
+        $scope.currentExperimentStage[stage] = true;
     }
 
     $scope.lights = [{'on': true, 'colour': 'yellow'}, 
