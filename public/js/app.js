@@ -1,72 +1,79 @@
+
+//
+// Start of Application - Importing required libraries
+// =============================================================================
 var myApp = angular.module('myApp', ['ngAnimate', 'ui.bootstrap', 'ui.router']);
 
-// configuring routes 
+//
+// configuring routes for main tabs
 // =============================================================================
 myApp.config(function($stateProvider, $urlRouterProvider) {
 
-    // catch all route 
-    $urlRouterProvider.otherwise('experiment');
+    // catch all route (opening screen)
+    $urlRouterProvider.otherwise('feeders');
 
     $stateProvider 
-        // Explore inputs and research tasks
+        // Running Experiments
         .state('experiment', {
             url: '/experiment',
             templateUrl: 'partials/experiment.html'
         })
 
-        // Explore outputs
+        // Exploring Data
         .state('data', {
             url: '/data',
             templateUrl: 'partials/data.html'
         })
         
-        // splash screen
+        // FreeForm Mode
         .state('feeders', {
             url: '/feeders',
             templateUrl: 'partials/feeders.html'
         });
 });
 
+//
 // My Monolithic Controll (should be refactored into smaller units)
 // =============================================================================
 myApp.controller('myController', function($scope, $modal, $log, $http) {
 
-    // View Controls - For tabbed sections
+    //
+    // View Controls - For determining what to show for each tabbed section
     // =========================================================================
 
     // Which Main Tab is currently Showing
-    $scope.currentTab = [false, false, true];
+    $scope.currentTab = [false, false, true]; // (experiments, data, or freeform)
 
     $scope.tabSelect = function(tab) {
         $scope.currentTab = [false, false, false];
         $scope.currentTab[tab] = true;
     }
 
-    // In the experiment Tab, is the right panel showing Birds or Stages
-    $scope.currentBirdOrStage = [true, false];
+    // In the experiment Tab: is the right panel showing Birds or Stages
+    $scope.currentBirdOrStage = [true, false]; // (Birds, or Stages)
 
     $scope.birdStageSelect = function(choice) {
         $scope.currentBirdOrStage = [false, false];
         $scope.currentBirdOrStage[choice] = true;
     }
 
-    // In the experiment tab, what stage of definiting the session are you currently in
-    $scope.currentExperimentStage = [true, false, false, false];
+    // In the experiment tab: what stage of definiting the session are you currently in
+    $scope.currentExperimentStage = [true, false, false, false]; // (opening, define session, running, ended)
 
     $scope.experimentStageSelect = function(stage) {
         $scope.currentExperimentStage = [false, false, false, false];
         $scope.currentExperimentStage[stage] = true;
     }
 
-    // In the data tab, what data is currently being explored
-    $scope.currentDataBeingExplored = [true, false];
+    // In the data tab: what data is currently being explored
+    $scope.currentDataBeingExplored = [true, false]; // (leaderboard, or specific bird)
 
     $scope.dataExploreSelect = function(stage) {
         $scope.currentDataBeingExplored = [false, false];
         $scope.currentDataBeingExplored[stage] = true;
     }
 
-
+    //
     // Data Values (To be factored out and retrived from the server)
     // =========================================================================
 
@@ -92,13 +99,16 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
                     {'id': 9, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
                     {'id': 10, 'connected': true, 'colour': 'red', 'perch-colour': 'black'  }];
 
-    $scope.birds = [
-                    {'id': 'RYB', 'gender': 'male', 'age': 'adult'},
-                    {'id': 'W', 'gender': 'female', 'age': 'juvenile'}
+    $scope.existingBirds = [
+                    {'id': 'Green', 'gender': 'male', 'age': 'adult'},
+                    {'id': 'Blue', 'gender': 'female', 'age': 'juvenile'},
+                    {'id': 'Red', 'gender': 'female', 'age': 'juvenile'},
+                    {'id': 'Red-Yellow', 'gender': 'female', 'age': 'juvenile'},
+                    {'id': 'Red-Blue', 'gender': 'female', 'age': 'juvenile'},
                     ];
 
 
-    $scope.stages = [
+    $scope.existingStages = [
                     {'name': 'training part one', 'desc': "This is training part one", 'delay': 20, 'autoEnd': false, 'autoEndTime': 180, 'feederArrangement': []},
                     {'name': 'experiment part three', 'desc': "This is experiment part three", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []}
                     ];
@@ -131,7 +141,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     }
 
 
-
+    //
     // HTTP Methods for communicating with the Server
     // =========================================================================
 
