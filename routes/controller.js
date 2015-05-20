@@ -97,6 +97,10 @@ var experiment = new machina.Fsm( {
 
             },
 
+            cancelExperiment: function() {
+
+            },
+
         },
 
         session: {
