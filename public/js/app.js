@@ -133,9 +133,9 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
     // Drop meat
     $scope.freeFormDropMeat = function(feeder) {
-        feeder.colour = 'green';
-        $scope.resetColour(feeder);
-        $sendToServerDropMeat();
+        //feeder.colour = 'green';
+        //$scope.resetColour(feeder);
+        $scope.sendToServerDropMeat();
     }
 
     // Toggle Ligh
