@@ -88,7 +88,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
                     {'on': true, 'colour': 'yellow'}, 
                     {'on': true, 'colour': 'yellow'}];
 
-    $scope.feeders = [{'id': 1, 'connected': true, 'colour': 'red', 'perch-colour': 'black' }, 
+    $scope.feeders = [{'id': 1, 'connected': true, 'colour': 'green', 'perch-colour': 'black' }, 
                     {'id': 2, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
                     {'id': 3, 'connected': true, 'colour': 'red', 'perch-colour': 'black'  },
                     {'id': 4, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
@@ -447,6 +447,47 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         });
     };
 
+    // Map Feeders Modal Window
+    $scope.openMapFeeders = function () {
+
+
+        // Get existing Mapping
+
+        // Get connected devices
+
+
+        // Node -> Device ID + (True or False indicating a match)
+
+
+        // Checkboxes for what you actually want??
+        // Each device needs to be shown as Green if there is a mapping, and that device is connected
+
+        // then perhaps a dropdown under each device to all the mapping to be changed?
+
+
+        // Creates a new Modal Window 
+        var MapFeedersModalInstance = $modal.open({
+            templateUrl: 'mapFeeders.html',
+            controller: MapFeedersModalInstanceCtrl,
+            size: 'lg',
+            resolve: {
+                feeders: function () {
+                    return $scope.feeders;
+                }
+            }
+        });
+
+        // Handles the Submittion or cancelation of the Modal Window
+        MapFeedersModalInstance.result.then(function (newStage) {
+            // add new stage to the existing list
+            //$scope.existingStages.push(newStage);
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    $scope.openMapFeeders();
+
 
 // END OF CONTROLLER
 });
@@ -478,6 +519,36 @@ var NewStageModalInstanceCtrl = function ($scope, $modalInstance) {
 
     $scope.ok = function () {
         console.log($scope.newStage);
+        $modalInstance.close($scope.newStage);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+};
+
+// New Stage Modal Controller 
+var MapFeedersModalInstanceCtrl = function ($scope, $modalInstance, feeders) {
+
+    $scope.mapFeeders = {};
+    $scope.feeders = feeders;
+
+    // Feeder can only be assigned to ONE experimental node at a time
+    // It must be removed from that node, before it can be assigned to another
+
+
+    // 1) Array of all feeders
+    // 2) filtered array of remaining feeders (that will actually populate the drop downs)
+    // 3) That array of filtered items, should have the additional property of being connected (true/false)
+
+
+    // Mapping: Experimental node -> feeder device
+    //  -> this is pulled (and saved) from/to the database (this is automated with page load, and save each time)
+
+
+
+    $scope.ok = function () {
+        console.log($scope.mapFeeders);
         $modalInstance.close($scope.newStage);
     };
 

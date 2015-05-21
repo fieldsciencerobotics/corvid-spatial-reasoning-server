@@ -23,26 +23,61 @@
 
     <div id="main" style="height: 85%;">
       
-      <div id="heading" class="list-group" style="height: 15%; margin-bottom:0px">
+      <div id="heading" class="list-group" style="height: 12%; margin-bottom:0px">
 
         
-        <a ui-sref="experiment" class="list-group-item" ng-class="{'active':currentTab[0]}" ng-click="tabSelect(0)" style="width:33.3%; height: 100%; padding:3px; float:left; padding-left:45px; padding-top:20px">
+        <a ui-sref="experiment" class="list-group-item" ng-class="{'active':currentTab[0]}" ng-click="tabSelect(0)" style="width:33.3%; height: 100%; padding:3px; float:left; padding-left:45px; padding-top:10px">
           <h2 class="list-group-item-heading"><span class="glyphicon glyphicon-tasks" /><b> Experiment</b></h2>
         </a>
-        <a ui-sref="data" class="list-group-item" ng-class="{'active':currentTab[1]}" ng-click="tabSelect(1)" style="width:33.3%; height: 100%; padding:3px; float:left; padding-left:120px; padding-top:20px">
+        <a ui-sref="data" class="list-group-item" ng-class="{'active':currentTab[1]}" ng-click="tabSelect(1)" style="width:33.3%; height: 100%; padding:3px; float:left; padding-left:120px; padding-top:10px">
           <h2 class="list-group-item-heading"><span class="glyphicon glyphicon-stats" /><b> Data</b></h2>
         </a>
-        <a ui-sref="feeders" class="list-group-item" ng-class="{'active':currentTab[2]}" ng-click="tabSelect(2)" style="width:33.3%; height: 100%; padding:3px; float:left; padding-left:80px; padding-top:20px">
+        <a ui-sref="feeders" class="list-group-item" ng-class="{'active':currentTab[2]}" ng-click="tabSelect(2)" style="width:33.3%; height: 100%; padding:3px; float:left; padding-left:80px; padding-top:10px">
           <h2 class="list-group-item-heading"><span class="glyphicon glyphicon-random" /><b> Freeform</b></h2>
         </a>
         
       </div>
 
-      <div ui-view class="panel panel-primary" style="height: 85%">
+      <div ui-view class="panel panel-primary" style="height: 88%">
         
       </div>
 
     </div>
+
+
+    <!-- New Stage - Modal Window -->
+    <script type="text/ng-template" id="mapFeeders.html">
+
+      <div class="modal-header">
+        <h3>Map Feeders to Exerimental Nodes</h3> 
+      </div>
+
+      <div class="modal-body" style="height: 300px;">
+        <div style="padding-left: 10px;">
+          <div class="feeder" ng-repeat="feeder in feeders" ng-click="freeFormDropMeat(feeder)">
+              <b>Feeder: {{feeder.id}}</b>
+              <svg height="60" width="60">
+                <rect x="15" y="15" width="22.5" height="37.5" stroke="black" stroke-width="3" ng-attr-fill="{{feeder.colour}}" />
+              </svg>
+              <div class="form-group">
+                  <label for="select" class="col-lg-2 control-label">Select Device</label>
+                  <div class="col-lg-10">
+                    <select class="form-control" id="select" placeholder="Bird" ng-model="selectBird">
+                      <option></option>
+                      <option ng-repeat="feeder1 in feeders">{{feeder1.id}}</option>
+                    </select>
+                  </div>
+              </div>
+           </div>
+         </div>
+         <div class="form-group" style="padding-left:550px; margin-top: 50px">
+              <div class="col-lg-10 col-lg-offset-2">
+                <button type="submit" class="btn btn-primary" ng-click="ok()">Continue</button>
+              </div>
+          </div>
+      </div>
+
+    </script>
 
   </div>
 
