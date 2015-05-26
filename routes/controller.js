@@ -241,5 +241,9 @@ meerkat.on('meatDropped', function(message) {
     console.log('"%s" - inside event listener', message);
 });
 
+meerkat.on('lightChanged', function(message) {
+    console.log('"%s" - inside event listener', message);
+});
+
 
 module.exports.experiment = experiment;
