@@ -234,6 +234,7 @@ var meerkat = new lagarto.Meerkat();
 // add an 'open' event listener
 meerkat.on('perchEvent', function(message) {
     console.log('"%s" - inside event listener', message);
+    experiment.dropMeat();
 });
 
 // add a 'close' event listener
