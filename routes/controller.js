@@ -229,15 +229,15 @@ experiment.on("*", function (eventName, data){
 
 
 // create an instance of the Radio class
-var Meerkat = new lagarto.Meerkat();
+var meerkat = new lagarto.Meerkat();
 
 // add an 'open' event listener
-radio.on('perchEvent', function(message) {
+meerkat.on('perchEvent', function(message) {
     console.log('"%s" - inside event listener', message);
 });
 
 // add a 'close' event listener
-radio.on('meatDropped', function(message) {
+meerkat.on('meatDropped', function(message) {
     console.log('"%s" - inside event listener', message);
 });
 
