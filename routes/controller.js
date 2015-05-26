@@ -1,8 +1,7 @@
 var machina = require('machina');
 var request = require('request');
+var lagarto = require('./devices');
 //var data = require('./data');
-
-
 
 var experiment = new machina.Fsm( {
 
@@ -54,19 +53,19 @@ var experiment = new machina.Fsm( {
             },
 
             dropMeat: function() {
-                request('http://127.0.0.1:8001/values?id=7.11.0&value=true', function (error, response, body) {
-                  if (!error && response.statusCode == 200) {
-                    console.log("Sent") // Show the HTML for the Google homepage. 
-                  }
-                })
-                console.log("MEAT DROPPED");
+                //Hardwired for Node 1, TO-DO make general case
+                lagarto.dropMeat(1);
             },
 
             lightOn: function() {
+                //Hardwired for Node 1, TO-DO make general case
+                lagarto.turnLightOn(1);
 
             },
 
             lightsOff: function() {
+                //Hardwired for Node 1, TO-DO make general case
+                lagarto.turnLightsOff(1);
 
             },
 
@@ -227,5 +226,20 @@ var experiment = new machina.Fsm( {
 experiment.on("*", function (eventName, data){
     console.log("this thing happened:", eventName, data);
 });
+
+
+// create an instance of the Radio class
+var Meerkat = new lagarto.Meerkat();
+
+// add an 'open' event listener
+radio.on('perchEvent', function(message) {
+    console.log('"%s" - inside event listener', message);
+});
+
+// add a 'close' event listener
+radio.on('meatDropped', function(message) {
+    console.log('"%s" - inside event listener', message);
+});
+
 
 module.exports.experiment = experiment;

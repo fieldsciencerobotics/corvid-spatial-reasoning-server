@@ -3,8 +3,6 @@ var request = require('request')
 var router = express.Router();
 //var FSM = require('./experimentalFSM');
 var controller = require('./controller');
-var lagarto = require('./devices');
-
 
 
 /* GET home page. */
@@ -64,7 +62,7 @@ router.post('/control/startSession', function(req, res, next) {
   
   controller.experiment.startSession();
 
-  //lagarto.sendMessage();
+
   res.send('Session Started');
 });
 
