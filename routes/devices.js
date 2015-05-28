@@ -7,7 +7,7 @@ var zmq = require('zmq')
   , sock = zmq.socket('sub')
   , sock2 = zmq.socket('pub');
 
-sock.bindSync('tcp://127.0.0.1:5001');
+sock2.bindSync('tcp://127.0.0.1:5001');
 
 /* Request */  
 var request = require('request');
@@ -65,13 +65,13 @@ var Meerkat = function() {
 };
 
 // Connect to Lagarto over ZMQ to subscrbe to events
-	sock.connect('tcp://127.0.0.1:5001');
-	sock.subscribe('');
-	console.log('Subscriber connected to port 5001');
-	 
-	sock.on('message', function(topic, message) {
-	  console.log('received a message related to:', topic, 'containing message:', message);
-	});
+sock.connect('tcp://127.0.0.1:5001');
+sock.subscribe('');
+console.log('Subscriber connected to port 5001');
+ 
+sock.on('message', function(topic, message) {
+  console.log('received a message related to:', topic, 'containing message:', message);
+});
 
 // extend the EventEmitter class using our Meerkat class
 util.inherits(Meerkat, EventEmitter);
