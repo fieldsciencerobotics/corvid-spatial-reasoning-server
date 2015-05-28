@@ -11,7 +11,7 @@ sock.bindSync('tcp://127.0.0.1:5001');
 
 /* Request */  
 var request = require('request');
- 
+
 
 // The EventEmitter Object that will report events back to the controller
 var Meerkat = function() {
@@ -20,14 +20,8 @@ var Meerkat = function() {
     // using `this` in the setTimeout functions will refer to those funtions, not the Radio class
     var self = this;
     
-    // Connect to Lagarto over ZMQ to subscrbe to events
-	sock.connect('tcp://127.0.0.1:5001');
-	sock.subscribe('');
-	console.log('Subscriber connected to port 5001');
-	 
-	sock.on('message', function(topic, message) {
-	  console.log('received a message related to:', topic, 'containing message:', message);
-
+    
+    var methodstuff = function() {
 	  switch ( topic ) {
 	    case 'perchEvent':
 	        //Parse the message
@@ -69,6 +63,15 @@ var Meerkat = function() {
     });
     
 };
+
+// Connect to Lagarto over ZMQ to subscrbe to events
+	sock.connect('tcp://127.0.0.1:5001');
+	sock.subscribe('');
+	console.log('Subscriber connected to port 5001');
+	 
+	sock.on('message', function(topic, message) {
+	  console.log('received a message related to:', topic, 'containing message:', message);
+	}
 
 // extend the EventEmitter class using our Meerkat class
 util.inherits(Meerkat, EventEmitter);
