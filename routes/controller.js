@@ -245,12 +245,12 @@ meerkat.on('meatDropped', function(message) {
 
 // add a 'lightChange' event listener
 meerkat.on('lightChanged', function(message) {
-    console.log('"%s" and "%s" - inside event listener', message);
+    console.log('"%s" and "%s" - inside event listener', message, topic);
 });
 
 // add a 'lightChange' event listener
 meerkat.on('dunno', function(message) {
-    console.log('"%s" and "%s" - inside event listener', message);
+    console.log('"%s" and "%s" - inside event listener', message, topic);
 });
 
 
