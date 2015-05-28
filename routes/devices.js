@@ -37,7 +37,7 @@ var Meerkat = function() {
 
 
 	        break; 
-	    case MeatFinishedDropping:
+	    case 'MeatFinishedDropping':
 	        //Parse the message
 	        console.log("MeatFinishedDropping");
 
@@ -45,7 +45,7 @@ var Meerkat = function() {
 	        self.emit('MeatDropped', message)
 
 	        break;
-	    case LightChanged:
+	    case 'LightChanged':
 	        //Parse the message
 	        console.log("LightChanged");
 
