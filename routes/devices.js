@@ -33,7 +33,7 @@ var Meerkat = function() {
 	        //Parse the message
 	        console.log("PerchEvent");
 
-	        self.emit('perchEvent', message)
+	        self.emit('perchEvent', message, topic)
 
 
 	        break; 
@@ -42,7 +42,7 @@ var Meerkat = function() {
 	        console.log("MeatFinishedDropping");
 
 
-	        self.emit('MeatDropped', message)
+	        self.emit('MeatDropped', message, topic)
 
 	        break;
 	    case 'LightChanged':
@@ -50,13 +50,13 @@ var Meerkat = function() {
 	        console.log("LightChanged");
 
 
-	        self.emit('LightChanged', message)
+	        self.emit('LightChanged', message, topic)
 
 	        break; 
 	    default: 
 	        console.log("unhandled event");
 
-	        self.emit('dunno', message)
+	        self.emit('dunno', message, topic)
 
 
 		}

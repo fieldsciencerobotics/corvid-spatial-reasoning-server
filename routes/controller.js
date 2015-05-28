@@ -239,17 +239,17 @@ meerkat.on('perchEvent', function(message, topic) {
 });
 
 // add a 'meatDropped' event listener
-meerkat.on('meatDropped', function(message) {
+meerkat.on('meatDropped', function(message, topic) {
     console.log('"%s" and "%s" - inside event listener', message, topic);
 });
 
 // add a 'lightChange' event listener
-meerkat.on('lightChanged', function(message) {
+meerkat.on('lightChanged', function(message, topic) {
     console.log('"%s" and "%s" - inside event listener', message, topic);
 });
 
 // add a 'lightChange' event listener
-meerkat.on('dunno', function(message) {
+meerkat.on('dunno', function(message, topic) {
     console.log('"%s" and "%s" - inside event listener', message, topic);
 });
 
