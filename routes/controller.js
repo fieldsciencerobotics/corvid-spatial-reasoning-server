@@ -203,7 +203,8 @@ var experiment = new machina.Fsm( {
 
     dropMeat: function() {
         console.log("dropMeat API");
-        this.handle( "dropMeat" );
+        //this.handle( "dropMeat" );
+        lagarto.sendMessage();
     },
 
     lightOn: function() {
@@ -228,21 +229,27 @@ experiment.on("*", function (eventName, data){
 });
 
 
-// create an instance of the Radio class
+// create an instance of the Meerkat class
 var meerkat = new lagarto.Meerkat();
 
-// add an 'open' event listener
+// add an 'perch' event listener
 meerkat.on('perchEvent', function(message) {
     console.log('"%s" - inside event listener', message);
     experiment.dropMeat();
 });
 
-// add a 'close' event listener
+// add a 'meatDropped' event listener
 meerkat.on('meatDropped', function(message) {
     console.log('"%s" - inside event listener', message);
 });
 
+// add a 'lightChange' event listener
 meerkat.on('lightChanged', function(message) {
+    console.log('"%s" - inside event listener', message);
+});
+
+// add a 'lightChange' event listener
+meerkat.on('dunno', function(message) {
     console.log('"%s" - inside event listener', message);
 });
 

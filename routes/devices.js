@@ -4,7 +4,10 @@ var EventEmitter = require('events').EventEmitter;
 
 /* ZeroMQ */ 
 var zmq = require('zmq')
-  , sock = zmq.socket('sub');
+  , sock = zmq.socket('sub')
+  , sock2 = zmq.socket('pub');
+
+sock.bindSync('tcp://127.0.0.1:5001');
 
 /* Request */  
 var request = require('request');
@@ -79,7 +82,7 @@ exports.Meerkat = Meerkat;
 
 // Test method to be removed...
 exports.sendMessage = function() {
-	console.log('sending a multipart message envelope');
+  console.log('sending a multipart message envelope');
   sock2.send(['kitty cats', 'meow!']);
 };
 
