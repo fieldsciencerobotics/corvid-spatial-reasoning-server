@@ -233,24 +233,24 @@ experiment.on("*", function (eventName, data){
 var meerkat = new lagarto.Meerkat();
 
 // add an 'perch' event listener
-meerkat.on('perchEvent', function(message) {
+meerkat.on('perchEvent', function(message, topic) {
     console.log('"%s" - inside event listener', message);
     experiment.dropMeat();
 });
 
 // add a 'meatDropped' event listener
 meerkat.on('meatDropped', function(message) {
-    console.log('"%s" - inside event listener', message);
+    console.log('"%s" and "%s" - inside event listener', message, topic);
 });
 
 // add a 'lightChange' event listener
 meerkat.on('lightChanged', function(message) {
-    console.log('"%s" - inside event listener', message);
+    console.log('"%s" and "%s" - inside event listener', message);
 });
 
 // add a 'lightChange' event listener
 meerkat.on('dunno', function(message) {
-    console.log('"%s" - inside event listener', message);
+    console.log('"%s" and "%s" - inside event listener', message);
 });
 
 
