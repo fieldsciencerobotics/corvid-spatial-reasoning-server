@@ -7,7 +7,7 @@ var zmq = require('zmq')
   , sock = zmq.socket('sub')
   , sock2 = zmq.socket('pub');
 
-sock2.bindSync('tcp://127.0.0.1:5001');
+//sock2.bindSync('tcp://127.0.0.1:5001');
 
 /* Request */  
 var request = require('request');
@@ -83,7 +83,7 @@ exports.Meerkat = Meerkat;
 // Test method to be removed...
 exports.sendMessage = function() {
   console.log('sending a multipart message envelope');
-  sock2.send(['', 'meow!']);
+  //sock2.send(['', 'meow!']);
 };
 
 //

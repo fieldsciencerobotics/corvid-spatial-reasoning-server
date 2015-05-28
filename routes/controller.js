@@ -203,8 +203,8 @@ var experiment = new machina.Fsm( {
 
     dropMeat: function() {
         console.log("dropMeat API");
-        //this.handle( "dropMeat" );
-        lagarto.sendMessage();
+        this.handle( "dropMeat" );
+        //lagarto.sendMessage();
     },
 
     lightOn: function() {
