@@ -83,7 +83,7 @@ exports.Meerkat = Meerkat;
 // Test method to be removed...
 exports.sendMessage = function() {
   console.log('sending a multipart message envelope');
-  sock2.send(['kitty cats', 'meow!']);
+  sock2.send(['', 'meow!']);
 };
 
 //
