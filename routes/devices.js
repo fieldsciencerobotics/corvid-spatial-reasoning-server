@@ -54,7 +54,7 @@ var Meerkat = function() {
 
 
 		}
-	});
+	}
 
     
     // EventEmitters inherit a single event listener, see it in action
@@ -71,7 +71,7 @@ var Meerkat = function() {
 	 
 	sock.on('message', function(topic, message) {
 	  console.log('received a message related to:', topic, 'containing message:', message);
-	}
+	});
 
 // extend the EventEmitter class using our Meerkat class
 util.inherits(Meerkat, EventEmitter);
