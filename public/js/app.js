@@ -184,8 +184,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $scope.sendToServerStartExperiment($scope.selectedBird, $scope.selectedStage);
         
         // Reset the values
-        $scope.selectedBird = "";
-        $scope.selectedStage = "";
+        //$scope.selectedBird = "";
+        //$scope.selectedStage = "";
 
         // Change the View
         $scope.experimentStageSelect(1);
