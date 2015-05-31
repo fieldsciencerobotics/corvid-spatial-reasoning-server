@@ -180,6 +180,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.startExperiment = function() {
         
         // Notify the server
+        console.log($scope.selectedBird, $scope.selectedStage);
         $scope.sendToServerStartExperiment($scope.selectedBird, $scope.selectedStage);
         
         // Reset the values
@@ -345,6 +346,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
     //START EXPERIMENT: Used to start off an Experiment, primarily selection the bird and the stage
     $scope.sendToServerStartExperiment = function(bird, stage) {
+        console.log(bird, stage);
         $http({
             url: '/control/startExperiment',
             method: "POST",
