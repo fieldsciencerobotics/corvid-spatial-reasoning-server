@@ -82,9 +82,9 @@ Experiments Tab
 								<div class="form-group has-success">
 									<label for="select" class="col-lg-2 control-label">Select Bird</label>
 									<div class="col-lg-10">
-										<select class="form-control" id="select" placeholder="Bird" ng-model="selectedBird"/>
+										<select class="form-control" id="select" placeholder="Bird" ng-model="selectedBird" ng-options="bird.id for bird in existingBirds"/>
 										<option></option>
-										<option ng-repeat="bird in existingBirds">{{bird.id}}</option>
+										<!--<option ng-repeat="bird in existingBirds">{{bird.id}}</option>-->
 									</select>
 									{{selectedBird}}
 								</div>
