@@ -17,7 +17,8 @@ router.post('/control/initialize', function(req, res, next) {
 });
 
 router.post('/control/startExperiment', function(req, res, next) {
-  console.log('%s  %s', req.body.birdID, req.body.stageID);
+  console.log(req.body);
+  //console.log('%s  %s', req.body.birdID, req.body.stageID);
 
   controller.experiment.startExperiment();
   res.send('Experiment Started');  

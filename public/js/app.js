@@ -238,7 +238,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     
 
 
-    $scope.selectedBird = {'id': 'red', 'colour': ['red']};
+    //$scope.selectedBird = {'id': 'red', 'colour': ['red']};
 
     
 
