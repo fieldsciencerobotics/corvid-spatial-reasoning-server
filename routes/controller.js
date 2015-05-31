@@ -144,7 +144,7 @@ var experiment = new machina.Fsm( {
             },
 
             startSession: function(numOfTrials) {
-                currentBlock = trialGenerator("red", "stage2", numOfTrials);
+                currentBlock = trialGenerator("red", "stage2", 10);
 
                 for (var i=0; i < currentBlock.length; i++){
                     console.log(currentBlock[i].trialID + " " + currentBlock[i].intended);
