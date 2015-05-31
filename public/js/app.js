@@ -166,6 +166,29 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // Data
     //
 
+    // Get Birds
+    $scope.getBirds = function() {
+        birds = $scope.sendToServerGetBirds();
+    }
+
+    // Get Stages
+    $scope.getStages = function() {
+        stages = $scope.sendToServerGetStages();
+    }
+
+    // New Bird
+    $scope.newBird = function(newBird) {
+        $scope.sendToServerAddNewBird(newBird);
+        // add bird to the existing list
+        $scope.existingBirds.push(newBird)
+    }
+
+    // New Stage
+    $scope.newStage = function(newStage) {
+        $scope.sendToServerAddNewStage(newStage);
+        // add new stage to the existing list
+        $scope.existingStages.push(newStage);
+    }
 
 
     //
@@ -178,70 +201,48 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
     // Start Experiment
     $scope.startExperiment = function() {
-        
         // Notify the server
-        console.log($scope.selectedBird.id.id, $scope.selectedStage.id.name);
-        $scope.sendToServerStartExperiment($scope.selectedBird.id.id, $scope.selectedStage.id.name);
-        
+        $scope.sendToServerStartExperiment($scope.selectedBird.id.id, $scope.selectedStage.id.name); 
         // Reset the values
         $scope.selectedBird = {};
         $scope.selectedStage = {};
-
         // Change the View
         $scope.experimentStageSelect(1);
     }
 
     // Cancel Experiment
     $scope.cancelExperiment = function() {
-
         // Notify the server
         $scope.sendToServerCancelExperiment();
-
         // Change the View
         $scope.experimentStageSelect(0);
-
     }
 
     // Start Session
     $scope.startSession = function() {
-        
         // Notify the server
         $scope.sendToServerStartExperimentalSession($scope.numOfTrials.num);
-
         // Reset the number of trials value
         $scope.numOfTrials = {};
-
         // Change the View
         $scope.experimentStageSelect(2);
-
     }
 
     // End Session
     $scope.endSession = function() {
-        //$scope.sendToServerEndExperimentalSession();
-
+        // Notify the Server
+        $scope.sendToServerEndExperimentalSession();
         // Change the View
         $scope.experimentStageSelect(3);
-
-        $scope.sendToServerEndExperimentalSession();
     }
 
     // Completed Wrapup
     $scope.finishWrapup = function() {
-        //$scope.sendToServerEndExperimentalSession();
-
-        $scope.experimentStageSelect(0);
-
-
+        // Notify the Server
         $scope.sendToServerWrapUpExperiment();
+        // Change the View
+        $scope.experimentStageSelect(0);
     }
-
-    
-
-
-    //$scope.selectedBird = {'id': 'red', 'colour': ['red']};
-
-    
 
 
     //
@@ -253,11 +254,11 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // 
 
     // DROP MEAT: Used in Freeform mode to command a particulr Feeder to drop meat
-    $scope.sendToServerDropMeat = function() {
+    $scope.sendToServerDropMeat = function(feederID) {
         $http({
             url: '/freeForm/dropMeat',
             method: "POST",
-            data: angular.toJson([{'id': 2}]),
+            data: angular.toJson({'feederID': feederID}),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
@@ -267,11 +268,11 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     };
 
     //TURN LIGHT ON: Used in FreeForm mode to turn an indicator light on
-    $scope.sendToServerTurnLightOn = function() {
+    $scope.sendToServerTurnLightOn = function(lightID) {
         $http({
             url: '/freeForm/lightOn',
             method: "POST",
-            data: angular.toJson([{'id': 2}]),
+            data: angular.toJson({'lightID': lightID}),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
@@ -299,11 +300,11 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // 
 
     //ADD NEW BIRD: Used to add a new bird into the database
-    $scope.sendToServerAddNewBird = function() {
+    $scope.sendToServerAddNewBird = function(newBird) {
         $http({
             url: '/addNew/newBird',
             method: "POST",
-            data: angular.toJson([{'id': 2}]),
+            data: angular.toJson(newBird),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
@@ -313,11 +314,11 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     };
 
     //ADD NEW STAGE: Used to add a new experimental stage into the database
-    $scope.sendToServerAddNewStage = function() {
+    $scope.sendToServerAddNewStage = function(newStage) {
         $http({
             url: '/addNew/newStage',
             method: "POST",
-            data: angular.toJson([{'id': 2}]),
+            data: angular.toJson(newStage),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
@@ -469,8 +470,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
         // Handles the Submittion or cancelation of the Modal Window
         NewBirdModalInstance.result.then(function (newBird) {
-            // add bird to the existing list
-            $scope.existingBirds.push(newBird)
+            $scope.newBird(newBird);
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });
@@ -488,8 +488,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
         // Handles the Submittion or cancelation of the Modal Window
         NewStageModalInstance.result.then(function (newStage) {
-            // add new stage to the existing list
-            $scope.existingStages.push(newStage);
+            $scope.newStage(newStage);
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });

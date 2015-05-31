@@ -244,8 +244,8 @@ var experiment = new machina.Fsm( {
         this.handle( "initialize" );
     },
 
-    startExperiment: function() {
-        console.log("startExperiment API");
+    startExperiment: function(birdID, stageID) {
+        console.log("startExperiment API", birdID, stageID);
         this.handle( "startExperiment" );
     },
 
@@ -254,8 +254,8 @@ var experiment = new machina.Fsm( {
         this.handle( "cancelExperiment" );
     },
 
-    startSession: function() {
-        console.log("startSession API");
+    startSession: function(NumOfTrials) {
+        console.log("startSession API", numOfTrials);
         this.handle( "startSession" );
     },
 
@@ -269,14 +269,14 @@ var experiment = new machina.Fsm( {
         //this.handle( "wrapUpSession" );
     },
 
-    dropMeat: function() {
-        console.log("dropMeat API");
+    dropMeat: function(feederID) {
+        console.log("dropMeat API", feederID);
         this.handle( "dropMeat" );
         //lagarto.sendMessage();
     },
 
-    lightOn: function() {
-        console.log("lightOn API");
+    lightOn: function(lightID) {
+        console.log("lightOn API", lightID);
         this.handle( "lightOn" );
     },
 
@@ -288,6 +288,16 @@ var experiment = new machina.Fsm( {
     perchEvent: function() {
         console.log("perchEvent API");
         this.handle( "perchEvent" );
+    },
+
+    addNewBird: function(newBird) {
+        console.log("addNewBird API", newBird);
+        //this.handle( "perchEvent" );
+    },
+
+    addNewStage: function(newStage) {
+        console.log("addNewStage API", newStage);
+        //this.handle( "perchEvent" );
     },
 
 } );

@@ -17,10 +17,7 @@ router.post('/control/initialize', function(req, res, next) {
 });
 
 router.post('/control/startExperiment', function(req, res, next) {
-  //console.log(req.body);
-  console.log('%s  %s', req.body.birdID, req.body.stageID);
-
-  controller.experiment.startExperiment();
+  controller.experiment.startExperiment(req.body.birdID, req.body.stageID);
   res.send('Experiment Started');  
 });
 
@@ -31,7 +28,7 @@ router.post('/control/cancelExperiment', function(req, res, next) {
 });
 
 router.post('/control/startSession', function(req, res, next) {
-  controller.experiment.startSession();
+  controller.experiment.startSession(req.body.numOfTrials);
   res.send('Session Started');
 });
 
@@ -48,22 +45,24 @@ router.post('/control/wrapUpSession', function(req, res, next) {
 
 /* Add New Items */
 router.post('/addNew/bird', function(req, res, next) {
+  controller.experiment.addNewBird(req.body.newBird);
   res.send('Bird Added');
 });
 
 router.post('/addNew/stageDefinition', function(req, res, next) {
-  res.send('Stage  Definition Added');
+  controller.experiment.addNewStage(req.body.newStage);
+  res.send('Stage Definition Added');
 });
 
 
 /* Freeform Mode Commands */
 router.post('/freeForm/dropMeat', function(req, res, next) {
-  controller.experiment.dropMeat();
+  controller.experiment.dropMeat(req.body.feederID);
   res.send('Meat Dropped');
 });
 
 router.post('/freeForm/lightOn', function(req, res, next) {
-  controller.experiment.lightOn();
+  controller.experiment.lightOn(req.body.lightID);
   res.send('Light Turned On');
 });
 
