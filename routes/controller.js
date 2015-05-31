@@ -43,10 +43,6 @@ var trialGenerator = function(bird, stage, numOfTrials) {
         }
     }
 
-    for (var i=0; i < block.length; i++){
-        console.log(block[i].trialID + " " + block[i].intended);
-    }
-
     // requires additional check to see if there is enough meat to support this session!
 
     return block;
@@ -144,8 +140,12 @@ var experiment = new machina.Fsm( {
 
             },
 
-            startSession: function() {
+            startSession: function(numOfTrials) {
                 var block = trialGenerator("red", "stage2", 15);
+
+                for (var i=0; i < block.length; i++){
+                    console.log(block[i].trialID + " " + block[i].intended);
+                }
 
                 this.transition( "session" );
 
@@ -247,7 +247,7 @@ var experiment = new machina.Fsm( {
 
     startExperiment: function(birdID, stageID) {
         console.log("startExperiment API", birdID, stageID);
-        this.handle( "startExperiment" );
+        this.handle("startExperiment", birdID, stageID);
     },
 
     cancelExperiment: function() {
@@ -255,9 +255,9 @@ var experiment = new machina.Fsm( {
         this.handle( "cancelExperiment" );
     },
 
-    startSession: function(NumOfTrials) {
+    startSession: function(numOfTrials) {
         console.log("startSession API", numOfTrials);
-        this.handle( "startSession" );
+        this.handle("startSession", numOfTrials);
     },
 
     endSession: function() {
@@ -272,13 +272,13 @@ var experiment = new machina.Fsm( {
 
     dropMeat: function(feederID) {
         console.log("dropMeat API", feederID);
-        this.handle( "dropMeat", feederID);
+        this.handle("dropMeat", feederID);
         //lagarto.sendMessage();
     },
 
     lightOn: function(lightID) {
         console.log("lightOn API", lightID);
-        this.handle( "lightOn" );
+        this.handle("lightOn", lightID);
     },
 
     lightsOff: function() {
