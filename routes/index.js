@@ -32,16 +32,10 @@ router.post('/control/initialize', function(req, res, next) {
 
 router.post('/control/startExperiment', function(req, res, next) {
   
+  console.log(req.body.birdID, req.body.stageID);
   controller.experiment.startExperiment();
 
-  //request('http://192.168.1.14:8080', function (error, response, body) {
-  //  if (!error && response.statusCode == 200) {
-  //    console.log(body) // Show the HTML for the Google homepage. 
-
-      res.send('Experiment Started');
-  //  }
-  //})
-  
+  res.send('Experiment Started');  
 });
 
 router.post('/control/cancelExperiment', function(req, res, next) {
@@ -71,6 +65,13 @@ router.post('/control/endSession', function(req, res, next) {
   controller.experiment.endSession();
 
   res.send('Session Ended');
+});
+
+router.post('/control/wrapUpSession', function(req, res, next) {
+  
+  controller.experiment.WrapUpSession();
+
+  res.send('Session Wrapped Up');
 });
 
 

@@ -264,6 +264,11 @@ var experiment = new machina.Fsm( {
         this.handle( "endSession" );
     },
 
+    wrapUpSession: function() {
+        console.log("wrapUpSession API");
+        //this.handle( "wrapUpSession" );
+    },
+
     dropMeat: function() {
         console.log("dropMeat API");
         this.handle( "dropMeat" );
@@ -298,7 +303,7 @@ var meerkat = new lagarto.Meerkat();
 // add an 'perch' event listener
 meerkat.on('perchEvent', function(message, topic) {
     console.log('"%s" - inside event listener', message);
-    experiment.dropMeat();
+    experiment.perchEvent();
 });
 
 // add a 'meatDropped' event listener

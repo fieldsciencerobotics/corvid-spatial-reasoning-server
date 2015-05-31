@@ -178,35 +178,51 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
     // Start Experiment
     $scope.startExperiment = function() {
-        //$scope.sendToServerStartExperiment($scope.selectedBird, $scope.selectedStage);
+        
+        // Notify the server
+        $scope.sendToServerStartExperiment($scope.selectedBird, $scope.selectedStage);
         
         // Reset the values
         $scope.selectedBird = "";
         $scope.selectedStage = "";
+
+        // Change the View
         $scope.experimentStageSelect(1);
     }
 
     // Cancel Experiment
     $scope.cancelExperiment = function() {
-        //$scope.sendToServerCancelExperimentSession();
 
+        // Notify the server
+        $scope.sendToServerCancelExperiment();
+
+        // Change the View
         $scope.experimentStageSelect(0);
+
     }
 
     // Start Session
     $scope.startSession = function() {
-        //$scope.sendToServerStartExperimentalSession($scope.numOfTrials);
+        
+        // Notify the server
+        $scope.sendToServerStartExperimentalSession($scope.numOfTrials);
 
         // Reset the number of trials value
         $scope.numOfTrials = 0;
+
+        // Change the View
         $scope.experimentStageSelect(2);
+
     }
 
     // End Session
     $scope.endSession = function() {
         //$scope.sendToServerEndExperimentalSession();
 
+        // Change the View
         $scope.experimentStageSelect(3);
+
+        $scope.sendToServerEndExperimentalSession();
     }
 
     // Completed Wrapup
@@ -214,6 +230,9 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         //$scope.sendToServerEndExperimentalSession();
 
         $scope.experimentStageSelect(0);
+
+
+        $scope.sendToServerWrapUpExperiment();
     }
 
     
@@ -329,7 +348,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $http({
             url: '/control/startExperiment',
             method: "POST",
-            data: angular.toJson([{'id': 2}]),
+            data: angular.toJson([{'birdID': bird, 'stageID': stage}]),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
@@ -353,11 +372,11 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     };
 
     //START EXPERIMENTAL SESSION: Used to start an Experiment Session
-    $scope.sendToServerStartExperimentalSession = function() {
+    $scope.sendToServerStartExperimentalSession = function(numOfTrials) {
         $http({
             url: '/control/startSession',
             method: "POST",
-            data: angular.toJson([{'id': 2}]),
+            data: angular.toJson([{'numOfTrials': numOfTrials}]),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
@@ -370,6 +389,21 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.sendToServerEndExperimentalSession = function() {
         $http({
             url: '/control/endSession',
+            method: "POST",
+            data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+
+    //WRAP UP EXPERIMENTAL SESSION: Used to wrap up an experimental session
+    $scope.sendToServerWrapUpExperiment = function() {
+        $http({
+            url: '/control/wrapUpSession',
             method: "POST",
             data: angular.toJson([{'id': 2}]),
             headers: {'Content-Type': 'application/json'}
