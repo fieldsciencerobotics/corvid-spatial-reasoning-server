@@ -82,19 +82,17 @@ Experiments Tab
 								<div class="form-group has-success">
 									<label for="select" class="col-lg-2 control-label">Select Bird</label>
 									<div class="col-lg-10">
-										<select class="form-control" id="select" placeholder="Bird" ng-model="selectedBird.id" ng-options="bird.id for bird in existingBirds"/>
-										<option disabled selected>Select Bird</option>
+										<select class="form-control" id="select" placeholder="Bird" ng-model="selectedBird" ng-options="bird.id for bird in existingBirds"/>
+										<option value="" disabled selected>Select Bird</option>
 										<!--<option ng-repeat="bird in existingBirds">{{bird.id}}</option>-->
 									</select>
-									{{selectedBird.id}}
 								</div>
 							</div>
 							<div class="form-group has-success">
 								<label for="select" class="col-lg-2 control-label">Select Stage</label>
 								<div class="col-lg-10">
-									<select class="form-control" id="select" placeholder="Stage" ng-model="selectedStage" />
-									<option></option>
-									<option ng-repeat="stage in existingStages">{{stage.name}}</option>
+									<select class="form-control" id="select" placeholder="Stage" ng-model="selectedStage" ng-options="stage.name for stage in existingStages"/>
+									<option value="" disabled selected>Select Stage</option>
 								</select>
 							</div>
 						</div>
