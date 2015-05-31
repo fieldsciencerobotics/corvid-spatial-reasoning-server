@@ -180,7 +180,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.startExperiment = function() {
         
         // Notify the server
-        console.log($scope.selectedBird, $scope.selectedStage);
+        console.log($scope.selectedBird.id.id, $scope.selectedStage.id.name);
         $scope.sendToServerStartExperiment($scope.selectedBird, $scope.selectedStage);
         
         // Reset the values
