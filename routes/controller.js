@@ -48,6 +48,9 @@ var trialGenerator = function(bird, stage, numOfTrials) {
     return block;
 }
 
+var currentBlock = [];
+var currentTrialNum = 0;
+
 
 var experiment = new machina.Fsm( {
 
@@ -141,7 +144,7 @@ var experiment = new machina.Fsm( {
             },
 
             startSession: function(numOfTrials) {
-                var block = trialGenerator("red", "stage2", 15);
+                currentBlock = trialGenerator("red", "stage2", 15);
 
                 for (var i=0; i < block.length; i++){
                     console.log(block[i].trialID + " " + block[i].intended);
@@ -167,7 +170,12 @@ var experiment = new machina.Fsm( {
                 // How then do I transition into the next state, passing in the correct trial?
 
 
-                this.transition( "trial" );
+                if (currentTrialNum < block.length) {
+                    this.transition( "trial" );
+                } else {
+                    this.transition("freeForm");
+                }
+                
             },
 
             "*": function() {
@@ -188,8 +196,12 @@ var experiment = new machina.Fsm( {
 
         trial: {
             _onEnter: function() {
-                console.log("In trial");
-                this.transition( "freeForm" );
+                console.log("In trial ", currentTrialNum);
+
+
+                currentTrialNum = currentTrialNum + 1;
+
+                this.transition( "session" );
             },
 
             "*": function() {
