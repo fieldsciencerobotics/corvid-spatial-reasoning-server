@@ -102,12 +102,13 @@ var experiment = new machina.Fsm( {
 
             },
 
-            dropMeat: function() {
+            dropMeat: function(feederID) {
                 //Hardwired for Node 1, TO-DO make general case
-                lagarto.dropMeat(1);
+                console.log(feederID);
+                lagarto.dropMeat(feederID);
             },
 
-            lightOn: function() {
+            lightOn: function(lightID) {
                 //Hardwired for Node 1, TO-DO make general case
                 lagarto.turnLightOn(1);
 
@@ -119,13 +120,13 @@ var experiment = new machina.Fsm( {
 
             },
 
-            startExperiment: function() {
+            startExperiment: function(birdID, stageID) {
                 this.transition( "experiment" );
 
             },
 
-            perchEvent: function() {
-                
+            perchEvent: function(perchID) {
+                // push back to browser, perhaps via polled method
             }
 
         },
@@ -271,7 +272,7 @@ var experiment = new machina.Fsm( {
 
     dropMeat: function(feederID) {
         console.log("dropMeat API", feederID);
-        this.handle( "dropMeat" );
+        this.handle( "dropMeat", feederID);
         //lagarto.sendMessage();
     },
 
