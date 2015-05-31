@@ -144,7 +144,7 @@ var experiment = new machina.Fsm( {
             },
 
             startSession: function(numOfTrials) {
-                currentBlock = trialGenerator("red", "stage2", 15);
+                currentBlock = trialGenerator("red", "stage2", numOfTrials);
 
                 for (var i=0; i < currentBlock.length; i++){
                     console.log(currentBlock[i].trialID + " " + currentBlock[i].intended);
@@ -170,7 +170,7 @@ var experiment = new machina.Fsm( {
                 // How then do I transition into the next state, passing in the correct trial?
 
 
-                if (currentTrialNum < block.length) {
+                if (currentTrialNum < currentBlock.length) {
                     this.transition( "trial" );
                 } else {
                     this.transition("freeForm");
