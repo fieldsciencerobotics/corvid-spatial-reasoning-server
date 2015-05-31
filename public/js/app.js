@@ -185,7 +185,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         
         // Reset the values
         $scope.selectedBird = {};
-        $scope.selectedStage = {}};
+        $scope.selectedStage = {};
 
         // Change the View
         $scope.experimentStageSelect(1);
