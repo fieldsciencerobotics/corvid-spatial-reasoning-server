@@ -292,6 +292,7 @@ var experiment = new machina.Fsm( {
 
 } );
 
+// Logging for any handeler event and state change
 experiment.on("*", function (eventName, data){
     console.log("this thing happened:", eventName, data);
 });
