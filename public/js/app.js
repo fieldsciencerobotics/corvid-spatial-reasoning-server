@@ -348,7 +348,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $http({
             url: '/control/startExperiment',
             method: "POST",
-            data: angular.toJson([{'birdID': bird, 'stageID': stage}]),
+            data: angular.toJson({'birdID': bird, 'stageID': stage}),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
