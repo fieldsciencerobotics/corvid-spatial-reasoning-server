@@ -174,7 +174,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
     $scope.selectedBird = {};
     $scope.selectedStage = {};
-    $scope.numOfTrials = 0;
+    $scope.numOfTrials = {};
 
     // Start Experiment
     $scope.startExperiment = function() {
@@ -184,8 +184,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $scope.sendToServerStartExperiment($scope.selectedBird.id.id, $scope.selectedStage.id.name);
         
         // Reset the values
-        //$scope.selectedBird = null;
-        //$scope.selectedStage = null;
+        $scope.selectedBird = {};
+        $scope.selectedStage = {}};
 
         // Change the View
         $scope.experimentStageSelect(1);
@@ -206,10 +206,10 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.startSession = function() {
         
         // Notify the server
-        $scope.sendToServerStartExperimentalSession($scope.numOfTrials);
+        $scope.sendToServerStartExperimentalSession($scope.numOfTrials.num);
 
         // Reset the number of trials value
-        $scope.numOfTrials = 0;
+        $scope.numOfTrials = {};
 
         // Change the View
         $scope.experimentStageSelect(2);
@@ -346,7 +346,6 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
     //START EXPERIMENT: Used to start off an Experiment, primarily selection the bird and the stage
     $scope.sendToServerStartExperiment = function(bird, stage) {
-        console.log(bird, stage);
         $http({
             url: '/control/startExperiment',
             method: "POST",
@@ -378,7 +377,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $http({
             url: '/control/startSession',
             method: "POST",
-            data: angular.toJson([{'numOfTrials': numOfTrials}]),
+            data: angular.toJson({'numOfTrials': numOfTrials}),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
