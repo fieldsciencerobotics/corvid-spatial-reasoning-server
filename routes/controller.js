@@ -3,6 +3,56 @@ var request = require('request');
 var lagarto = require('./devices');
 //var data = require('./data');
 
+
+var trialGenerator = function(bird, stage, numOfTrials) {
+
+    stageID = stage;
+    birdID = bird;
+    initialTrialID = 1; //data.getNextTrialID(bird, stage);
+    numOfTrials = numOfTrials;
+    numOfAvailableFeeders = 5;
+    availableFeeders = []; //stages.feeders;
+
+    // assume only using 5 feeders for now, and this will be later replace with directly passing in stage.feeders
+    function fillBucket() {
+        for (var i=1;i<=numOfAvailableFeeders;i++) {
+            availableFeeders.push(i);
+        }
+    }
+
+    // Will be replaced with recopying the initital stage.feeders
+    fillBucket();
+
+    //Sample without replacement
+    function getRandomFromBucket() {
+       var randomIndex = Math.floor(Math.random()*availableFeeders.length);
+       return availableFeeders.splice(randomIndex, 1)[0];
+    }
+
+    // Generate Trials
+    var block = [];
+    for (id=initialTrialID; id < initialTrialID + numOfTrials; id++) {
+        block.push({'trialID': id, 'bird': birdID, 'stage': stageID, 
+                        'intended': getRandomFromBucket(), 'actual': '', 
+                        'startTime': '', 'endTime': '',});
+        //console.log((id - initialTrialID + 1) % (numOfAvailableFeeders) == 0);
+        if ((id - initialTrialID + 1) % (numOfAvailableFeeders) == 0) {
+            //console.log(availableFeeders.length);
+            fillBucket();
+            //console.log(availableFeeders.length);
+        }
+    }
+
+    for (var i=0; i < block.length; i++){
+        console.log(block[i].trialID + " " + block[i].intended);
+    }
+
+    // requires additional check to see if there is enough meat to support this session!
+
+    return block;
+}
+
+
 var experiment = new machina.Fsm( {
 
     // the initialize method is called right after the FSM
@@ -70,6 +120,7 @@ var experiment = new machina.Fsm( {
             },
 
             startExperiment: function() {
+                this.transition( "experiment" );
 
             },
 
@@ -93,6 +144,9 @@ var experiment = new machina.Fsm( {
             },
 
             startSession: function() {
+                var block = trialGenerator("red", "stage2", 15);
+
+                this.transition( "session" );
 
             },
 
@@ -104,7 +158,8 @@ var experiment = new machina.Fsm( {
 
         session: {
             _onEnter: function() {
-
+                console.log("In seesion");
+                this.transition( "trial" );
             },
 
             "*": function() {
@@ -125,7 +180,8 @@ var experiment = new machina.Fsm( {
 
         trial: {
             _onEnter: function() {
-
+                console.log("In trial");
+                this.transition( "freeForm" );
             },
 
             "*": function() {
