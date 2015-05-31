@@ -120,6 +120,18 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // UI Methods (Called from clicking on various UI elements)
     // =========================================================================
 
+
+    //
+    // Inititalize
+    //
+
+    // Initialize
+    $scope.initialize = function() {
+        //feeder.colour = 'green';
+        //$scope.resetColour(feeder);
+        $scope.sendToServerInitialize();
+    }
+
     //
     // Freeform
     //
@@ -481,7 +493,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         // Handles the Submittion or cancelation of the Modal Window
         MapFeedersModalInstance.result.then(function (newStage) {
             // add new stage to the existing list
-            //$scope.existingStages.push(newStage);
+            $scope.initialize();
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });

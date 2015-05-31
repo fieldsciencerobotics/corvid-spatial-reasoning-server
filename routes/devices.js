@@ -151,3 +151,12 @@ exports.turnLightsOff = function() {
     })
 
 };
+
+// Reset
+// "{"lagarto": {"status": [{"direction": "out", "name": "Reset_7", "timestamp": "28 May 2015 06:00:17", "value": "on", "location": "SWAP", "type": "bin", "id": "7.12.0"}], "procname": "Lagarto-SWAP", "httpserver": "10.1.1.6:8001"}}"
+
+// Perch off
+//"{"lagarto": {"status": [{"direction": "inp", "name": "Perch_triggered_7", "timestamp": "28 May 2015 05:59:34", "value": "off", "location": "SWAP", "type": "bin", "id": "7.17.0"}], "procname": "Lagarto-SWAP", "httpserver": "10.1.1.6:8001"}}"
+
+// Perch event to parse
+//"{"lagarto": {"status": [{"direction": "inp", "name": "Perch_triggered_7", "timestamp": "28 May 2015 05:59:34", "value": "on", "location": "SWAP", "type": "bin", "id": "7.17.0"}], "procname": "Lagarto-SWAP", "httpserver": "10.1.1.6:8001"}}"
