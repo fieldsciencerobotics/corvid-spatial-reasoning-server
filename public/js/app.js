@@ -172,8 +172,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // Experiments
     //
 
-    $scope.selectedBird = "";
-    $scope.selectedStage = "";
+    $scope.selectedBird = null;
+    $scope.selectedStage = null;
     $scope.numOfTrials = 0;
 
     // Start Experiment
@@ -184,8 +184,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $scope.sendToServerStartExperiment($scope.selectedBird, $scope.selectedStage);
         
         // Reset the values
-        //$scope.selectedBird = "";
-        //$scope.selectedStage = "";
+        $scope.selectedBird = null;
+        $scope.selectedStage = null;
 
         // Change the View
         $scope.experimentStageSelect(1);
