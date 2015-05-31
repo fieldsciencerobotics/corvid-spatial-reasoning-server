@@ -172,8 +172,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // Experiments
     //
 
-    $scope.selectedBird = null;
-    $scope.selectedStage = null;
+    $scope.selectedBird = {};
+    $scope.selectedStage = {};
     $scope.numOfTrials = 0;
 
     // Start Experiment
