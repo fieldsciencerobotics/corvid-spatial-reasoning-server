@@ -180,12 +180,12 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.startExperiment = function() {
         
         // Notify the server
-        console.log($scope.selectedBird.id, $scope.selectedStage.name);
+        console.log($scope.selectedBird, $scope.selectedStage);
         $scope.sendToServerStartExperiment($scope.selectedBird, $scope.selectedStage);
         
         // Reset the values
-        $scope.selectedBird = null;
-        $scope.selectedStage = null;
+        //$scope.selectedBird = null;
+        //$scope.selectedStage = null;
 
         // Change the View
         $scope.experimentStageSelect(1);
