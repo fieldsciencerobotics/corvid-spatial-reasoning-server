@@ -72,7 +72,7 @@ var experiment = new machina.Fsm( {
     states: {
         uninitialized: {
             _onEnter: function() {
-                this.transition( "freeForm" );
+                
             },
 
             "*": function() {
@@ -84,7 +84,7 @@ var experiment = new machina.Fsm( {
             },
 
             initialize: function() {
-
+                this.transition( "freeForm" );
             }
 
         },
@@ -159,6 +159,13 @@ var experiment = new machina.Fsm( {
         session: {
             _onEnter: function() {
                 console.log("In seesion");
+
+                // How do I pass through variables?
+                // How do I keep a pointer to the current trial
+
+                // How then do I transition into the next state, passing in the correct trial?
+
+
                 this.transition( "trial" );
             },
 
