@@ -216,7 +216,7 @@ var experiment = new machina.Fsm( {
             },
 
             timeout: function() {
-                currentBlock[i].startTime = d.getTime();
+                currentBlock[currentTrialNum].startTime = d.getTime();
                 console.log(currentBlock[currentTrialNum]);
 
                 currentTrialNum = currentTrialNum + 1;
