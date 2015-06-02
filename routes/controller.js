@@ -205,7 +205,7 @@ var experiment = new machina.Fsm( {
                 
             },
 
-            timerout: function() {
+            timeout: function() {
                 currentTrialNum = currentTrialNum + 1;
                 this.transition( "session" );
             },
