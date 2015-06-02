@@ -3,6 +3,7 @@ var request = require('request');
 var lagarto = require('./devices');
 //var data = require('./data');
 
+var d = new Date();
 
 // Global Variables to the experiment
 var currentBlock = [];
@@ -206,7 +207,6 @@ var experiment = new machina.Fsm( {
         trial: {
             _onEnter: function(randomNumber) {
                 console.log("In trial ", currentTrialNum);
-                console.log(currentBlock[currentTrialNum]);
                 //console.log("passed through number", randomNumber);
 
                 this.timer = setTimeout( function() {
@@ -216,6 +216,9 @@ var experiment = new machina.Fsm( {
             },
 
             timeout: function() {
+                currentBlock[i].startTime = d.getTime();
+                console.log(currentBlock[currentTrialNum]);
+
                 currentTrialNum = currentTrialNum + 1;
                 this.transition( "session" );
             },
