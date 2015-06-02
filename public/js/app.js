@@ -221,7 +221,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // Start Session
     $scope.startSession = function() {
         // Notify the server
-        $scope.sendToServerStartExperimentalSession($scope.numOfTrials.num);
+        $scope.sendToServerStartExperimentalSession(parseInt($scope.numOfTrials.num));
         // Reset the number of trials value
         $scope.numOfTrials = {};
         // Change the View

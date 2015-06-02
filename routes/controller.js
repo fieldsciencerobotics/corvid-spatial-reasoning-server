@@ -173,7 +173,7 @@ var experiment = new machina.Fsm( {
                 if (currentTrialNum < currentBlock.length) {
                     this.transition( "trial" );
                 } else {
-                    this.transition("freeForm");
+                    this.transition("freeForm", 25);
                 }
                 
             },
@@ -195,14 +195,20 @@ var experiment = new machina.Fsm( {
         },
 
         trial: {
-            _onEnter: function() {
+            _onEnter: function(randomNumber) {
                 console.log("In trial ", currentTrialNum);
+                console.log("passed through number", randomNumber);
 
-
-                currentTrialNum = currentTrialNum + 1;
-
-                this.transition( "session" );
+                this.timer = setTimeout( function() {
+                    this.handle( "timeout" );
+                }.bind( this ), 3000 );
+                
             },
+
+            timerout: function() {
+                currentTrialNum = currentTrialNum + 1;
+                this.transition( "session" );
+            }
 
             "*": function() {
 
