@@ -195,9 +195,9 @@ var experiment = new machina.Fsm( {
         },
 
         trial: {
-            _onEnter: function(randomNumber) {
+            _onEnter: function() {
                 console.log("In trial ", currentTrialNum);
-                console.log("passed through number", randomNumber);
+                //console.log("passed through number", randomNumber);
 
                 this.timer = setTimeout( function() {
                     this.handle( "timeout" );
