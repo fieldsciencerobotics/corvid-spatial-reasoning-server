@@ -144,7 +144,7 @@ var experiment = new machina.Fsm( {
             },
 
             startSession: function(numOfTrials) {
-                currentBlock = trialGenerator("red", "stage2", 10);
+                currentBlock = trialGenerator("red", "stage2", 3);
 
                 for (var i=0; i < currentBlock.length; i++){
                     console.log(currentBlock[i].trialID + " " + currentBlock[i].intended);
@@ -173,7 +173,7 @@ var experiment = new machina.Fsm( {
                 if (currentTrialNum < currentBlock.length) {
                     this.transition( "trial" );
                 } else {
-                    this.transition("freeForm", 25);
+                    this.transition(25, "freeForm");
                 }
                 
             },
@@ -195,9 +195,9 @@ var experiment = new machina.Fsm( {
         },
 
         trial: {
-            _onEnter: function() {
+            _onEnter: function(randomNumber) {
                 console.log("In trial ", currentTrialNum);
-                //console.log("passed through number", randomNumber);
+                console.log("passed through number", randomNumber);
 
                 this.timer = setTimeout( function() {
                     this.handle( "timeout" );
@@ -323,7 +323,7 @@ var experiment = new machina.Fsm( {
 
 // Logging for any handeler event and state change
 experiment.on("*", function (eventName, data){
-    console.log("this thing happened:", eventName, data);
+    //console.log("this thing happened:", eventName, data);
 });
 
 
