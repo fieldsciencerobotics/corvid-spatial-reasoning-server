@@ -251,6 +251,10 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $scope.experimentStageSelect(0);
     }
 
+    $scope.getCurrentSessionProgress = function() {
+        $scope.sendToServerGerCurrentSessionProgress();
+    }
+
 
     //
     // HTTP Methods for communicating with the Server
@@ -308,6 +312,24 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             url: '/freeForm/perchEvent',
             method: "POST",
             data: angular.toJson({'perchID': perchID}),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+    //
+    // RUNNING EXPERIMENT METHODS:
+    // 
+
+    // DROP MEAT: Used in Freeform mode to command a particulr Feeder to drop meat
+    $scope.sendToServerGerCurrentSessionProgress = function() {
+        $http({
+            url: '/experiment/getCurrentSessionProgress',
+            method: "POST",
+            data: angular.toJson({'feederID': 0}),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);

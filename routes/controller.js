@@ -7,6 +7,7 @@ var lagarto = require('./devices');
 var currentBlock = [];
 var currentTrialNum = 0;
 var timeoutValue = 0;
+var delayValue = 0;
 var currentBirdID = "";
 var currentStageID = "";
 
@@ -17,6 +18,7 @@ var resetAllValues = function() {
     currentBlock = [];
     currentTrialNum = 0;
     timeoutValue = 0;
+    delayValue = 0;
 }
 
 var trialGenerator = function(bird, stage, numOfTrials) {
@@ -136,6 +138,7 @@ var experiment = new machina.Fsm( {
                 currentBirdID = birdID;
                 currentStageID = stageID;
                 timeoutValue = 8000;
+                delayValue = 3000;
                 this.transition( "experiment" );
 
             },
@@ -184,18 +187,23 @@ var experiment = new machina.Fsm( {
             _onEnter: function() {
                 console.log("In seesion");
 
-                // How do I pass through variables?
-                // How do I keep a pointer to the current trial
-
-                // How then do I transition into the next state, passing in the correct trial?
-
-
+                // Are there still trials remaining to be run?
                 if (currentTrialNum < currentBlock.length) {
-                    this.transition( "trial" );
+                    // Delay before running next trial
+                    console.log("Delaying Trial Start by:" delayValue);
+                    this.timer = setTimeout( function() {
+                        this.handle( "delayEnded" );
+                    }.bind( this ), delayValue );
+                    
                 } else {
                     this.transition("endedSession");
                 }
                 
+            },
+
+            delayEnded: function() {
+                console.log("delayed ended, trial starting");
+                this.transition( "trial" );
             },
 
             "*": function() {
@@ -377,6 +385,10 @@ var experiment = new machina.Fsm( {
     addNewStage: function(newStage) {
         console.log("addNewStage API", newStage);
         //this.handle( "perchEvent" );
+    },
+
+    getCurrentSessionProgress: function() {
+        return currentBlock;
     },
 
 } );

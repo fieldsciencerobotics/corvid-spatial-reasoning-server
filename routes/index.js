@@ -42,6 +42,12 @@ router.post('/control/wrapUpSession', function(req, res, next) {
   res.send('Session Wrapped Up');
 });
 
+/* Running Experiment Routes */
+router.post('/experiment/getCurrentSessionProgress', function(req, res, next) {
+  progress = controller.experiment.getCurrentSessionProgress();
+  res.send(progress);
+});
+
 
 /* Add New Items */
 router.post('/addNew/bird', function(req, res, next) {
