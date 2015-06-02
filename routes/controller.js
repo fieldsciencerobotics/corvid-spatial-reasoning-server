@@ -4,6 +4,14 @@ var lagarto = require('./devices');
 //var data = require('./data');
 
 
+// Global Variables to the experiment
+var currentBlock = [];
+var currentTrialNum = 0;
+var timeoutValue = 0;
+var currentBirdID = "";
+var currentStageID = "";
+
+
 var trialGenerator = function(bird, stage, numOfTrials) {
 
     stageID = stage;
@@ -47,12 +55,6 @@ var trialGenerator = function(bird, stage, numOfTrials) {
 
     return block;
 }
-
-var currentBlock = [];
-var currentTrialNum = 0;
-var timeoutValue = 3000;
-var currentBirdID = "";
-var currentStageID = "";
 
 
 var experiment = new machina.Fsm( {
@@ -125,6 +127,7 @@ var experiment = new machina.Fsm( {
             startExperiment: function(birdID, stageID) {
                 currentBirdID = birdID;
                 currentStageID = stageID;
+                timeoutValue = 4000;
                 this.transition( "experiment" );
 
             },
@@ -153,7 +156,7 @@ var experiment = new machina.Fsm( {
 
                 for (var i=0; i < currentBlock.length; i++){
                     //console.log(currentBlock[i].trialID + " " + currentBlock[i].intended);
-                    console.log(currentBlock[i]);
+                    //console.log(currentBlock[i]);
                 }
 
                 this.transition( "session" );
@@ -203,11 +206,12 @@ var experiment = new machina.Fsm( {
         trial: {
             _onEnter: function(randomNumber) {
                 console.log("In trial ", currentTrialNum);
+                console.log(currentBlock[currentTrialNum]);
                 //console.log("passed through number", randomNumber);
 
                 this.timer = setTimeout( function() {
                     this.handle( "timeout" );
-                }.bind( this ), 3000 );
+                }.bind( this ), timeoutValue );
                 
             },
 
