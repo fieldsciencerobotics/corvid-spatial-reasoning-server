@@ -50,6 +50,9 @@ var trialGenerator = function(bird, stage, numOfTrials) {
 
 var currentBlock = [];
 var currentTrialNum = 0;
+var timeoutValue = 3000;
+var birdID = "";
+var stageID = "";
 
 
 var experiment = new machina.Fsm( {
@@ -120,6 +123,8 @@ var experiment = new machina.Fsm( {
             },
 
             startExperiment: function(birdID, stageID) {
+                birdID = birdID;
+                stageID = stageID;
                 this.transition( "experiment" );
 
             },
@@ -144,10 +149,11 @@ var experiment = new machina.Fsm( {
             },
 
             startSession: function(numOfTrials) {
-                currentBlock = trialGenerator("red", "stage2", 3);
+                currentBlock = trialGenerator(birdID, stageID, numOfTrials);
 
                 for (var i=0; i < currentBlock.length; i++){
-                    console.log(currentBlock[i].trialID + " " + currentBlock[i].intended);
+                    //console.log(currentBlock[i].trialID + " " + currentBlock[i].intended);
+                    console.log(currentBlock);
                 }
 
                 this.transition( "session" );
@@ -197,7 +203,7 @@ var experiment = new machina.Fsm( {
         trial: {
             _onEnter: function(randomNumber) {
                 console.log("In trial ", currentTrialNum);
-                console.log("passed through number", randomNumber);
+                //console.log("passed through number", randomNumber);
 
                 this.timer = setTimeout( function() {
                     this.handle( "timeout" );
