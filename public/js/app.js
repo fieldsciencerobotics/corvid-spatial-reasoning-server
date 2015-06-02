@@ -305,7 +305,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // DROP MEAT: Used in Freeform mode to command a particulr Feeder to drop meat
     $scope.sendToServerPerchEvent = function(perchID) {
         $http({
-            url: '/freeForm/dropMeat',
+            url: '/freeForm/perchEvent',
             method: "POST",
             data: angular.toJson({'perchID': perchID}),
             headers: {'Content-Type': 'application/json'}
