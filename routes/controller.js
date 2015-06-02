@@ -43,7 +43,7 @@ var trialGenerator = function(bird, stage, numOfTrials) {
     for (id=initialTrialID; id < initialTrialID + numOfTrials; id++) {
         block.push({'trialID': id, 'bird': birdID, 'stage': stageID, 
                         'intended': getRandomFromBucket(), 'actual': '', 
-                        'startTime': '', 'endTime': '',});
+                        'startTime': '', 'endTime': '', 'totalTime': ''});
         //console.log((id - initialTrialID + 1) % (numOfAvailableFeeders) == 0);
         if ((id - initialTrialID + 1) % (numOfAvailableFeeders) == 0) {
             //console.log(availableFeeders.length);
@@ -216,7 +216,8 @@ var experiment = new machina.Fsm( {
             },
 
             timeout: function() {
-                currentBlock[currentTrialNum].startTime = d.getTime();
+                currentBlock[currentTrialNum].endTime = d.getTime();
+                currentBlock[currentTrialNum].totalTime = currentBlock[currentTrialNum].endTime - currentBlock[currentTrialNum].startTime
                 console.log(currentBlock[currentTrialNum]);
 
                 currentTrialNum = currentTrialNum + 1;
