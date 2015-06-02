@@ -207,6 +207,7 @@ var experiment = new machina.Fsm( {
         trial: {
             _onEnter: function(randomNumber) {
                 console.log("In trial ", currentTrialNum);
+                currentBlock[currentTrialNum].startTime = performance.now();
                 //console.log("passed through number", randomNumber);
 
                 this.timer = setTimeout( function() {
@@ -216,7 +217,7 @@ var experiment = new machina.Fsm( {
             },
 
             timeout: function() {
-                currentBlock[currentTrialNum].endTime = d.getTime();
+                currentBlock[currentTrialNum].endTime = performance.now();
                 currentBlock[currentTrialNum].totalTime = currentBlock[currentTrialNum].endTime - currentBlock[currentTrialNum].startTime
                 console.log(currentBlock[currentTrialNum]);
 
