@@ -3,8 +3,6 @@ var request = require('request');
 var lagarto = require('./devices');
 //var data = require('./data');
 
-var d = new Date();
-
 // Global Variables to the experiment
 var currentBlock = [];
 var currentTrialNum = 0;
@@ -12,6 +10,14 @@ var timeoutValue = 0;
 var currentBirdID = "";
 var currentStageID = "";
 
+// reset all values
+var resetAllValues = function() {
+    currentBirdID = 0;
+    currentStageID = 0;
+    currentBlock = [];
+    currentTrialNum = 0;
+    timeoutValue = 0;
+}
 
 var trialGenerator = function(bird, stage, numOfTrials) {
 
@@ -42,7 +48,7 @@ var trialGenerator = function(bird, stage, numOfTrials) {
     var block = [];
     for (id=initialTrialID; id < initialTrialID + numOfTrials; id++) {
         block.push({'trialID': id, 'bird': birdID, 'stage': stageID, 
-                        'intended': getRandomFromBucket(), 'actual': '', 
+                        'intended': getRandomFromBucket(), 'actual': '', 'success': null, 
                         'startTime': '', 'endTime': '', 'totalTime': '', 'videoFilePath': ''});
         //console.log((id - initialTrialID + 1) % (numOfAvailableFeeders) == 0);
         if ((id - initialTrialID + 1) % (numOfAvailableFeeders) == 0) {
@@ -129,7 +135,7 @@ var experiment = new machina.Fsm( {
             startExperiment: function(birdID, stageID) {
                 currentBirdID = birdID;
                 currentStageID = stageID;
-                timeoutValue = 4000;
+                timeoutValue = 8000;
                 this.transition( "experiment" );
 
             },
@@ -168,11 +174,7 @@ var experiment = new machina.Fsm( {
 
             cancelExperiment: function() {
                 // reset all values
-                currentBirdID = 0;
-                currentStageID = 0;
-                currentBlock = [];
-                currentTrialNum = 0;
-                timeoutValue = 0;
+                resetAllValues();
                 this.transition("freeForm");
             },
 
@@ -227,10 +229,10 @@ var experiment = new machina.Fsm( {
             timeout: function() {
                 currentBlock[currentTrialNum].endTime = new Date().getTime();
                 currentBlock[currentTrialNum].totalTime = currentBlock[currentTrialNum].endTime - currentBlock[currentTrialNum].startTime
-                console.log(currentBlock[currentTrialNum]);
+                currentBlock[currentTrialNum].actual = 'timeout';
 
-                currentTrialNum = currentTrialNum + 1;
-                this.transition( "session" );
+                console.log(currentBlock[currentTrialNum]);
+                this.transition( "failedSession" );
             },
 
             "*": function() {
@@ -242,8 +244,27 @@ var experiment = new machina.Fsm( {
             },
 
             perchEvent: function(perchID) {
+                clearTimeout( this.timer );
                 console.log("Perch event inside trial", perchID);
-                this.transition('failedSession');
+
+                currentBlock[currentTrialNum].endTime = new Date().getTime();
+                currentBlock[currentTrialNum].totalTime = currentBlock[currentTrialNum].endTime - currentBlock[currentTrialNum].startTime
+                
+                currentBlock[currentTrialNum].actual = perchID;
+
+                if (currentBlock[currentTrialNum].intended == currentBlock[currentTrialNum].actual) {
+                    currentBlock[currentTrialNum].success = true;
+                    console.log(currentBlock[currentTrialNum]);
+                    currentTrialNum = currentTrialNum + 1;
+                    this.transition('session');
+                } else {
+                    currentBlock[currentTrialNum].success = false;
+                    console.log(currentBlock[currentTrialNum]);
+                    currentTrialNum = currentTrialNum + 1;
+                    this.transition('session');
+                }
+
+                
             },
 
             endSession: function() {
@@ -258,6 +279,9 @@ var experiment = new machina.Fsm( {
         failedSession: {
             _onEnter: function() {
                 console.log("failed session!");
+                console.log(currentBlock);
+
+                resetAllValues();
                 this.transition('freeForm');
             }, 
 
@@ -274,6 +298,9 @@ var experiment = new machina.Fsm( {
         endedSession: {
             _onEnter: function() {
                 console.log("Inside ended session");
+                console.log(currentBlock);
+
+                resetAllValues();
                 this.transition("freeForm");
             },
 
