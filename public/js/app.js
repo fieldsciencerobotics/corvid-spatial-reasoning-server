@@ -161,6 +161,13 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         }
     }
 
+    // Simulate Perch event of node 2 - only used for testing
+    $scope.simulatePerchEvent = function() {
+        //feeder.colour = 'green';
+        //$scope.resetColour(feeder);
+        $scope.sendToServerPerchEvent(2);
+    }
+
 
     //
     // Data
@@ -287,6 +294,20 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             url: '/freeForm/lightsOFF',
             method: "POST",
             data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+    // DROP MEAT: Used in Freeform mode to command a particulr Feeder to drop meat
+    $scope.sendToServerPerchEvent = function(perchID) {
+        $http({
+            url: '/freeForm/dropMeat',
+            method: "POST",
+            data: angular.toJson({'perchID': perchID}),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);

@@ -71,6 +71,11 @@ router.post('/freeForm/lightsOff', function(req, res, next) {
   res.send('Lights turned Off');
 });
 
+router.post('/freeForm/perchEvent', function(req, res, next) {
+  controller.experiment.perchEvent(req.body.perchID);
+  res.send('Perch event triggered');
+});
+
 
 /* Data Retrieval Methods */
 router.post('/data/getBirds', function(req, res, next) {

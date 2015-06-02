@@ -43,7 +43,7 @@ var trialGenerator = function(bird, stage, numOfTrials) {
     for (id=initialTrialID; id < initialTrialID + numOfTrials; id++) {
         block.push({'trialID': id, 'bird': birdID, 'stage': stageID, 
                         'intended': getRandomFromBucket(), 'actual': '', 
-                        'startTime': '', 'endTime': '', 'totalTime': ''});
+                        'startTime': '', 'endTime': '', 'totalTime': '', 'videoFilePath': ''});
         //console.log((id - initialTrialID + 1) % (numOfAvailableFeeders) == 0);
         if ((id - initialTrialID + 1) % (numOfAvailableFeeders) == 0) {
             //console.log(availableFeeders.length);
@@ -96,7 +96,7 @@ var experiment = new machina.Fsm( {
 
         freeForm: {
             _onEnter: function() {
-
+                console.log("entered freeform mode")
             },
 
             "*": function() {
@@ -115,13 +115,14 @@ var experiment = new machina.Fsm( {
 
             lightOn: function(lightID) {
                 //Hardwired for Node 1, TO-DO make general case
-                lagarto.turnLightOn(1);
+                console.log("turn light on: ", lightID);
+                lagarto.turnLightOn(lightID);
 
             },
 
             lightsOff: function() {
-                //Hardwired for Node 1, TO-DO make general case
-                lagarto.turnLightsOff(1);
+                console.log("turn lights off");
+                lagarto.turnLightsOff();
 
             },
 
@@ -134,7 +135,7 @@ var experiment = new machina.Fsm( {
             },
 
             perchEvent: function(perchID) {
-                // push back to browser, perhaps via polled method
+                console.log("perch event occured inside freeForm");
             }
 
         },
@@ -145,7 +146,7 @@ var experiment = new machina.Fsm( {
             },
 
             "*": function() {
-
+                console.log("caught event inside experiment");
             },
 
             _onExit: function() {
@@ -155,17 +156,24 @@ var experiment = new machina.Fsm( {
             startSession: function(numOfTrials) {
                 currentBlock = trialGenerator(currentBirdID, currentStageID, numOfTrials);
 
-                for (var i=0; i < currentBlock.length; i++){
+                // for printing the generated results
+                //for (var i=0; i < currentBlock.length; i++){
                     //console.log(currentBlock[i].trialID + " " + currentBlock[i].intended);
                     //console.log(currentBlock[i]);
-                }
+                //}
 
                 this.transition( "session" );
 
             },
 
             cancelExperiment: function() {
-
+                // reset all values
+                currentBirdID = 0;
+                currentStageID = 0;
+                currentBlock = [];
+                currentTrialNum = 0;
+                timeoutValue = 0;
+                this.transition("freeForm");
             },
 
         },
@@ -183,7 +191,7 @@ var experiment = new machina.Fsm( {
                 if (currentTrialNum < currentBlock.length) {
                     this.transition( "trial" );
                 } else {
-                    this.transition(25, "freeForm");
+                    this.transition("endedSession");
                 }
                 
             },
@@ -197,7 +205,7 @@ var experiment = new machina.Fsm( {
             },
 
             endSession: function() {
-
+                this.transition("endedSession");
             },
 
 
@@ -233,16 +241,25 @@ var experiment = new machina.Fsm( {
 
             },
 
-            perchEvent: function() {
+            perchEvent: function(perchID) {
+                console.log("Perch event inside trial", perchID);
+                this.transition('failedSession');
+            },
 
+            endSession: function() {
+                clearTimeout( this.timer );
+                // deal with the current trial
+
+                this.transition("endedSession");
             },
 
         },
 
         failedSession: {
             _onEnter: function() {
-
-            },
+                console.log("failed session!");
+                this.transition('freeForm');
+            }, 
 
             "*": function() {
 
@@ -256,7 +273,8 @@ var experiment = new machina.Fsm( {
 
         endedSession: {
             _onEnter: function() {
-
+                console.log("Inside ended session");
+                this.transition("freeForm");
             },
 
             "*": function() {
@@ -319,9 +337,9 @@ var experiment = new machina.Fsm( {
         this.handle( "lightsOff" );
     },
 
-    perchEvent: function() {
+    perchEvent: function(perchID) {
         console.log("perchEvent API");
-        this.handle( "perchEvent" );
+        this.handle("perchEvent", perchID);
     },
 
     addNewBird: function(newBird) {
