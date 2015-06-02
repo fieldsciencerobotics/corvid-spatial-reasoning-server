@@ -190,7 +190,7 @@ var experiment = new machina.Fsm( {
                 // Are there still trials remaining to be run?
                 if (currentTrialNum < currentBlock.length) {
                     // Delay before running next trial
-                    console.log("Delaying Trial Start by:" delayValue);
+                    console.log("Delaying Trial Start by:", delayValue);
                     this.timer = setTimeout( function() {
                         this.handle( "delayEnded" );
                     }.bind( this ), delayValue );
