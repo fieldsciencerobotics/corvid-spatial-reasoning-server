@@ -9,6 +9,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+//
+// All routes essentiall pass on handling of the requests to the FSM which controlls the experiment
+//
 
 /* Control Flow Routes */
 router.post('/control/initialize', function(req, res, next) {
@@ -85,11 +88,18 @@ router.post('/freeForm/perchEvent', function(req, res, next) {
 
 /* Data Retrieval Methods */
 router.post('/data/getBirds', function(req, res, next) {
-  res.send('Bird Data');
+  birds = controller.experiment.getBirds();
+  res.send(birds);
 });
 
 router.post('/data/getStages', function(req, res, next) {
-  res.send('Stage Data');
+  stages= controller.experiment.getStages();
+  res.send(stages);
+});
+
+router.post('/data/getDeviceMapping', function(req, res, next) {
+  mapping = controller.experiment.getDeviceMapping();
+  res.send(mapping);
 });
 
 // Exports the Routes to the App

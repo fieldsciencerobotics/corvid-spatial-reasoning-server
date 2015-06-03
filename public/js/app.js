@@ -205,6 +205,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.selectedBird = {};
     $scope.selectedStage = {};
     $scope.numOfTrials = {};
+    $scope.currentBlock = [];
 
     // Start Experiment
     $scope.startExperiment = function() {
@@ -252,7 +253,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     }
 
     $scope.getCurrentSessionProgress = function() {
-        $scope.sendToServerGerCurrentSessionProgress();
+        $scope.currentBlock =  $scope.sendToServerGerCurrentSessionProgress();
     }
 
 

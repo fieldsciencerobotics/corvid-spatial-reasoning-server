@@ -287,11 +287,14 @@ var experiment = new machina.Fsm( {
         failedSession: {
             _onEnter: function() {
                 console.log("failed session!");
+            }, 
+
+            wrapUpSession: function () {
                 console.log(currentBlock);
 
                 resetAllValues();
                 this.transition('freeForm');
-            }, 
+            },
 
             "*": function() {
 
@@ -306,10 +309,13 @@ var experiment = new machina.Fsm( {
         endedSession: {
             _onEnter: function() {
                 console.log("Inside ended session");
+            },
+
+            wrapUpSession: function () {
                 console.log(currentBlock);
 
                 resetAllValues();
-                this.transition("freeForm");
+                this.transition('freeForm');
             },
 
             "*": function() {
@@ -353,7 +359,7 @@ var experiment = new machina.Fsm( {
 
     wrapUpSession: function() {
         console.log("wrapUpSession API");
-        //this.handle( "wrapUpSession" );
+        this.handle( "wrapUpSession" );
     },
 
     dropMeat: function(feederID) {
@@ -387,9 +393,23 @@ var experiment = new machina.Fsm( {
         //this.handle( "perchEvent" );
     },
 
+    // Data Methods
+
     getCurrentSessionProgress: function() {
         return currentBlock;
     },
+
+    getBirds: function() {
+        //return data.getBirds();
+    },
+
+    getStages: function() {
+        //return data.getStages();
+    },
+
+    getDeviceMapping: function() {
+        //return data.getDeviceMapping();
+    }
 
 } );
 
