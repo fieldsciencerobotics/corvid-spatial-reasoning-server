@@ -253,7 +253,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     }
 
     $scope.getCurrentSessionProgress = function() {
-        $scope.currentBlock =  $scope.sendToServerGerCurrentSessionProgress();
+        $scope.sendToServerGerCurrentSessionProgress();
     }
 
 
@@ -334,6 +334,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
+            $scope.currentBlock = data;
         }).error(function (data, status, headers, config) {
             $scope.status = status + ' ' + headers;
         });
