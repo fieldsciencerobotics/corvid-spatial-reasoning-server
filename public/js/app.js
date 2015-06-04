@@ -191,10 +191,10 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
 
     // Timer methods to poll for progress during experiment
-    var progressPoller = null;
+    $scope.progressPoller = null;
 
     $scope.startProgressPoller = function() {
-        progressPoller = setInterval(function(){ queryProgress() }, 500);
+        progressPoller = setInterval(function(){ $scope.queryProgress() }, 500);
     }
 
     $scope.queryProgress = function() {
@@ -202,7 +202,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     }
 
     $scope.stopProgressPoller = function() {
-        clearInterval(progressPoller);
+        clearInterval($scope.progressPoller);
     }
 
     $scope.selectedBird = {};
