@@ -189,6 +189,22 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // Experiments
     //
 
+
+    // Timer methods to poll for progress during experiment
+    var progressPoller = null;
+
+    $scope.startProgressPoller = function() {
+        progressPoller = setInterval(function(){ queryProgress() }, 500);
+    }
+
+    $scope.queryProgress = function() {
+        $scope.getCurrentSessionProgress();
+    }
+
+    $scope.stopProgressPoller = function() {
+        clearInterval(progressPoller);
+    }
+
     $scope.selectedBird = {};
     $scope.selectedStage = {};
     $scope.numOfTrials = {};
@@ -221,6 +237,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $scope.numOfTrials = {};
         // Change the View
         $scope.experimentStageSelect(2);
+
+        $scope.startProgressPoller();
     }
 
     // End Session
@@ -229,6 +247,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $scope.sendToServerEndExperimentalSession();
         // Change the View
         $scope.experimentStageSelect(3);
+
+        $scope.stopProgressPoller();
     }
 
     // Completed Wrapup
