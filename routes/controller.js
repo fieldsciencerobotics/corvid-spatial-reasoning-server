@@ -3,6 +3,14 @@ var request = require('request');
 var lagarto = require('./devices');
 //var data = require('./data');
 
+var existingBirds = [
+                    {'id': 'Green', 'gender': 'male', 'age': 'adult'},
+                    {'id': 'Blue', 'gender': 'female', 'age': 'juvenile'},
+                    {'id': 'Red', 'gender': 'female', 'age': 'juvenile'},
+                    {'id': 'Red-Yellow', 'gender': 'female', 'age': 'juvenile'},
+                    {'id': 'Red-Blue', 'gender': 'female', 'age': 'juvenile'},
+                    ];
+
 // Global Variables to the experiment
 var currentBlock = [];
 var currentTrialNum = 0;
@@ -386,6 +394,8 @@ var experiment = new machina.Fsm( {
     addNewBird: function(newBird) {
         console.log("addNewBird API", newBird);
         //this.handle( "perchEvent" );
+        existingBirds.push(newBird);
+        return existingBirds;
     },
 
     addNewStage: function(newStage) {

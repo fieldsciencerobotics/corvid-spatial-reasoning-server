@@ -350,7 +350,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $http({
             url: '/addNew/bird',
             method: "POST",
-            data: angular.toJson(newBird),
+            data: angular.toJson({'newBird': newBird}),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
@@ -365,7 +365,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $http({
             url: '/addNew/stage',
             method: "POST",
-            data: angular.toJson(newStage),
+            data: angular.toJson({'newStage': newStage}),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
