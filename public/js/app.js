@@ -194,7 +194,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.progressPoller = null;
 
     $scope.startProgressPoller = function() {
-        progressPoller = setInterval(function(){ $scope.queryProgress() }, 500);
+        $scope.progressPoller = setInterval(function(){ $scope.queryProgress() }, 1000);
     }
 
     $scope.queryProgress = function() {
@@ -260,6 +260,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     }
 
     $scope.getCurrentSessionProgress = function() {
+        $scope.currentBlock = [];
         $scope.sendToServerGerCurrentSessionProgress();
     }
 
@@ -341,7 +342,6 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
-            $scope.currentBlock = [];
             $scope.currentBlock = data;
         }).error(function (data, status, headers, config) {
             $scope.status = status + ' ' + headers;

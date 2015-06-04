@@ -41,7 +41,7 @@ router.post('/control/endSession', function(req, res, next) {
 });
 
 router.post('/control/wrapUpSession', function(req, res, next) {
-  controller.experiment.WrapUpSession();
+  controller.experiment.wrapUpSession();
   res.send('Session Wrapped Up');
 });
 
