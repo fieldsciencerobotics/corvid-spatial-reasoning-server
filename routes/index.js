@@ -54,13 +54,13 @@ router.post('/experiment/getCurrentSessionProgress', function(req, res, next) {
 
 /* Add New Items */
 router.post('/addNew/bird', function(req, res, next) {
-  controller.experiment.addNewBird(req.body.newBird);
-  res.send('Bird Added');
+  birds = controller.experiment.addNewBird(req.body.newBird);
+  res.send(birds);
 });
 
 router.post('/addNew/stageDefinition', function(req, res, next) {
-  controller.experiment.addNewStage(req.body.newStage);
-  res.send('Stage Definition Added');
+  stages = controller.experiment.addNewStage(req.body.newStage);
+  res.send(stages);
 });
 
 
