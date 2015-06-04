@@ -187,14 +187,14 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.newBird = function(newBird) {
         $scope.sendToServerAddNewBird(newBird);
         // add bird to the existing list
-        $scope.existingBirds.push(newBird)
+        //$scope.existingBirds.push(newBird)
     }
 
     // New Stage
     $scope.newStage = function(newStage) {
         $scope.sendToServerAddNewStage(newStage);
         // add new stage to the existing list
-        $scope.existingStages.push(newStage);
+        //$scope.existingStages.push(newStage);
     }
 
 
@@ -334,6 +334,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
+            $scope.currentBlock = [];
             $scope.currentBlock = data;
         }).error(function (data, status, headers, config) {
             $scope.status = status + ' ' + headers;
@@ -353,6 +354,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
+            $scope.existingBirds = data;
         }).error(function (data, status, headers, config) {
             $scope.status = status + ' ' + headers;
         });
@@ -367,6 +369,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
+            $scope.existingStages = data;
         }).error(function (data, status, headers, config) {
             $scope.status = status + ' ' + headers;
         });
@@ -474,6 +477,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
+            $scope.existingBirds = data;
         }).error(function (data, status, headers, config) {
             $scope.status = status + ' ' + headers;
         });
@@ -488,6 +492,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
+            $scope.existingStages = data;
         }).error(function (data, status, headers, config) {
             $scope.status = status + ' ' + headers;
         });
