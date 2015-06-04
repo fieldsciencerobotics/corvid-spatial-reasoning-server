@@ -58,7 +58,7 @@ router.post('/addNew/bird', function(req, res, next) {
   res.send(birds);
 });
 
-router.post('/addNew/stageDefinition', function(req, res, next) {
+router.post('/addNew/stage', function(req, res, next) {
   stages = controller.experiment.addNewStage(req.body.newStage);
   res.send(stages);
 });
