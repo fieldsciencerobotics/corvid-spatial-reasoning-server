@@ -348,7 +348,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     //ADD NEW BIRD: Used to add a new bird into the database
     $scope.sendToServerAddNewBird = function(newBird) {
         $http({
-            url: '/addNew/newBird',
+            url: '/addNew/bird',
             method: "POST",
             data: angular.toJson(newBird),
             headers: {'Content-Type': 'application/json'}
@@ -363,7 +363,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     //ADD NEW STAGE: Used to add a new experimental stage into the database
     $scope.sendToServerAddNewStage = function(newStage) {
         $http({
-            url: '/addNew/newStage',
+            url: '/addNew/stage',
             method: "POST",
             data: angular.toJson(newStage),
             headers: {'Content-Type': 'application/json'}
