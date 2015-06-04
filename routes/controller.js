@@ -420,10 +420,12 @@ var experiment = new machina.Fsm( {
 
     getBirds: function() {
         //return data.getBirds();
+        return existingBirds;
     },
 
     getStages: function() {
         //return data.getStages();
+        return existingStages;
     },
 
     getDeviceMapping: function() {

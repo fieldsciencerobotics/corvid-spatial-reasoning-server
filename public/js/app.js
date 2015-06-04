@@ -99,21 +99,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
                     {'id': 9, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
                     {'id': 10, 'connected': true, 'colour': 'red', 'perch-colour': 'black'  }];
 
-    $scope.existingBirds = [
-                    {'id': 'Green', 'gender': 'male', 'age': 'adult'},
-                    {'id': 'Blue', 'gender': 'female', 'age': 'juvenile'},
-                    {'id': 'Red', 'gender': 'female', 'age': 'juvenile'},
-                    {'id': 'Red-Yellow', 'gender': 'female', 'age': 'juvenile'},
-                    {'id': 'Red-Blue', 'gender': 'female', 'age': 'juvenile'},
-                    ];
-
-
-    $scope.existingStages = [
-                    {'name': 'training part one', 'desc': "This is training part one", 'delay': 20, 'autoEnd': false, 'autoEndTime': 180, 'feederArrangement': []},
-                    {'name': 'exp part one', 'desc': "This is experiment part one", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
-                    {'name': 'exp part two', 'desc': "This is experiment part two", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
-                    {'name': 'exp part three', 'desc': "This is experiment part three", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
-                    ];
+    $scope.existingBirds = [];
+    $scope.existingStages = [];
 
 
     //
@@ -583,7 +570,14 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         });
     };
 
+    //
+    // Methods to call on page load
+    //
     $scope.openMapFeeders();
+    $scope.getBirds();
+    $scope.getStages();
+
+
 
 
 // END OF CONTROLLER
