@@ -3,7 +3,7 @@
 var exports = module.exports = {};
 
 
-var = existingBirds = [
+var existingBirds = [
                     {'id': 'Green', 'gender': 'male', 'age': 'adult'},
                     {'id': 'Blue', 'gender': 'female', 'age': 'juvenile'},
                     {'id': 'Red', 'gender': 'female', 'age': 'juvenile'},
@@ -11,7 +11,7 @@ var = existingBirds = [
                     {'id': 'Red-Blue', 'gender': 'female', 'age': 'juvenile'},
                     ];
 
-var = existingStages = [
+var existingStages = [
                     {'name': 'training part one', 'desc': "This is training part one", 'delay': 20, 'autoEnd': false, 'autoEndTime': 180, 'feederArrangement': []},
                     {'name': 'exp part one', 'desc': "This is experiment part one", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
                     {'name': 'exp part two', 'desc': "This is experiment part two", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
