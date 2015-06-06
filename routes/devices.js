@@ -12,8 +12,23 @@ var zmq = require('zmq')
 /* Request */  
 var request = require('request');
  
+// Mapping from Human Readable names to lagarto assigned ID's
+// Not to be confussed with the experimental node ID, which will be unique to the arrangement of each session
+
+// Feeder Devices
+var feederNameToLagartoID = [{'name': 'a', 'lagartoID': '7'}, {'name': 'b', 'lagartoID': '0'}, {'name': 'c', 'lagartoID': '0'}, 
+						{'name': 'd', 'lagartoID': '0'}, {'name': 'e', 'lagartoID': '0'}, {'name': 'f', 'lagartoID': '0'}, 
+						{'name': 'g', 'lagartoID': '0'}, {'name': 'h', 'lagartoID': '0'}, {'name': 'i', 'lagartoID': '0'}, 
+						{'name': 'j', 'lagartoID': '0'}, ];
+var feederFunctionToLagartoDotReference = {'dropMeat': '11.0'}; // battery, reset etc etc etc
+
+// Indicator device
+var indicatorToLagartoID = {'name': 'indicator1', 'lagartoID': '0'};
+var indicatorFunctionToLagartoDotReference = {};
+
 
 // The EventEmitter Object that will report events back to the controller
+// Like a Meerkat, it is good at keeping watch : )
 var Meerkat = function() {
 
     // we need to store the reference of `this` to `self`, so that we can use the current context in the setTimeout (or any callback) functions
@@ -28,35 +43,89 @@ var Meerkat = function() {
 	sock.on('message', function(topic, message) {
 	  console.log('received a message related to:', topic, 'containing message:', message);
 
-	  switch ( topic ) {
-	    case 'perchEvent':
-	        //Parse the message
-	        console.log("PerchEvent");
+	  // all the parsing work should take place here
 
-	        self.emit('perchEvent', message, topic)
+	  // Reset
+	  // "{"lagarto": 
+	  		//{
+	  		//"status": 
+	  			//[{"direction": "out", "name": "Reset_7", "timestamp": "28 May 2015 06:00:17", "value": "on", "location": "SWAP", "type": "bin", "id": "7.12.0"}], 
+	  		//"procname": "Lagarto-SWAP", 
+	  		//"httpserver": "10.1.1.6:8001"
+	  		//}
+	  	//}"
+
+	  // Perch off
+	  //"{"lagarto": 
+			//{"status": 
+				//[{"direction": "inp", "name": "Perch_triggered_7", "timestamp": "28 May 2015 05:59:34", "value": "off", "location": "SWAP", "type": "bin", "id": "7.17.0"}], 
+			//"procname": "Lagarto-SWAP", "httpserver": "10.1.1.6:8001"}}"
+
+	  // Perch event to parse
+	  //"{"lagarto": 
+			//{"status": 
+				//[{"direction": "inp", "name": "Perch_triggered_7", "timestamp": "28 May 2015 05:59:34", "value": "on", "location": "SWAP", "type": "bin", "id": "7.17.0"}], 
+			//"procname": "Lagarto-SWAP", "httpserver": "10.1.1.6:8001"}}"
+
+
+	  //Get the event name
+	  //message.lagarto.status [get the array element].name
+
+	  //Get the event lagarto dot prefix
+	  //message.lagarto.status [get the array element].id
+
+	  //Get the event value
+	  //message.lagarto.status [get the array element].value
+
+	  // Event Type
+	  eventType = 'perchEvent'; // or meatDropped, or battery, or light or etc...
+	  deviceId = 1; // get this from
+	  value = 'on';
+
+
+	  switch (eventType) {
+	    case 'perchEvent':
+	        console.log("PerchEvent", deviceID, value);
+
+	        // Pasrse message, and topic
+
+	        perchID = 1; //set this based on the contents of the message
+	        self.emit('perchEvent', perchID);
 
 
 	        break; 
 	    case 'MeatFinishedDropping':
-	        //Parse the message
-	        console.log("MeatFinishedDropping");
+	        console.log("MeatFinishedDropping", deviceID, value);
 
+	        // Pasrse message, and topic
 
-	        self.emit('MeatDropped', message, topic)
+	        feederID = 1; //set this based on the contents of the message
+	        self.emit('MeatDropped', feederID)
 
 	        break;
 	    case 'LightChanged':
-	        //Parse the message
-	        console.log("LightChanged");
+	        console.log("LightChanged", lightID);
 
+	        // Pasrse message, and topic
 
-	        self.emit('LightChanged', message, topic)
+	        lightID = 1; //set this based on the contents of the message
+	        self.emit('LightChanged', lightID)
+
+	        break;
+	    case 'BatteryUpdate':
+	        console.log("BatteryUpdated", deviceID);
+
+	        // Pasrse message, and topic
+
+	        lightID = 1; //set this based on the contents of the message
+	        self.emit('BatteryUpdated', deviceID)
 
 	        break; 
 	    default: 
 	        console.log("unhandled event");
 
-	        self.emit('dunno', message, topic)
+	        perchID = 1; //set this based on the contents of the message
+	        self.emit('dunno', perchID);
 
 
 		}
@@ -105,17 +174,23 @@ exports.getDevices = function() {
 //
 // Meat Events
 //
-exports.dropMeat = function(experimentalNodeID) {
+exports.dropMeat = function(deviceName) {
+
+	// map device name, and the function to below
+	deviceID = '7'; //feederNameToLagartoID -> get the item which matches deviceName, and pull the lagartoID
+	functionID = feederFunctionToLagartoDotReference.dropMeat; //maps to 11.0
+	deviceAndFunctionID = deviceID + '.' + functionID;
+	value = 'true';
 
 	// Sent command to Lagarto
-	request('http://127.0.0.1:8001/values?id=7.11.0&value=true', function (error, response, body) {
+	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        console.log("Sent")
+        console.log("Sent drop meat command")
       }
     })
 };
 
-exports.getRemainingMeat = function(experimentalNodeID) {
+exports.getRemainingMeat = function(deviceName) {
 
 	// Sent command to Lagarto
 	request('http://127.0.0.1:8001/values?id=7.11.0&value=true', function (error, response, body) {
@@ -151,12 +226,3 @@ exports.turnLightsOff = function() {
     })
 
 };
-
-// Reset
-// "{"lagarto": {"status": [{"direction": "out", "name": "Reset_7", "timestamp": "28 May 2015 06:00:17", "value": "on", "location": "SWAP", "type": "bin", "id": "7.12.0"}], "procname": "Lagarto-SWAP", "httpserver": "10.1.1.6:8001"}}"
-
-// Perch off
-//"{"lagarto": {"status": [{"direction": "inp", "name": "Perch_triggered_7", "timestamp": "28 May 2015 05:59:34", "value": "off", "location": "SWAP", "type": "bin", "id": "7.17.0"}], "procname": "Lagarto-SWAP", "httpserver": "10.1.1.6:8001"}}"
-
-// Perch event to parse
-//"{"lagarto": {"status": [{"direction": "inp", "name": "Perch_triggered_7", "timestamp": "28 May 2015 05:59:34", "value": "on", "location": "SWAP", "type": "bin", "id": "7.17.0"}], "procname": "Lagarto-SWAP", "httpserver": "10.1.1.6:8001"}}"

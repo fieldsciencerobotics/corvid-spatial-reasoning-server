@@ -1,22 +1,7 @@
 var machina = require('machina');
 var request = require('request');
 var lagarto = require('./devices');
-//var data = require('./data');
-
-var existingBirds = [
-                    {'id': 'Green', 'gender': 'male', 'age': 'adult'},
-                    {'id': 'Blue', 'gender': 'female', 'age': 'juvenile'},
-                    {'id': 'Red', 'gender': 'female', 'age': 'juvenile'},
-                    {'id': 'Red-Yellow', 'gender': 'female', 'age': 'juvenile'},
-                    {'id': 'Red-Blue', 'gender': 'female', 'age': 'juvenile'},
-                    ];
-
-var existingStages = [
-                    {'name': 'training part one', 'desc': "This is training part one", 'delay': 20, 'autoEnd': false, 'autoEndTime': 180, 'feederArrangement': []},
-                    {'name': 'exp part one', 'desc': "This is experiment part one", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
-                    {'name': 'exp part two', 'desc': "This is experiment part two", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
-                    {'name': 'exp part three', 'desc': "This is experiment part three", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
-                    ];
+var data = require('./data');
 
 // Global Variables to the experiment
 var currentBlock = [];
@@ -39,8 +24,9 @@ var resetAllValues = function() {
 var trialGenerator = function(bird, stage, numOfTrials) {
 
     stageID = stage;
+    // this is where the extra information from the stage object should go
     birdID = bird;
-    initialTrialID = 1; //data.getNextTrialID(bird, stage);
+    initialTrialID = data.getNextTrialID(bird, stage); // currently will always return 1
     numOfTrials = numOfTrials;
     numOfAvailableFeeders = 5;
     availableFeeders = []; //stages.feeders;
@@ -131,9 +117,13 @@ var experiment = new machina.Fsm( {
             },
 
             dropMeat: function(feederID) {
-                //Hardwired for Node 1, TO-DO make general case
                 console.log(feederID);
-                lagarto.dropMeat(feederID);
+
+                // Transform experimental Feeder ID into the actual device ID
+                // Curently hardcoded to go to 'a', but this should be a table lookup
+                deviceNameID = 'a';
+
+                lagarto.dropMeat(deviceNameID);
             },
 
             lightOn: function(lightID) {
@@ -278,11 +268,31 @@ var experiment = new machina.Fsm( {
                 if (currentBlock[currentTrialNum].intended == currentBlock[currentTrialNum].actual) {
                     currentBlock[currentTrialNum].success = true;
                     console.log(currentBlock[currentTrialNum]);
+
+                    // Time to reward the bird for sending the dropMeat Command to the revlant feeder
+
+                    // feederID is the same as the perchID, as they are the same device
+
+                    // Transform experimental Feeder ID into the actual device ID
+                    // Curently hardcoded to go to 'a', but this should be a table lookup
+                    deviceNameID = 'a';
+
+                    // Drop the Meat
+                    lagarto.dropMeat(deviceNameID);
+
+                    // Log the trial outcome
+                    data.logTrial(currentBlock[currentTrialNum]);
+
+
                     currentTrialNum = currentTrialNum + 1;
                     this.transition('session');
                 } else {
                     currentBlock[currentTrialNum].success = false;
                     console.log(currentBlock[currentTrialNum]);
+
+                    // Log the trial outcome
+                    data.logTrial(currentBlock[currentTrialNum]);
+
                     currentTrialNum = currentTrialNum + 1;
                     this.transition('session');
                 }
@@ -398,44 +408,52 @@ var experiment = new machina.Fsm( {
         this.handle("perchEvent", perchID);
     },
 
+    // Experimental Methods
+    meatDropped: function(feederID) {
+        console.log("meatDropped API");
+        this.handle("meatDroppedEvent", feederID);
+    },
+
+    lightChanged: function(lightID) {
+        console.log("perchEvent API");
+        this.handle("lightChangedEvent", lightID);
+    },
+    // End Experimental Methods
+
     addNewBird: function(newBird) {
         console.log("addNewBird API", newBird);
-        //this.handle( "perchEvent" );
-        existingBirds.push(newBird);
-        return existingBirds;
+        data.newBird(newBird);
+        return data.getBirds();
     },
 
     addNewStage: function(newStage) {
         console.log("addNewStage API", newStage);
-        //this.handle( "perchEvent" );
-        existingStages.push(newStage);
-        return existingStages;
+        data.newStage(newStage);
+        return data.getStages()
     },
 
     // Data Methods
-
     getCurrentSessionProgress: function() {
         return currentBlock;
     },
 
     getBirds: function() {
-        //return data.getBirds();
-        return existingBirds;
+        return data.getBirds();
     },
 
     getStages: function() {
-        //return data.getStages();
-        return existingStages;
+        return data.getStages();
     },
 
     getDeviceMapping: function() {
-        //return data.getDeviceMapping();
+        return data.getDeviceMapping();
     }
 
 } );
 
 // Logging for any handeler event and state change
 experiment.on("*", function (eventName, data){
+    // uncomment to see all the stage changes printed to console
     //console.log("this thing happened:", eventName, data);
 });
 
@@ -444,24 +462,39 @@ experiment.on("*", function (eventName, data){
 var meerkat = new lagarto.Meerkat();
 
 // add an 'perch' event listener
-meerkat.on('perchEvent', function(message, topic) {
-    console.log('"%s" - inside event listener', message);
-    experiment.perchEvent();
+meerkat.on('perchEvent', function(perchID) {
+    console.log('perch event listenter: "%s"', perchID);
+
+    // Parse deviceID to experimental nodeID
+
+    experiment.perchEvent(perchID);
 });
 
 // add a 'meatDropped' event listener
-meerkat.on('meatDropped', function(message, topic) {
-    console.log('"%s" and "%s" - inside event listener', message, topic);
+meerkat.on('meatDropped', function(feederID) {
+    console.log('meatDropped event listenter: "%s"', feederID);
+
+    // Parse deviceID to experimental nodeID
+
+    experiment.meatDropped(feederID);
 });
 
 // add a 'lightChange' event listener
-meerkat.on('lightChanged', function(message, topic) {
-    console.log('"%s" and "%s" - inside event listener', message, topic);
+meerkat.on('lightChanged', function(lightID) {
+    console.log('lightChanged event listenter: "%s"', lightID);
+
+    // Parse deviceID to experimental nodeID
+
+    experiment.lightChanged(lightID);
 });
 
 // add a 'lightChange' event listener
-meerkat.on('dunno', function(message, topic) {
-    console.log('"%s" and "%s" - inside event listener', message, topic);
+meerkat.on('dunno', function(perchID) {
+    console.log('[dunno] perch event listenter: "%s"', perchID);
+
+    // Parse deviceID to experimental nodeID
+
+    experiment.perchEvent(perchID);
 });
 
 

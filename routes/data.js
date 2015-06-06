@@ -1,29 +1,57 @@
-var db = require('mongoskin').db('mongodb://localhost:27017/spatial_reasoning'); 
+//var db = require('mongoskin').db('mongodb://localhost:27017/spatial_reasoning'); 
 
 var exports = module.exports = {};
 
+
+var = existingBirds = [
+                    {'id': 'Green', 'gender': 'male', 'age': 'adult'},
+                    {'id': 'Blue', 'gender': 'female', 'age': 'juvenile'},
+                    {'id': 'Red', 'gender': 'female', 'age': 'juvenile'},
+                    {'id': 'Red-Yellow', 'gender': 'female', 'age': 'juvenile'},
+                    {'id': 'Red-Blue', 'gender': 'female', 'age': 'juvenile'},
+                    ];
+
+var = existingStages = [
+                    {'name': 'training part one', 'desc': "This is training part one", 'delay': 20, 'autoEnd': false, 'autoEndTime': 180, 'feederArrangement': []},
+                    {'name': 'exp part one', 'desc': "This is experiment part one", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
+                    {'name': 'exp part two', 'desc': "This is experiment part two", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
+                    {'name': 'exp part three', 'desc': "This is experiment part three", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
+                    ];
+
+
+
 /* Set methods */
 
-exports.logTrial = function() {
-	db.collection('trials').insert({trialID: "15", result: "success" }, function(err, result) {
-    	if (err) throw err;
-    	if (result) console.log('Logged Trail!');
-	});
+exports.logTrial = function(trial) {
+
+
+	console.log("Saving Trial: ", trial);
+
+	//db.collection('trials').insert({trialID: "15", result: "success" }, function(err, result) {
+    //	if (err) throw err;
+    //	if (result) console.log('Logged Trail!');
+	//});
 
 }
 
-exports.newBird = function(birdID, gender, age, notes) {
-	db.collection('birds').insert({birdID: birdID, gender: gender, age: age, notes: notes }, function(err, result) {
-    	if (err) throw err;
-    	if (result) console.log('Added Bird!');
-	});
+exports.newBird = function(newBird) { //birdID, gender, age, notes) {
+	//temp variable
+	existingBirds.push(newBird);
+
+	//db.collection('birds').insert({birdID: birdID, gender: gender, age: age, notes: notes }, function(err, result) {
+    //	if (err) throw err;
+    //	if (result) console.log('Added Bird!');
+	//});
 }
 
-exports.newStage = function(name, desc, delay, autoEnd, autoEndTime, feederArrangement) {
-	db.collection('stages').insert({'name': name, 'desc':desc, 'delay': delay, 'autoEnd': autoEnd, 'autoEndTime': autoEndTime, 'feederArrangement': feederArrangement}, function(err, result) {
-    	if (err) throw err;
-    	if (result) console.log('Added Stage!');
-	});
+exports.newStage = function(newStage) { //name, desc, delay, autoEnd, autoEndTime, feederArrangement) {
+	//temp variable
+	existingStages.push(newStage);
+
+	//db.collection('stages').insert({'name': name, 'desc':desc, 'delay': delay, 'autoEnd': autoEnd, 'autoEndTime': autoEndTime, 'feederArrangement': feederArrangement}, function(err, result) {
+    //	if (err) throw err;
+    //	if (result) console.log('Added Stage!');
+	//});
 }
 
 
@@ -52,16 +80,27 @@ exports.getTrials = function() {
 	});
 }
 
+exports.getNextTrialID = function(birdID, stageID) {
+
+	// connects to the database
+	// finds the highest trial id, for the filtered set of that birdID and stageID
+
+	// hardcoded to return 1 currently
+	return 1;
+}
+
 exports.getBirds = function() {
-	db.collection('birds').insert({birdID: birdID, gender: gender, age: age, notes: notes }, function(err, result) {
-    	if (err) throw err;
-    	if (result) console.log('Added Bird!');
-	});
+	//db.collection('birds').insert({birdID: birdID, gender: gender, age: age, notes: notes }, function(err, result) {
+    //	if (err) throw err;
+    //	if (result) console.log('Added Bird!');
+	//});
+	return existingBirds;
 }
 
 exports.getStages = function() {
-	db.collection('stages').insert({'name': name, 'desc':desc, 'delay': delay, 'autoEnd': autoEnd, 'autoEndTime': autoEndTime, 'feederArrangement': feederArrangement}, function(err, result) {
-    	if (err) throw err;
-    	if (result) console.log('Added Stage!');
-	});
+	//db.collection('stages').insert({'name': name, 'desc':desc, 'delay': delay, 'autoEnd': autoEnd, 'autoEndTime': autoEndTime, 'feederArrangement': feederArrangement}, function(err, result) {
+    //	if (err) throw err;
+    //	if (result) console.log('Added Stage!');
+	//});
+	return existingStages
 }
