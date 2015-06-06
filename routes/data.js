@@ -18,6 +18,13 @@ var existingStages = [
                     {'name': 'exp part three', 'desc': "This is experiment part three", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
                     ];
 
+var deviceMapping = [{nodeID: 1, deviceID: 7}, {nodeID: 2, deviceID: null}, {nodeID: 3, deviceID: null}, 
+					{nodeID: 4, deviceID: null}, {nodeID: 5, deviceID: null},{nodeID: 6, deviceID: null}, 
+			 		{nodeID: 7, deviceID: null}, {nodeID: 8, deviceID: null}, {nodeID: 9, deviceID: null}, 
+			 		{nodeID: 10, deviceID: null}];
+
+var existingTrials = [];
+
 
 
 /* Set methods */
@@ -68,8 +75,7 @@ exports.setDeviceMapping = function() {
 /* Get methods */
 
 exports.getDeviceMapping = function() {
-	return [{nodeID: 1, deviceID: 7}, {nodeID: 2, deviceID: null}, {nodeID: 3, deviceID: null}, {nodeID: 4, deviceID: null}, {nodeID: 5, deviceID: null},
-			 {nodeID: 6, deviceID: null}, {nodeID: 7, deviceID: null}, {nodeID: 8, deviceID: null}, {nodeID: 9, deviceID: null}, {nodeID: 10, deviceID: null}]
+	return deviceMapping;
 }
 
 // Change all of the below to getters rather than insert methods
