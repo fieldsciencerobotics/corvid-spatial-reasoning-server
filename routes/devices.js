@@ -78,8 +78,9 @@ var Meerkat = function() {
 	  //message.lagarto.status [get the array element].value
 
 	  // Event Type
-	  eventType = 'perchEvent'; // or meatDropped, or battery, or light or etc...
-	  deviceId = 1; // get this from
+	  eventType = 'perchEvent2'; // or meatDropped, or battery, or light or etc...
+	  deviceID = 1; // get this from
+	  perchID = 1;
 	  value = 'on';
 
 

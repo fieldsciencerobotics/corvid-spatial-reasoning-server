@@ -494,7 +494,7 @@ meerkat.on('dunno', function(perchID) {
 
     // Parse deviceID to experimental nodeID
 
-    experiment.perchEvent(perchID);
+    //experiment.perchEvent(perchID);
 });
 
 
