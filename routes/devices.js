@@ -41,7 +41,7 @@ var Meerkat = function() {
 	sock.on('message', function(topic, message) {
 	  	console.log('received a message related to:', topic, 'containing message:', message);
 
-	  	parsedMessage = JSON.parse(String(message);
+	  	parsedMessage = JSON.parse(String(message));
 	  	console.log(parsedMessage['lagarto']['status']);
 
 	  	//for (var i=0; i<arr.length; i++)
