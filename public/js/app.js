@@ -194,7 +194,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.progressPoller = null;
 
     $scope.startProgressPoller = function() {
-        $scope.progressPoller = setInterval(function(){ $scope.queryProgress() }, 1000);
+        $scope.progressPoller = setInterval(function(){ $scope.queryProgress() }, 5000); // 5 seconds
     }
 
     $scope.queryProgress = function() {
