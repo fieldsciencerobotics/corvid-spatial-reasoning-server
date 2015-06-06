@@ -21,7 +21,6 @@ var resetAllValues = function() {
     delayValue = 0;
 }
 
-
 var trialGenerator = function(bird, stage, numOfTrials) {
 
     stageID = stage;
