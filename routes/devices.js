@@ -44,8 +44,9 @@ var Meerkat = function() {
 	  	console.log('topic: "%s"', topic);
 	  	parsedMessage = String(topic);
 	  	console.log("turned to String: ", parsedMessage);
-	  	jsonMessage = parsedMessage.toJSON();
-	  	console.log(parsedMessage['lagarto']['status']);
+	  	jsonMessage = JSON.parse(parsedMessage);
+	  	console.log(jsonMessage['lagarto']['procname']);
+	  	console.log(jsonMessage['lagarto']['status']);
 
 	  	//for (var i=0; i<arr.length; i++)
 	    //    if (arr[i] === val)                    
