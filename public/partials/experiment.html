@@ -195,31 +195,12 @@ Experiments Tab
 					<td>Waiting...</td>
 					<td>Waiting...</td>
 				</tr>
-				<tr>
-					<td>4</td>
-					<td>0:00</td>
-					<td>Feeder 4</td>
-					<td>...</td>
-					<td>...</td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>0:00</td>
-					<td>Feeder 2</td>
-					<td>...</td>
-					<td>...</td>
-				</tr>
-				<tr>
-					<td>6</td>
-					<td>0:00</td>
-					<td>Feeder 5</td>
-					<td>...</td>
-					<td>...</td>
-				</tr>
 				-->
 			</tbody>
 		</table> 
-		<span class="btn btn-danger" ng-click="endSession()">STOP! </span>
+		<span class="btn btn-danger" ng-show="experimentRunning?[0]" ng-click="endSession()">STOP! </span>
+		<span class="btn btn-success" ng-show="experimentRunning?[1]" ng-click="completeSession()">Complete Session</span>
+
 		<span class="btn btn-success" ng-click="simulatePerchEvent()">PerchEvent! </span>
 		<span class="btn btn-success" ng-click="getCurrentSessionProgress()">Get Progress! </span>
 	</div>
@@ -227,8 +208,24 @@ Experiments Tab
 	<!-- Ended Experiment -->
 	<div id="stoppedExperiment" ng-show="currentExperimentStage[3]">
 		<div class="jumbotron" style="padding-top: 20px; padding-bottom: 20px;">
+
+			<div style="float: right; width:300px">
+				<form class="form-horizontal">
+					<fieldset>
+						<!-- Record Session Notes -->
+						<div class="form-group">
+							<label for="textArea" class="col-lg-2 control-label">Session Notes</label>
+							<div class="col-lg-10">
+								<textarea class="form-control" rows="3" id="textArea" ng-model="currentSession.notes"></textarea>
+								<span class="help-block">Optional Field for making any additional notes</span>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+
 			<h2>Session Stopped</h2>
-			<span class="btn btn-warning" ng-click="finishWrapup()"> Return to Start</span>
+			<span class="btn btn-warning" ng-click="finishWrapup(currentSession.notes)"> Return to Start</span>
 		</div>
 	</div>
 

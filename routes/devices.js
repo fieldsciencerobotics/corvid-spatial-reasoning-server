@@ -39,22 +39,87 @@ var Meerkat = function() {
 	console.log('Subscriber connected to port 5001');
 	 
 	sock.on('message', function(topic, message) {
-	  	console.log('received a message related to:', topic, 'containing message:', message);
+	  	console.log('Recieved Message: "%s"', topic);
 
-	  	console.log('topic: "%s"', topic);
 	  	parsedMessage = String(topic);
-	  	console.log("turned to String: ", parsedMessage);
 	  	jsonMessage = JSON.parse(parsedMessage);
-	  	console.log(jsonMessage['lagarto']['procname']);
-	  	console.log(jsonMessage['lagarto']['status']);
+	  	protcolName =jsonMessage['lagarto']['procname'];
+	  	httpServer =jsonMessage['lagarto']['httpserver'];
+	  	status = jsonMessage['lagarto']['status'];
 
-	  	//for (var i=0; i<arr.length; i++)
-	    //    if (arr[i] === val)                    
-	    //        return i;
-	    //return false;
+	  	if (status) {
 
-		// all the parsing work should take place here
+	  		// Becuase it may contain multple values to status
+	  		for (var i=0; i<status.length; i++) {
+	  			name = status['name'];
+	  			id = status['id'];
+	  			value = status['value'];
 
+	  			// Parse out the name value, removing the _7?
+	  			//	- or perhaps the comparion will just look for it
+	  			//	or as we already have the value in the id object
+
+	  			//Perch_triggered_7
+
+	  			// pass through: value, and the device id
+	  			// the event itself is taken care of alreay as it modifies the switch statement
+
+	  			// Event Type - to be remvoved....
+			  	eventType = 'perchEvent2'; // or meatDropped, or battery, or light or etc...
+			  	deviceID = 1; // get this from
+			  	perchID = 1;
+			  	value = 'on';
+
+
+			  	switch (eventType) {
+			    	case 'perchEvent':
+			        	console.log("PerchEvent", deviceID, value);
+
+			        	// Pasrse message, and topic
+
+			        	perchID = 1; //set this based on the contents of the message
+			        	self.emit('perchEvent', perchID);
+
+
+			        	break; 
+			    	case 'MeatFinishedDropping':
+				        console.log("MeatFinishedDropping", deviceID, value);
+
+				        // Pasrse message, and topic
+
+				        feederID = 1; //set this based on the contents of the message
+				        self.emit('MeatDropped', feederID)
+
+			        	break;
+			    	case 'LightChanged':
+				        console.log("LightChanged", lightID);
+
+				        // Pasrse message, and topic
+
+				        lightID = 1; //set this based on the contents of the message
+				        self.emit('LightChanged', lightID)
+
+				        break;
+			    	case 'BatteryUpdate':
+				        console.log("BatteryUpdated", deviceID);
+
+				        // Pasrse message, and topic
+
+				        lightID = 1; //set this based on the contents of the message
+				        self.emit('BatteryUpdated', deviceID)
+
+				        break; 
+			    	default: 
+				        console.log("unhandled event");
+
+				        perchID = 1; //set this based on the contents of the message
+				        self.emit('dunno', perchID);
+				}
+
+	  		}
+	  	}
+
+	  });
 		// Reset
 		// "{"lagarto": 
 				//{
@@ -76,69 +141,6 @@ var Meerkat = function() {
 			//{"status": 
 				//[{"direction": "inp", "name": "Perch_triggered_7", "timestamp": "28 May 2015 05:59:34", "value": "on", "location": "SWAP", "type": "bin", "id": "7.17.0"}], 
 			//"procname": "Lagarto-SWAP", "httpserver": "10.1.1.6:8001"}}"
-
-
-		//Get the event name
-		//message.lagarto.status [get the array element].name
-
-		//Get the event lagarto dot prefix
-		//message.lagarto.status [get the array element].id
-
-		//Get the event value
-		//message.lagarto.status [get the array element].value
-
-		// Event Type
-	  	eventType = 'perchEvent2'; // or meatDropped, or battery, or light or etc...
-	  	deviceID = 1; // get this from
-	  	perchID = 1;
-	  	value = 'on';
-
-
-	  	switch (eventType) {
-	    	case 'perchEvent':
-	        	console.log("PerchEvent", deviceID, value);
-
-	        	// Pasrse message, and topic
-
-	        	perchID = 1; //set this based on the contents of the message
-	        	self.emit('perchEvent', perchID);
-
-
-	        	break; 
-	    	case 'MeatFinishedDropping':
-		        console.log("MeatFinishedDropping", deviceID, value);
-
-		        // Pasrse message, and topic
-
-		        feederID = 1; //set this based on the contents of the message
-		        self.emit('MeatDropped', feederID)
-
-	        	break;
-	    	case 'LightChanged':
-		        console.log("LightChanged", lightID);
-
-		        // Pasrse message, and topic
-
-		        lightID = 1; //set this based on the contents of the message
-		        self.emit('LightChanged', lightID)
-
-		        break;
-	    	case 'BatteryUpdate':
-		        console.log("BatteryUpdated", deviceID);
-
-		        // Pasrse message, and topic
-
-		        lightID = 1; //set this based on the contents of the message
-		        self.emit('BatteryUpdated', deviceID)
-
-		        break; 
-	    	default: 
-		        console.log("unhandled event");
-
-		        perchID = 1; //set this based on the contents of the message
-		        self.emit('dunno', perchID);
-		}
-	});
 
     
     // EventEmitters inherit a single event listener, see it in action

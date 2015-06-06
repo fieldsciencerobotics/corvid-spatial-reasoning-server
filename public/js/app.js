@@ -210,6 +210,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.numOfTrials = {};
     $scope.currentBlock = [];
 
+    $scope.experimentRunning? = [true, false];
+
     // Start Experiment
     $scope.startExperiment = function() {
         // Notify the server
@@ -235,6 +237,10 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $scope.sendToServerStartExperimentalSession(parseInt($scope.numOfTrials.num));
         // Reset the number of trials value
         $scope.numOfTrials = {};
+
+        //Ensure the correct button is shown
+        $scope.experimentRunning? = [true, false];
+
         // Change the View
         $scope.experimentStageSelect(2);
 
@@ -251,10 +257,22 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $scope.stopProgressPoller();
     }
 
+    // Complete Session
+    $scope.completeSession = function() {
+        // Change the View
+        $scope.experimentStageSelect(3);
+
+        $scope.stopProgressPoller();
+    }
+
     // Completed Wrapup
-    $scope.finishWrapup = function() {
+    $scope.finishWrapup = function(notes) {
+        
         // Notify the Server
         $scope.sendToServerWrapUpExperiment();
+
+        // To-DO:
+
         // Change the View
         $scope.experimentStageSelect(0);
     }
@@ -343,6 +361,10 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         }).success(function (data, status, headers, config) {
             console.log(data);
             $scope.currentBlock = data;
+
+            //If finished ensure the correct UI is now shown
+            //$scope.experimentRunning?[false, true];
+
         }).error(function (data, status, headers, config) {
             $scope.status = status + ' ' + headers;
         });
