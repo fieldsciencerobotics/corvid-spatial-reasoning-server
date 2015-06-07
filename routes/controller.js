@@ -203,7 +203,7 @@ var experiment = new machina.Fsm( {
 
         session: {
             _onEnter: function() {
-                console.log("In seesion");
+                console.log("In session");
 
                 // Are there still trials remaining to be run?
                 if (currentTrialNum < currentBlock.length) {
@@ -268,7 +268,7 @@ var experiment = new machina.Fsm( {
                 } else {
                     // Carry on with the block
                     // If finished, go to ended session, not session
-                    if (currentTrialNum+1 < currentBlock.length) {
+                    if (currentTrialNum+1 >= currentBlock.length) {
                         this.transition('endedSession');
                     }
                     //else 
@@ -319,7 +319,7 @@ var experiment = new machina.Fsm( {
                     lagarto.dropMeat(deviceNameID);
 
                     // If finished, go to ended session, not session
-                    if (currentTrialNum+1 > currentBlock.length) {
+                    if (currentTrialNum+1 >= currentBlock.length) {
                         this.transition('endedSession');
                     } else {
                         // Log the trial outcome
@@ -335,7 +335,7 @@ var experiment = new machina.Fsm( {
                     console.log(currentBlock[currentTrialNum]);
 
                     // If finished, go to ended session, not session
-                    if (currentTrialNum+1 > currentBlock.length) {
+                    if (currentTrialNum+1 >= currentBlock.length) {
                         this.transition('endedSession');
                     } else {
                         // Log the trial outcome
