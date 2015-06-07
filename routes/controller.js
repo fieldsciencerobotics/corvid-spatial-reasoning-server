@@ -33,7 +33,7 @@ var trialGenerator = function() {
 
     // Filled from the stage object
     stageID = currentStage.name;
-    timeoutValue = stage.autoEndTime;
+    timeoutValue = currentStage.autoEndTime;
     delayValue = currentStage.delay;
     timeOutLeadsToFail = currentStage.autoEnd;
 
