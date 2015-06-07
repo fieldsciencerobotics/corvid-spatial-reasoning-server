@@ -148,6 +148,14 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         }
     }
 
+    $scope.freeFormTurnOnLight = function(light) {
+        $scope.sendToServerTurnLightOn(light);
+    }
+
+    $scope.freeFormTurnOffLight = function(light) {
+        $scope.sendToServerTurnLightOff(light);
+    }
+
     // Simulate Perch event of node 2 - only used for testing
     $scope.simulatePerchEvent = function() {
         //feeder.colour = 'green';
@@ -318,11 +326,11 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     };
 
     //TURN LIGHTS OFF: Used in FreeForm mode to turn all indicator lights off
-    $scope.sendToServerTurnLightOn = function() {
+    $scope.sendToServerTurnLightOff = function(lightID) {
         $http({
-            url: '/freeForm/lightsOFF',
+            url: '/freeForm/lightOff',
             method: "POST",
-            data: angular.toJson([{'id': 2}]),
+            data: angular.toJson({'lightID': lightID}),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
@@ -575,6 +583,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             $log.info('Modal dismissed at: ' + new Date());
         });
     };
+
+
 
     // Map Feeders Modal Window
     $scope.openMapFeeders = function () {

@@ -75,8 +75,8 @@ router.post('/freeForm/lightOn', function(req, res, next) {
   res.send('Light Turned On');
 });
 
-router.post('/freeForm/lightsOff', function(req, res, next) {
-  controller.experiment.lightsOff();
+router.post('/freeForm/lightOff', function(req, res, next) {
+  controller.experiment.lightOff(req.body.lightID);
   res.send('Lights turned Off');
 });
 

@@ -22,7 +22,8 @@ var feederFunctionToLagartoDotReference = {'dropMeat': '11.0'}; // battery, rese
 
 // Indicator device
 var indicatorToLagartoID = {'name': 'indicator1', 'lagartoID': '0'};
-var indicatorFunctionToLagartoDotReference = {};
+var indicatorFunctionToLagartoDotReference = {'1': '0', '2': '0', '3': '0', '4': '0', '5': '0', '6': '0',
+											  '7': '0', '8': '0', '9': '0', '10': '0',};
 
 
 // The EventEmitter Object that will report events back to the controller
@@ -58,6 +59,9 @@ var Meerkat = function() {
 	  			// Parse out the name value, removing the _7?
 	  			//	- or perhaps the comparion will just look for it
 	  			//	or as we already have the value in the id object
+
+	  			//deviceID = id -> get the first number
+	  			//eventMatcher
 
 	  			//Perch_triggered_7
 
@@ -218,8 +222,14 @@ exports.getRemainingMeat = function(deviceName) {
 //
 exports.turnLightOn = function(experimentalLightID) {
 
+	deviceID = indicatorToLagartoID['indicator1'];
+	functionID = indicatorFunctionToLagartoDotReference[experimentalLightID];
+	deviceAndFunctionID = deviceID + '.' + functionID;
+	value = 'true'; //or perhaps off / on ??
+
+
 	// Sent command to Lagarto
-	request('http://127.0.0.1:8001/values?id=7.11.0&value=true', function (error, response, body) {
+	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         console.log("Sent")
       }
@@ -227,10 +237,16 @@ exports.turnLightOn = function(experimentalLightID) {
 
 };
 
-exports.turnLightsOff = function() {
+exports.turnLightOff = function(experimentalLightID) {
+
+	deviceID = indicatorToLagartoID['indicator1'];
+	functionID = indicatorFunctionToLagartoDotReference[experimentalLightID];
+	deviceAndFunctionID = deviceID + '.' + functionID;
+	value = 'false'; //or perhaps off / on ??
+
 
 	// Sent command to Lagarto
-	request('http://127.0.0.1:8001/values?id=7.11.0&value=true', function (error, response, body) {
+	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         console.log("Sent")
       }

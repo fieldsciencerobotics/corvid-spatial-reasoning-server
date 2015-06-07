@@ -151,9 +151,9 @@ var experiment = new machina.Fsm( {
 
             },
 
-            lightsOff: function() {
+            lightsOff: function(lightID) {
                 console.log("turn lights off");
-                lagarto.turnLightsOff();
+                lagarto.turnLightOff();
 
             },
 
