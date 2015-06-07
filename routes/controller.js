@@ -459,7 +459,7 @@ var experiment = new machina.Fsm( {
     },
 
     lightOff: function(lightID) {
-        console.log("lightsOff API");
+        console.log("lightOff API");
         this.handle( "lightOff", lightID);
     },
 

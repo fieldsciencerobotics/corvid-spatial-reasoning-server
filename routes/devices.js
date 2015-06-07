@@ -228,6 +228,7 @@ exports.dropMeat = function(deviceName) {
 	value = 'true';
 
 	console.log("Dropping Meat on: ", deviceName);
+	console.log("Which mapped onto: ", deviceAndFunctionID);
 
 	// Sent command to Lagarto
 	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {

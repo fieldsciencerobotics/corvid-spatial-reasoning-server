@@ -77,18 +77,18 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // Data Values (To be factored out and retrived from the server)
     // =========================================================================
 
-    $scope.lights = [{'id': 1, 'on': true, 'colour': 'yellow'}, 
-                    {'id': 2, 'on': true, 'colour': 'yellow'}, 
-                    {'id': 3, 'on': true, 'colour': 'yellow'}, 
-                    {'id': 4, 'on': true, 'colour': 'yellow'}, 
-                    {'id': 5, 'on': true, 'colour': 'yellow'}, 
-                    {'id': 6, 'on': true, 'colour': 'yellow'}, 
-                    {'id': 7, 'on': true, 'colour': 'yellow'}, 
-                    {'id': 8, 'on': true, 'colour': 'yellow'}, 
-                    {'id': 9, 'on': true, 'colour': 'yellow'}, 
-                    {'id': 10, 'on': true, 'colour': 'yellow'}];
+    $scope.lights = [{'id': 1, 'on': false, 'colour': 'black'}, 
+                    {'id': 2, 'on': false, 'colour': 'black'}, 
+                    {'id': 3, 'on': false, 'colour': 'black'}, 
+                    {'id': 4, 'on': false, 'colour': 'black'}, 
+                    {'id': 5, 'on': false, 'colour': 'black'}, 
+                    {'id': 6, 'on': false, 'colour': 'black'}, 
+                    {'id': 7, 'on': false, 'colour': 'black'}, 
+                    {'id': 8, 'on': false, 'colour': 'black'}, 
+                    {'id': 9, 'on': false, 'colour': 'black'}, 
+                    {'id': 10, 'on': false, 'colour': 'black'}];
 
-    $scope.feeders = [{'id': 1, 'connected': true, 'colour': 'green', 'perch-colour': 'black' }, 
+    $scope.feeders = [{'id': 1, 'connected': true, 'colour': 'red', 'perch-colour': 'black' }, 
                     {'id': 2, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
                     {'id': 3, 'connected': true, 'colour': 'red', 'perch-colour': 'black'  },
                     {'id': 4, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
