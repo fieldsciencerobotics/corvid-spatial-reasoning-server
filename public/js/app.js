@@ -77,16 +77,16 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // Data Values (To be factored out and retrived from the server)
     // =========================================================================
 
-    $scope.lights = [{'on': true, 'colour': 'yellow'}, 
-                    {'on': true, 'colour': 'yellow'}, 
-                    {'on': true, 'colour': 'yellow'}, 
-                    {'on': true, 'colour': 'yellow'}, 
-                    {'on': true, 'colour': 'yellow'}, 
-                    {'on': true, 'colour': 'yellow'}, 
-                    {'on': true, 'colour': 'yellow'}, 
-                    {'on': true, 'colour': 'yellow'}, 
-                    {'on': true, 'colour': 'yellow'}, 
-                    {'on': true, 'colour': 'yellow'}];
+    $scope.lights = [{'id': 1, 'on': true, 'colour': 'yellow'}, 
+                    {'id': 2, 'on': true, 'colour': 'yellow'}, 
+                    {'id': 3, 'on': true, 'colour': 'yellow'}, 
+                    {'id': 4, 'on': true, 'colour': 'yellow'}, 
+                    {'id': 5, 'on': true, 'colour': 'yellow'}, 
+                    {'id': 6, 'on': true, 'colour': 'yellow'}, 
+                    {'id': 7, 'on': true, 'colour': 'yellow'}, 
+                    {'id': 8, 'on': true, 'colour': 'yellow'}, 
+                    {'id': 9, 'on': true, 'colour': 'yellow'}, 
+                    {'id': 10, 'on': true, 'colour': 'yellow'}];
 
     $scope.feeders = [{'id': 1, 'connected': true, 'colour': 'green', 'perch-colour': 'black' }, 
                     {'id': 2, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
@@ -135,29 +135,31 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     }
 
     // Drop meat
-    $scope.freeFormDropMeat = function(feeder) {
+    $scope.freeFormDropMeat = function(feederId) {
         //feeder.colour = 'green';
         //$scope.resetColour(feeder);
-        $scope.sendToServerDropMeat(1);
+        $scope.sendToServerDropMeat(feederId);
     }
 
     // Toggle Ligh
-    $scope.lightSwitch = function (light) {
+    $scope.freeFormLightToggle = function (light) {
         if(light.on == true){
             light.on = false;
             light.colour = 'black';
+            $scope.freeFormTurnOffLight(light.id);
         } else {
             light.on = true;
             light.colour = 'yellow';
+            $scope.freeFormTurnOnLight(light.id);
         }
     }
 
-    $scope.freeFormTurnOnLight = function(light) {
-        $scope.sendToServerTurnLightOn(light);
+    $scope.freeFormTurnOnLight = function(lightId) {
+        $scope.sendToServerTurnLightOn(lightId);
     }
 
-    $scope.freeFormTurnOffLight = function(light) {
-        $scope.sendToServerTurnLightOff(light);
+    $scope.freeFormTurnOffLight = function(lightId) {
+        $scope.sendToServerTurnLightOff(lightId);
     }
 
     // Simulate Perch event of node 2 - only used for testing
