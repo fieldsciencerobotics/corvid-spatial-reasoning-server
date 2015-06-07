@@ -261,6 +261,7 @@ exports.turnLightOn = function(experimentalLightID) {
 	value = 'true'; //or perhaps off / on ??
 
 	console.log("Turning Light on: ", experimentalLightID);
+	console.log("Which mapped onto: ", deviceAndFunctionID);
 
 	// Sent command to Lagarto
 	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {
@@ -279,6 +280,7 @@ exports.turnLightOff = function(experimentalLightID) {
 	value = 'false'; //or perhaps off / on ??
 
 	console.log("Turning Light off on: ", experimentalLightID);
+	console.log("Which mapped onto: ", deviceAndFunctionID);
 
 	// Sent command to Lagarto
 	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {
