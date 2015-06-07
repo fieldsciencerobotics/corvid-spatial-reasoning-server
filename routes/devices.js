@@ -16,12 +16,19 @@ var request = require('request');
 // Not to be confussed with the experimental node ID, which will be unique to the arrangement of each session
 
 // Feeder Devices
-var feederNameToLagartoID = {'7': 'a', '0': 'b', '0': 'c', '0': 'd', '0': 'e',
+var lagartoIDtofeederName = {'7': 'a', '0': 'b', '0': 'c', '0': 'd', '0': 'e',
 							'0': 'f', '0': 'g', '0': 'h', '0': 'i', '0': 'j'};
-var feederFunctionToLagartoDotReference = {'11.0': 'dropMeat', '0': 'perchEvent', '0': 'event'}; // battery, reset etc etc etc
+
+var feederNameToLagartoID = {'a': '7', 'b': '0', 'c': '0', 'd': '0', 'e': '0',
+							'f': '0', 'g': '0', 'h': '0', 'i': '0', 'j': '0'};
+
+var lagartoDotReferenceToFeederFunction = {'11.0': 'dropMeat', '0': 'perchEvent', '0': 'event'}; // battery, reset etc etc etc
+
+var feederFunctionToLagartoDotReference = {'dropMeat': '11.0', 'perchEvent': '0', 'event': '0'}; // battery, reset etc etc etc
+
 
 // Indicator device
-var indicatorToLagartoID = {'name': 'indicator1', 'lagartoID': '0'};
+var indicatorToLagartoID = {'indicator1': '0'};
 var indicatorFunctionToLagartoDotReference = {'1': '0', '2': '0', '3': '0', '4': '0', '5': '0', '6': '0',
 											  '7': '0', '8': '0', '9': '0', '10': '0',};
 
@@ -223,7 +230,7 @@ exports.dropMeat = function(deviceName) {
 
 	// map device name, and the function to below
 	deviceID = feederNameToLagartoID[deviceName];
-	functionID = feederFunctionToLagartoDotReference.dropMeat; //maps to 11.0
+	functionID = feederFunctionToLagartoDotReference['dropMeat']; //maps to 11.0
 	deviceAndFunctionID = deviceID + '.' + functionID;
 	value = 'true';
 
