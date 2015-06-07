@@ -410,8 +410,9 @@ var experiment = new machina.Fsm( {
     },
     // External Facing API
 
-    initializeDevices: function() {
+    initializeDevices: function(newDeviceMapping) {
         console.log("initialize API");
+        experiment.setDeviceMapping(newDeviceMapping);
         this.handle( "initialize" );
     },
 
@@ -499,7 +500,11 @@ var experiment = new machina.Fsm( {
     },
 
     getDeviceMapping: function() {
-        return data.getDeviceMapping();
+        return expNodeToDeviceName;
+    }
+
+    setDeviceMapping: function(newDeviceMapping) {
+        expNodeToDeviceName = newDeviceMapping;
     }
 
 } );

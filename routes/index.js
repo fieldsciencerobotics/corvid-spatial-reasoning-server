@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 
 /* Control Flow Routes */
 router.post('/control/initialize', function(req, res, next) {
-  controller.experiment.initializeDevices();
+  controller.experiment.initializeDevices(req.body.newDeviceMapping);
   res.send('Initialized');
 });
 

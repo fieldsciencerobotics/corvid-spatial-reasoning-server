@@ -116,7 +116,11 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.initialize = function() {
         //feeder.colour = 'green';
         //$scope.resetColour(feeder);
-        $scope.sendToServerInitialize();
+
+        $scope.newDeviceMapping = {'1': 'a', '2': 'b', '3': 'c', '4': 'd', '5': 'e',
+                            '6': 'f', '7': 'g', '8': 'h', '9': 'i', '10': 'j'};
+
+        $scope.sendToServerInitialize($scope.newDeviceMapping);
     }
 
     //
@@ -420,11 +424,11 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // 
 
     //INITIALIZE: Used to initialize the workbench, primarily selection the available feeders for use
-    $scope.sendToServerInitialize = function() {
+    $scope.sendToServerInitialize = function(newDeviceMapping) {
         $http({
             url: '/control/initialize',
             method: "POST",
-            data: angular.toJson([{'id': 2}]),
+            data: angular.toJson({'newDeviceMapping': newDeviceMapping}),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
