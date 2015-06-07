@@ -34,8 +34,8 @@ var trialGenerator = function() {
     // Filled from the stage object
     stageID = currentStage.name;
     timeoutValue = stage.autoEndTime;
-    delayValue = stage.delay;
-    timeOutLeadsToFail = stage.autoEnd;
+    delayValue = currentStage.delay;
+    timeOutLeadsToFail = currentStage.autoEnd;
 
     birdID = currentBirdID;
     initialTrialID = data.getNextTrialID(bird, stage); // currently will always return 1
@@ -52,8 +52,8 @@ var trialGenerator = function() {
         //    availableFeeders.push(i);
         //}
 
-        for (var i=0; i <= stage.feeders.length; i++) {
-            if (stage.feeders[i] = true) {
+        for (var i=0; i <= currentStage.feeders.length; i++) {
+            if (currentStage.feeders[i] = true) {
                 availableFeeders.push(i);
             }
         }
@@ -517,6 +517,10 @@ var experiment = new machina.Fsm( {
 
     getTrialsOfBirdInStage: function(birdID, stageID) {
         return data.getTrialsOfBirdInStage(birdID, stageID);
+    },
+
+    getCurrentBatteryLife: function() {
+        return lagarto.getCurrentBatteryLife();
     },
 
 } );
