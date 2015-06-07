@@ -191,9 +191,18 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
     // New Stage
     $scope.newStage = function(newStage) {
-        $scope.sendToServerAddNewStage(newStage);
-        // add new stage to the existing list
-        //$scope.existingStages.push(newStage);
+
+        newStageToSend = []
+
+        for (var i=1; i <= 10; i++) {
+            if (newStage[i] == true) {
+                newStageToSend[i] = true;
+            } else {
+                newStageToSend[i] = false;
+            }
+        }
+
+        $scope.sendToServerAddNewStage(newStageToSend);
     }
 
     $scope.leaderBoard = {};
