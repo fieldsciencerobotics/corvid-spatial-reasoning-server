@@ -241,6 +241,7 @@ var experiment = new machina.Fsm( {
             _onEnter: function(randomNumber) {
                 console.log("In trial ", currentTrialNum);
                 currentBlock[currentTrialNum].startTime = new Date().getTime();
+                lagarto.turnLightOn(currentBlock[currentTrialNum].intended);
                 //console.log("passed through number", randomNumber);
 
                 this.timer = setTimeout( function() {
@@ -254,6 +255,8 @@ var experiment = new machina.Fsm( {
                 currentBlock[currentTrialNum].totalTime = currentBlock[currentTrialNum].endTime - currentBlock[currentTrialNum].startTime
                 currentBlock[currentTrialNum].actual = 'timeout';
                 currentBlock[currentTrialNum].success = false;
+
+                lagarto.turnLightOff(currentBlock[currentTrialNum].intended);
 
                 console.log(currentBlock[currentTrialNum]);
 
@@ -291,6 +294,8 @@ var experiment = new machina.Fsm( {
                 currentBlock[currentTrialNum].totalTime = currentBlock[currentTrialNum].endTime - currentBlock[currentTrialNum].startTime
                 
                 currentBlock[currentTrialNum].actual = perchID;
+
+                lagarto.turnLightOff(currentBlock[currentTrialNum].intended);
 
                 if (currentBlock[currentTrialNum].intended == currentBlock[currentTrialNum].actual) {
                     currentBlock[currentTrialNum].success = true;
