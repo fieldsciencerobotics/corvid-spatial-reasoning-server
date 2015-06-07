@@ -149,7 +149,7 @@ Experiments Tab
 	<!-- Running Experiment-->
 	<div id="runningExperiment" ng-show="currentExperimentStage[2]">
 		<div class="progress">
-			<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{progressBarCurrent}}" aria-valuemin="0" aria-valuemax="{{progressBarTotal}}" > <!-- style="width: 60%;" -->
+			<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{progressBarCurrent}}" aria-valuemin="0" aria-valuemax="{{progressBarTotal}}" style="width: {{ (progressBarCurrent / progressBarTotal * 100) }}%;" > 
 				{{progressBarCurrent}} / {{progressBarTotal}}
 			</div>
 		</div>
