@@ -66,7 +66,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     }
 
     // In the data tab: what data is currently being explored
-    $scope.currentDataBeingExplored = [true, false]; // (leaderboard, or specific bird)
+    $scope.currentDataBeingExplored = [false, true]; // (leaderboard, or specific bird)
 
     $scope.dataExploreSelect = function(stage) {
         $scope.currentDataBeingExplored = [false, false];
@@ -216,6 +216,14 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
     $scope.updateCurrentBirdStageTrials = function(birdID, stageID){
         $scope.sendToServerGetTrialsOfBirdInStage(birdID, stageID);
+    }
+
+
+    $scope.dataExploreChangeToBird = function(birdID) {
+
+        // send to server get bird data
+
+        // update the table drawing function
     }
 
 
