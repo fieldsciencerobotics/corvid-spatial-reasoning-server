@@ -294,7 +294,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $scope.sendToServerStartExperimentalSession(parseInt($scope.numOfTrials.num));
 
         $scope.progressBarTotal = $scope.numOfTrials.num;
-        
+
         // Reset the number of trials value
         $scope.numOfTrials = {};
 
@@ -426,7 +426,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             totalNumberOfTrials = $scope.currentBlock.length;
             completedNumberOfTrials = 0;
 
-            for (var i=0; i <= $scope.currentBlock.length; i++) {
+            for (var i=0; i < $scope.currentBlock.length; i++) {
                 if ($scope.currentBlock[i].success != null) {
                     completedNumberOfTrials = completedNumberOfTrials + 1;
                 }
