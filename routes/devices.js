@@ -264,7 +264,7 @@ exports.turnLightOn = function(experimentalLightID) {
 	// Sent command to Lagarto
 	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        console.log("Sent")
+        console.log("Sent turn ligh on command")
       }
     })
 
@@ -282,7 +282,7 @@ exports.turnLightOff = function(experimentalLightID) {
 	// Sent command to Lagarto
 	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        console.log("Sent")
+        console.log("Sent turn light off command")
       }
     })
 

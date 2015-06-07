@@ -319,16 +319,17 @@ var experiment = new machina.Fsm( {
                     lagarto.dropMeat(deviceNameID);
 
                     // If finished, go to ended session, not session
-                    if (currentTrialNum+1 < currentBlock.length) {
+                    if (currentTrialNum+1 > currentBlock.length) {
                         this.transition('endedSession');
+                    } else {
+                        // Log the trial outcome
+                        data.logTrial(currentBlock[currentTrialNum]);
+
+                        currentTrialNum = currentTrialNum + 1;
+                        this.transition('session');
                     }
-                    // else
 
-                    // Log the trial outcome
-                    data.logTrial(currentBlock[currentTrialNum]);
-
-                    currentTrialNum = currentTrialNum + 1;
-                    this.transition('session');
+                    
                 } else {
                     currentBlock[currentTrialNum].success = false;
                     console.log(currentBlock[currentTrialNum]);
