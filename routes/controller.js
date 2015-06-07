@@ -37,16 +37,23 @@ var trialGenerator = function() {
     initialTrialID = data.getNextTrialID(bird, stage); // currently will always return 1
     numOfTrials = currentNumOfTrials;
 
-    // this is where the extra information from the stage object should go
-    numOfAvailableFeeders = 5;
-    availableFeeders = []; //stages.feeders;
-
     
-    // assume only using 5 feeders for now, and this will be later replace with directly passing in stage.feeders
+    availableFeeders = [];
+    
+    // take only the selected feeders to add to the bucket
     function fillBucket() {
-        for (var i=1;i<=numOfAvailableFeeders;i++) {
-            availableFeeders.push(i);
+        
+        // Old method - kept for bug checking
+        //for (var i=1;i<=numOfAvailableFeeders;i++) {
+        //    availableFeeders.push(i);
+        //}
+
+        for (var i=0; i <= stage.feeders.length; i++) {
+            if (stage.feeders[i] = true) {
+                availableFeeders.push(i);
+            }
         }
+        numOfAvailableFeeders = availableFeeders.length;
     }
 
     // Will be replaced with recopying the initital stage.feeders
