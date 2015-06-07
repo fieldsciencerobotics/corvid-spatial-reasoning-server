@@ -222,6 +222,10 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     //
 
 
+    //For displaying the progress bar
+    $scope.progressBarTotal = 0;
+    $scope.progressBarCurrent = 0;
+
     // Timer methods to poll for progress during experiment
     $scope.progressPoller = null;
 
@@ -270,6 +274,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         // Reset the values
         $scope.selectedBird = {};
         $scope.selectedStage = {};
+        $scope.progressBarTotal = 0;
+        $scope.progressBarCurrent = 0;
         // Change the View
         $scope.experimentStageSelect(1);
     }
@@ -286,6 +292,9 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.startSession = function() {
         // Notify the server
         $scope.sendToServerStartExperimentalSession(parseInt($scope.numOfTrials.num));
+
+        $scope.progressBarTotal = $scope.numOfTrials.num;
+        
         // Reset the number of trials value
         $scope.numOfTrials = {};
 
@@ -413,10 +422,22 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
             //Method to determine progress
 
-            //if (progressComplete == true) {
-                //$scope.experimentRunning[false, true];
-                //$scope.stopProgressPoller();
-            //}
+            
+            totalNumberOfTrials = $scope.currentBlock.length;
+            completedNumberOfTrials = 0;
+
+            for (var i=0; i <= $scope.currentBlock.length; i++) {
+                if ($scope.currentBlock[i].success != null) {
+                    completedNumberOfTrials = completedNumberOfTrials + 1;
+                }
+            }
+
+            $scope.progressBarCurrent = completedNumberOfTrials;
+
+            if (completedNumberOfTrials == totalNumberOfTrials) {
+                $scope.experimentRunning[false, true];
+                $scope.stopProgressPoller();
+            }
             
 
         }).error(function (data, status, headers, config) {
