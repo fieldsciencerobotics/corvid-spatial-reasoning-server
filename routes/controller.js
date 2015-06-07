@@ -13,6 +13,10 @@ var delayValue = 0;
 var currentBirdID = "";
 var currentStage = null;
 
+
+var expNodeToDeviceName = {'1': 'a', '2': 'b', '3': 'c', '4': 'd', '5': 'e',
+                            '6': 'f', '7': 'g', '8': 'h', '9': 'i', '10': 'j'};
+
 // reset all values
 var resetAllValues = function() {
     currentBirdID = 0;
@@ -137,9 +141,8 @@ var experiment = new machina.Fsm( {
             dropMeat: function(feederID) {
                 console.log(feederID);
 
-                // Transform experimental Feeder ID into the actual device ID
-                // Curently hardcoded to go to 'a', but this should be a table lookup
-                deviceNameID = 'a';
+                // Transform experimental Feeder ID into the actual device Name
+                deviceNameID = expNodeToDeviceName[feederID];
 
                 lagarto.dropMeat(deviceNameID);
             },
@@ -151,9 +154,9 @@ var experiment = new machina.Fsm( {
 
             },
 
-            lightsOff: function(lightID) {
+            lightOff: function(lightID) {
                 console.log("turn lights off");
-                lagarto.turnLightOff();
+                lagarto.turnLightOff(lightID);
 
             },
 
@@ -305,9 +308,8 @@ var experiment = new machina.Fsm( {
 
                     // feederID is the same as the perchID, as they are the same device
 
-                    // Transform experimental Feeder ID into the actual device ID
-                    // Curently hardcoded to go to 'a', but this should be a table lookup
-                    deviceNameID = 'a';
+                    // Transform experimental Feeder ID into the actual device Name
+                    deviceNameID = expNodeToDeviceName[currentBlock[currentTrialNum].intended];
 
                     // Drop the Meat
                     lagarto.dropMeat(deviceNameID);
@@ -438,10 +440,10 @@ var experiment = new machina.Fsm( {
         this.handle( "wrapUpSession", note);
     },
 
+    // FreeForm Action Methods
     dropMeat: function(feederID) {
         console.log("dropMeat API", feederID);
         this.handle("dropMeat", feederID);
-        //lagarto.sendMessage();
     },
 
     lightOn: function(lightID) {
@@ -449,9 +451,9 @@ var experiment = new machina.Fsm( {
         this.handle("lightOn", lightID);
     },
 
-    lightsOff: function() {
+    lightOff: function(lightID) {
         console.log("lightsOff API");
-        this.handle( "lightsOff" );
+        this.handle( "lightOff", lightID);
     },
 
     perchEvent: function(perchID) {
