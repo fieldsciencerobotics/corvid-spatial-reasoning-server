@@ -192,17 +192,17 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // New Stage
     $scope.newStage = function(newStage) {
 
-        newStageToSend = []
+        newFeeders = []
 
         for (var i=1; i <= 10; i++) {
-            if (newStage[i] == true) {
-                newStageToSend[i] = true;
+            if (newStage.feeders[i] == true) {
+                newFeeders[i] = true;
             } else {
-                newStageToSend[i] = false;
+                newFeeders[i] = false;
             }
         }
-
-        $scope.sendToServerAddNewStage(newStageToSend);
+        newStage.feeders = newFeeders;
+        $scope.sendToServerAddNewStage(newStage);
     }
 
     $scope.leaderBoard = {};
