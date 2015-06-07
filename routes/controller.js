@@ -38,7 +38,7 @@ var trialGenerator = function() {
     timeOutLeadsToFail = currentStage.autoEnd;
 
     birdID = currentBirdID;
-    initialTrialID = data.getNextTrialID(bird, stage); // currently will always return 1
+    initialTrialID = data.getNextTrialID(birdID, stageID); // currently will always return 1
     numOfTrials = currentNumOfTrials;
 
     
