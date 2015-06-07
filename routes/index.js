@@ -20,7 +20,7 @@ router.post('/control/initialize', function(req, res, next) {
 });
 
 router.post('/control/startExperiment', function(req, res, next) {
-  controller.experiment.startExperiment(req.body.birdID, req.body.stageID);
+  controller.experiment.startExperiment(req.body.birdID, req.body.stage);
   res.send('Experiment Started');  
 });
 

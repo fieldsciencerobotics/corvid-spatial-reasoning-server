@@ -5,32 +5,43 @@ var data = require('./data');
 
 // Global Variables to the experiment
 var currentBlock = [];
+var currentNumOfTrials = 0;
 var currentTrialNum = 0;
+var timeOutLeadsToFail = false;
 var timeoutValue = 0;
 var delayValue = 0;
 var currentBirdID = "";
-var currentStageID = "";
+var currentStage = null;
 
 // reset all values
 var resetAllValues = function() {
     currentBirdID = 0;
-    currentStageID = 0;
+    currentStage = null;
+    currentNumOfTrials = 0;
     currentBlock = [];
     currentTrialNum = 0;
     timeoutValue = 0;
+    timeOutLeadsToFail = false;
     delayValue = 0;
 }
 
-var trialGenerator = function(bird, stage, numOfTrials) {
+var trialGenerator = function() {
 
-    stageID = stage;
-    // this is where the extra information from the stage object should go
-    birdID = bird;
+    // Filled from the stage object
+    stageID = currentStage.name;
+    timeoutValue = stage.autoEndTime;
+    delayValue = stage.delay;
+    timeOutLeadsToFail = stage.autoEnd;
+
+    birdID = currentBirdID;
     initialTrialID = data.getNextTrialID(bird, stage); // currently will always return 1
-    numOfTrials = numOfTrials;
+    numOfTrials = currentNumOfTrials;
+
+    // this is where the extra information from the stage object should go
     numOfAvailableFeeders = 5;
     availableFeeders = []; //stages.feeders;
 
+    
     // assume only using 5 feeders for now, and this will be later replace with directly passing in stage.feeders
     function fillBucket() {
         for (var i=1;i<=numOfAvailableFeeders;i++) {
@@ -139,11 +150,9 @@ var experiment = new machina.Fsm( {
 
             },
 
-            startExperiment: function(birdID, stageID) {
+            startExperiment: function(birdID, stage) {
                 currentBirdID = birdID;
-                currentStageID = stageID;
-                timeoutValue = 8000;
-                delayValue = 3000;
+                currentStage = stage;
                 this.transition( "experiment" );
 
             },
@@ -168,14 +177,8 @@ var experiment = new machina.Fsm( {
             },
 
             startSession: function(numOfTrials) {
-                currentBlock = trialGenerator(currentBirdID, currentStageID, numOfTrials);
-
-                // for printing the generated results
-                //for (var i=0; i < currentBlock.length; i++){
-                    //console.log(currentBlock[i].trialID + " " + currentBlock[i].intended);
-                    //console.log(currentBlock[i]);
-                //}
-
+                currentNumOfTrials = numOfTrials;
+                currentBlock = trialGenerator();
                 this.transition( "session" );
 
             },
@@ -243,9 +246,26 @@ var experiment = new machina.Fsm( {
                 currentBlock[currentTrialNum].endTime = new Date().getTime();
                 currentBlock[currentTrialNum].totalTime = currentBlock[currentTrialNum].endTime - currentBlock[currentTrialNum].startTime
                 currentBlock[currentTrialNum].actual = 'timeout';
+                currentBlock[currentTrialNum].success = false;
 
                 console.log(currentBlock[currentTrialNum]);
-                this.transition( "failedSession" );
+
+                if (timeOutLeadsToFail) {
+                    this.transition( "failedSession" );
+                } else {
+                    // Carry on with the block
+                    // If finished, go to ended session, not session
+                    if (currentTrialNum+1 < currentBlock.length) {
+                        this.transition('endedSession');
+                    }
+                    //else 
+
+                    // Log the trial outcome
+                    data.logTrial(currentBlock[currentTrialNum]);
+                    currentTrialNum = currentTrialNum + 1;
+                    this.transition('session');
+                }
+                
             },
 
             "*": function() {
@@ -381,9 +401,9 @@ var experiment = new machina.Fsm( {
         this.handle( "initialize" );
     },
 
-    startExperiment: function(birdID, stageID) {
-        console.log("startExperiment API", birdID, stageID);
-        this.handle("startExperiment", birdID, stageID);
+    startExperiment: function(birdID, stage) {
+        console.log("startExperiment API", birdID, stage);
+        this.handle("startExperiment", birdID, stage);
     },
 
     cancelExperiment: function() {

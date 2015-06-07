@@ -215,7 +215,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // Start Experiment
     $scope.startExperiment = function() {
         // Notify the server
-        $scope.sendToServerStartExperiment($scope.selectedBird.id.id, $scope.selectedStage.id.name); 
+        $scope.sendToServerStartExperiment($scope.selectedBird.id.id, $scope.selectedStage.id); 
         // Reset the values
         $scope.selectedBird = {};
         $scope.selectedStage = {};
@@ -430,7 +430,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $http({
             url: '/control/startExperiment',
             method: "POST",
-            data: angular.toJson({'birdID': bird, 'stageID': stage}),
+            data: angular.toJson({'birdID': bird, 'stage': stage}),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
