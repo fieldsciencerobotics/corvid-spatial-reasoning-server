@@ -196,7 +196,6 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         //$scope.existingStages.push(newStage);
     }
 
-
     $scope.leaderBoard = {};
     $scope.currentBirdStageTrials = {};
 
@@ -228,6 +227,25 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.stopProgressPoller = function() {
         clearInterval($scope.progressPoller);
     }
+
+
+    // Timer methods to poll for battery life updates
+    $scope.batteryPoller = null;
+    $scope.currentBatteryLevels = [];
+
+    $scope.startBatteryPoller = function() {
+        $scope.batteryPoller = setInterval(function(){ $scope.queryBattery() }, 120000); // 2 mins (I think)
+    }
+
+    $scope.queryBattery = function() {
+        $scope.sendToServerGetCurrentBatteryLife();
+    }
+
+    $scope.stopBatteryPoller = function() {
+        clearInterval($scope.batteryPoller);
+    }
+
+
 
     $scope.selectedBird = {};
     $scope.selectedStage = {};
@@ -584,9 +602,22 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         });
     };
 
+    //GET CURRENT BATTERY LIFES: Used to retrieve the battery levels
+    $scope.sendToServerGetCurrentBatteryLife = function() {
+        $http({
+            url: '/data/getCurrentBatteryLife',
+            method: "POST",
+            data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            $scope.currentBatteryLevels = data;
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
 
-
-
+    
 
 
     //

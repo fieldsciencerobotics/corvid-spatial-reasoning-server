@@ -112,5 +112,12 @@ router.post('/data/getLeaderBoard', function(req, res, next) {
   res.send(leadBoard);
 });
 
+router.post('/data/getCurrentBatteryLife', function(req, res, next) {
+  currentBatteryLife = controller.experiment.getCurrentBatteryLife();
+  res.send(currentBatteryLife);
+});
+
+
+
 // Exports the Routes to the App
 module.exports = router;

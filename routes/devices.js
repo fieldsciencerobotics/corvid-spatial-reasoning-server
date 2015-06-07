@@ -209,6 +209,13 @@ exports.getDevices = function() {
 };
 
 
+exports.getBatteryLife = function() {
+
+	// return all the remaining battery lifes 
+	// do some in an arrary like
+	return currentBattery = [1,1,1,1,1,1,1,1,1,1];
+}
+
 //
 // Meat Events
 //

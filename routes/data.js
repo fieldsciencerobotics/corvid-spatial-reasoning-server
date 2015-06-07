@@ -113,11 +113,11 @@ exports.getStages = function() {
 
 
 exports.getLeaderBoard = function() {
-	return {};
+	return {'birdies': 'data'};
 }
 
 exports.getTrialsOfBirdInStage = function(birdID, stageID) {
-	return {};
+	return {'specificBird': 'data'};
 }
 
 
