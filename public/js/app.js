@@ -197,6 +197,18 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     }
 
 
+    $scope.leaderBoard = {};
+    $scope.currentBirdStageTrials = {};
+
+    $scope.getLeaderBoard = function() {
+        $scope.sendToServerGetLeaderBoard();
+    }
+
+    $scope.updateCurrentBirdStageTrials = function(birdID, stageID){
+        $scope.sendToServerGetTrialsOfBirdInStage(birdID, stageID);
+    }
+
+
     //
     // Experiments
     //
@@ -542,6 +554,35 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         });
     };
 
+    //GET BIRD's TRIALS IN STAGE: Used to retrieve all of a birds trials in a particular stage
+    $scope.sendToServerGetTrialsOfBirdInStage = function(birdID, stageID) {
+        $http({
+            url: '/data/getTrialsOfBirdInStage',
+            method: "POST",
+            data: angular.toJson({'birdID': birdID, 'stageID': stageID}),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            $scope.currentBirdStageTrials = data;
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+    //GET LEADERBOARD: Used to retrieve the leaderboard
+    $scope.sendToServerGetLeaderBoard = function() {
+        $http({
+            url: '/data/getLeaderBoard',
+            method: "POST",
+            data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            $scope.leaderBoard = data;
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
 
 
 

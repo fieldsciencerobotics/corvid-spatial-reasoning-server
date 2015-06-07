@@ -110,3 +110,14 @@ exports.getStages = function() {
 	//});
 	return existingStages
 }
+
+
+exports.getLeaderBoard = function() {
+	return {};
+}
+
+exports.getTrialsOfBirdInStage = function(birdID, stageID) {
+	return {};
+}
+
+

@@ -296,6 +296,10 @@ var experiment = new machina.Fsm( {
                 currentBlock[currentTrialNum].endTime = new Date().getTime();
                 currentBlock[currentTrialNum].totalTime = currentBlock[currentTrialNum].endTime - currentBlock[currentTrialNum].startTime
                 
+
+
+
+                // Mapping from device ID to experimental ID required
                 currentBlock[currentTrialNum].actual = perchID;
 
                 lagarto.turnLightOff(currentBlock[currentTrialNum].intended);
@@ -501,11 +505,19 @@ var experiment = new machina.Fsm( {
 
     getDeviceMapping: function() {
         return expNodeToDeviceName;
-    }
+    },
 
     setDeviceMapping: function(newDeviceMapping) {
         expNodeToDeviceName = newDeviceMapping;
-    }
+    },
+
+    getLeaderBoard: function() {
+        return data.getLeaderBoard();
+    },
+
+    getTrialsOfBirdInStage: function(birdID, stageID) {
+        return data.getTrialsOfBirdInStage(birdID, stageID);
+    },
 
 } );
 

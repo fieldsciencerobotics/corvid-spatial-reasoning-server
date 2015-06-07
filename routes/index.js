@@ -102,5 +102,15 @@ router.post('/data/getDeviceMapping', function(req, res, next) {
   res.send(mapping);
 });
 
+router.post('/data/getTrialsOfBirdInStage', function(req, res, next) {
+  trials = controller.experiment.getTrialsOfBirdInStage(req.body.birdID, req.body.stageID);
+  res.send(trials);
+});
+
+router.post('/data/getLeaderBoard', function(req, res, next) {
+  leadBoard = controller.experiment.getLeaderBoard();
+  res.send(leadBoard);
+});
+
 // Exports the Routes to the App
 module.exports = router;
