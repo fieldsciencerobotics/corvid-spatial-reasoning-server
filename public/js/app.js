@@ -435,7 +435,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             $scope.progressBarCurrent = completedNumberOfTrials;
 
             if (completedNumberOfTrials == totalNumberOfTrials) {
-                $scope.experimentRunning[false, true];
+                $scope.experimentRunning = [false, true];
                 $scope.stopProgressPoller();
             }
             
