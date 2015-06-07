@@ -266,12 +266,10 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     }
 
     // Completed Wrapup
-    $scope.finishWrapup = function(notes) {
+    $scope.finishWrapup = function(note) {
         
         // Notify the Server
-        $scope.sendToServerWrapUpExperiment();
-
-        // To-DO:
+        $scope.sendToServerWrapUpExperiment(note);
 
         // Change the View
         $scope.experimentStageSelect(0);
@@ -362,8 +360,13 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             console.log(data);
             $scope.currentBlock = data;
 
-            //If finished ensure the correct UI is now shown
-            //$scope.experimentRunning?[false, true];
+            //Method to determine progress
+
+            //if (progressComplete == true) {
+                //$scope.experimentRunning?[false, true];
+                //$scope.stopProgressPoller();
+            //}
+            
 
         }).error(function (data, status, headers, config) {
             $scope.status = status + ' ' + headers;
@@ -480,11 +483,11 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
 
     //WRAP UP EXPERIMENTAL SESSION: Used to wrap up an experimental session
-    $scope.sendToServerWrapUpExperiment = function() {
+    $scope.sendToServerWrapUpExperiment = function(note) {
         $http({
             url: '/control/wrapUpSession',
             method: "POST",
-            data: angular.toJson([{'id': 2}]),
+            data: angular.toJson({'note': note}),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);

@@ -52,7 +52,7 @@ var trialGenerator = function(bird, stage, numOfTrials) {
     for (id=initialTrialID; id < initialTrialID + numOfTrials; id++) {
         block.push({'trialID': id, 'bird': birdID, 'stage': stageID, 
                         'intended': getRandomFromBucket(), 'actual': '', 'success': null, 
-                        'startTime': '', 'endTime': '', 'totalTime': '', 'videoFilePath': ''});
+                        'startTime': '', 'endTime': '', 'totalTime': '', 'videoFilePath': '', 'notes': ''});
         //console.log((id - initialTrialID + 1) % (numOfAvailableFeeders) == 0);
         if ((id - initialTrialID + 1) % (numOfAvailableFeeders) == 0) {
             //console.log(availableFeeders.length);
@@ -280,15 +280,26 @@ var experiment = new machina.Fsm( {
                     // Drop the Meat
                     lagarto.dropMeat(deviceNameID);
 
+                    // If finished, go to ended session, not session
+                    if (currentTrialNum+1 < currentBlock.length) {
+                        this.transition('endedSession');
+                    }
+                    // else
+
                     // Log the trial outcome
                     data.logTrial(currentBlock[currentTrialNum]);
-
 
                     currentTrialNum = currentTrialNum + 1;
                     this.transition('session');
                 } else {
                     currentBlock[currentTrialNum].success = false;
                     console.log(currentBlock[currentTrialNum]);
+
+                    // If finished, go to ended session, not session
+                    if (currentTrialNum+1 < currentBlock.length) {
+                        this.transition('endedSession');
+                    }
+                    //else 
 
                     // Log the trial outcome
                     data.logTrial(currentBlock[currentTrialNum]);
@@ -314,8 +325,12 @@ var experiment = new machina.Fsm( {
                 console.log("failed session!");
             }, 
 
-            wrapUpSession: function () {
+            wrapUpSession: function (note) {
                 console.log(currentBlock);
+
+                // Log the trial with the related note
+                currentBlock[currentTrialNum].notes = note;
+                data.logTrial(currentBlock[currentTrialNum]);
 
                 resetAllValues();
                 this.transition('freeForm');
@@ -336,8 +351,12 @@ var experiment = new machina.Fsm( {
                 console.log("Inside ended session");
             },
 
-            wrapUpSession: function () {
+            wrapUpSession: function (note) {
                 console.log(currentBlock);
+
+                // Log the trial with the related note
+                currentBlock[currentTrialNum].notes = note;
+                data.logTrial(currentBlock[currentTrialNum]);
 
                 resetAllValues();
                 this.transition('freeForm');
@@ -382,9 +401,9 @@ var experiment = new machina.Fsm( {
         this.handle( "endSession" );
     },
 
-    wrapUpSession: function() {
+    wrapUpSession: function(note) {
         console.log("wrapUpSession API");
-        this.handle( "wrapUpSession" );
+        this.handle( "wrapUpSession", note);
     },
 
     dropMeat: function(feederID) {
