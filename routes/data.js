@@ -12,10 +12,14 @@ var existingBirds = [
                     ];
 
 var existingStages = [
-                    {'name': 'training part one', 'desc': "This is training part one", 'delay': 20, 'autoEnd': false, 'autoEndTime': 180, 'feederArrangement': []},
-                    {'name': 'exp part one', 'desc': "This is experiment part one", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
-                    {'name': 'exp part two', 'desc': "This is experiment part two", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
-                    {'name': 'exp part three', 'desc': "This is experiment part three", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 'feederArrangement': []},
+                    {'name': 'first 5 feeders', 'desc': "This is training part one", 'delay': 20, 'autoEnd': false, 'autoEndTime': 180, 
+                    'feederArrangement': [true, true, true, true, true, false, false, false, false, false]},
+                    {'name': 'last 5 feeders', 'desc': "This is experiment part one", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 
+                    'feederArrangement': [false, false, false, false, false, true, true, true, true, true]},
+                    {'name': 'every second', 'desc': "This is experiment part two", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 
+                    'feederArrangement': [true, false, true, false, true, false, true, false, true, false]},
+                    {'name': 'first three', 'desc': "This is experiment part three", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 
+                    'feederArrangement': [true, true, true, false, false, false, false, false, false, false]},
                     ];
 
 var deviceMapping = [{nodeID: 1, deviceID: 7}, {nodeID: 2, deviceID: null}, {nodeID: 3, deviceID: null}, 

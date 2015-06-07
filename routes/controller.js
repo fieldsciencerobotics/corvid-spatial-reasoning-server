@@ -53,7 +53,7 @@ var trialGenerator = function() {
         //}
 
         for (var i=0; i <= currentStage.feeders.length; i++) {
-            if (currentStage.feeders[i] == true) {
+            if (currentStage.feeders[i+1] == true) {
                 availableFeeders.push(i);
             }
         }

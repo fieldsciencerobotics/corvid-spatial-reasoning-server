@@ -227,6 +227,8 @@ exports.dropMeat = function(deviceName) {
 	deviceAndFunctionID = deviceID + '.' + functionID;
 	value = 'true';
 
+	console.log("Dropping Meat on: ", deviceName);
+
 	// Sent command to Lagarto
 	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {
       if (!error && response.statusCode == 200) {
@@ -257,6 +259,7 @@ exports.turnLightOn = function(experimentalLightID) {
 	deviceAndFunctionID = deviceID + '.' + functionID;
 	value = 'true'; //or perhaps off / on ??
 
+	console.log("Turning Light on: ", experimentalLightID);
 
 	// Sent command to Lagarto
 	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {
@@ -274,6 +277,7 @@ exports.turnLightOff = function(experimentalLightID) {
 	deviceAndFunctionID = deviceID + '.' + functionID;
 	value = 'false'; //or perhaps off / on ??
 
+	console.log("Turning Light off on: ", experimentalLightID);
 
 	// Sent command to Lagarto
 	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {

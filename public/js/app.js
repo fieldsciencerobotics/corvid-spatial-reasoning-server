@@ -194,7 +194,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
         newFeeders = []
 
-        for (var i=1; i <= 10; i++) {
+        for (var i=0; i < 10; i++) {
             if (newStage.feeders[i] == true) {
                 newFeeders[i] = true;
             } else {
