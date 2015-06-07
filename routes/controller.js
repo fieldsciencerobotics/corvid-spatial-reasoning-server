@@ -209,6 +209,7 @@ var experiment = new machina.Fsm( {
                 if (currentTrialNum < currentBlock.length) {
                     // Delay before running next trial
                     console.log("Delaying Trial Start by:", delayValue);
+                    currentBlock[currentTrialNum].totalTime = "[Delayed start...]";
                     this.timer = setTimeout( function() {
                         this.handle( "delayEnded" );
                     }.bind( this ), delayValue );
@@ -221,6 +222,7 @@ var experiment = new machina.Fsm( {
 
             delayEnded: function() {
                 console.log("delayed ended, trial starting");
+                currentBlock[currentTrialNum].totalTime = "[running...]";
                 this.transition( "trial" );
             },
 
