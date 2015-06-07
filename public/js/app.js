@@ -252,7 +252,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.numOfTrials = {};
     $scope.currentBlock = [];
 
-    $scope.experimentRunning? = [true, false];
+    $scope.experimentRunning = [true, false];
 
     // Start Experiment
     $scope.startExperiment = function() {
@@ -281,7 +281,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $scope.numOfTrials = {};
 
         //Ensure the correct button is shown
-        $scope.experimentRunning? = [true, false];
+        $scope.experimentRunning = [true, false];
 
         // Change the View
         $scope.experimentStageSelect(2);
@@ -405,7 +405,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             //Method to determine progress
 
             //if (progressComplete == true) {
-                //$scope.experimentRunning?[false, true];
+                //$scope.experimentRunning[false, true];
                 //$scope.stopProgressPoller();
             //}
             
