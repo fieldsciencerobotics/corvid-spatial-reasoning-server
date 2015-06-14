@@ -19,7 +19,7 @@ var request = require('request');
 var lagartoIDtofeederName = {'7': 'a', '6': 'b', '0': 'c', '0': 'd', '0': 'e',
 							'0': 'f', '0': 'g', '0': 'h', '0': 'i', '0': 'j'};
 
-var feederNameToLagartoID = {'a': '7', 'b': '0', 'c': '0', 'd': '0', 'e': '0',
+var feederNameToLagartoID = {'a': '7', 'b': '6', 'c': '0', 'd': '0', 'e': '0',
 							'f': '0', 'g': '0', 'h': '0', 'i': '0', 'j': '0'};
 
 var lagartoDotReferenceToFeederFunction = {'11.0': 'dropMeat', '0': 'perchEvent', '0': 'event'}; // battery, reset etc etc etc
