@@ -46,7 +46,7 @@ var Meerkat = function() {
 	sock.subscribe('');
 	console.log('Subscriber connected to port 5001');
 	 
-	sock.on('message', function(topic, message) {
+	sock.on('message', function(topic) {
 	  	console.log('Recieved Message: "%s"', topic);
 
 	  	parsedMessage = String(topic);
