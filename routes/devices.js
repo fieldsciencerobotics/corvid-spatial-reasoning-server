@@ -42,7 +42,7 @@ var Meerkat = function() {
     var self = this;
     
     // Connect to Lagarto over ZMQ to subscrbe to events
-	sock.connect('tcp://127.0.0.1:5001');
+	sock.connect('tcp://0.0.0.0:5001');
 	sock.subscribe('');
 	console.log('Subscriber connected to port 5001');
 	 
