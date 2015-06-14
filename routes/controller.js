@@ -450,7 +450,8 @@ var experiment = new machina.Fsm( {
     // FreeForm Action Methods
     dropMeat: function(feederID) {
         console.log("dropMeat API", feederID);
-        this.handle("dropMeat", feederID);
+        //this.handle("dropMeat", feederID);
+        lagarto.sendMessage();
     },
 
     lightOn: function(lightID) {
