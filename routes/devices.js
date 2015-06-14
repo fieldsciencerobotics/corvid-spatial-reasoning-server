@@ -22,9 +22,9 @@ var lagartoIDtofeederName = {'7': 'a', '6': 'b', '0': 'c', '0': 'd', '0': 'e',
 var feederNameToLagartoID = {'a': '7', 'b': '6', 'c': '0', 'd': '0', 'e': '0',
 							'f': '0', 'g': '0', 'h': '0', 'i': '0', 'j': '0'};
 
-var lagartoDotReferenceToFeederFunction = {'11.0': 'dropMeat', '0': 'perchEvent', '0': 'event'}; // battery, reset etc etc etc
+var lagartoDotReferenceToFeederFunction = {'11.0': 'dropMeat', '17.0': 'perchEvent', '0': 'event'}; // battery, reset etc etc etc
 
-var feederFunctionToLagartoDotReference = {'dropMeat': '11.0', 'perchEvent': '0', 'event': '0'}; // battery, reset etc etc etc
+var feederFunctionToLagartoDotReference = {'dropMeat': '11.0', 'perchEvent': '17.0', 'event': '0'}; // battery, reset etc etc etc
 
 
 // Indicator device
@@ -55,7 +55,7 @@ var Meerkat = function() {
 	  	httpServer =jsonMessage['lagarto']['httpserver'];
 	  	status = jsonMessage['lagarto']['status'];
 
-	  	if (status) { // this is not likely to really work... it will always trigger currently...
+	  	if (status.length > 0) { // this is not likely to really work... it will always trigger currently...
 
 	  		// Becuase it may contain multple values to status
 	  		for (var i=0; i<status.length; i++) {
@@ -65,7 +65,7 @@ var Meerkat = function() {
 	  			functionID = idAndFunction; //pull out the end
 	  			value = status['value'];
 
-
+	  			console.log("Event details are:", name, idAndFunction, value);
 
 	  			// Hardcoded values - to be removed
 			  	eventType = 'perchEvent2';
