@@ -55,6 +55,8 @@ var Meerkat = function() {
 	  	httpServer =jsonMessage['lagarto']['httpserver'];
 	  	status = jsonMessage['lagarto']['status'];
 
+	  	console.log(status);
+
 	  	if (status.length > 0) { // this is not likely to really work... it will always trigger currently...
 
 	  		// Becuase it may contain multple values to status
