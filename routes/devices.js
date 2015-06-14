@@ -16,7 +16,7 @@ var request = require('request');
 // Not to be confussed with the experimental node ID, which will be unique to the arrangement of each session
 
 // Feeder Devices
-var lagartoIDtofeederName = {'7': 'a', '0': 'b', '0': 'c', '0': 'd', '0': 'e',
+var lagartoIDtofeederName = {'7': 'a', '6': 'b', '0': 'c', '0': 'd', '0': 'e',
 							'0': 'f', '0': 'g', '0': 'h', '0': 'i', '0': 'j'};
 
 var feederNameToLagartoID = {'a': '7', 'b': '0', 'c': '0', 'd': '0', 'e': '0',
