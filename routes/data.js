@@ -1,45 +1,45 @@
 //var db = require('mongoskin').db('mongodb://localhost:27017/spatial_reasoning'); 
-var fs = require("fs");
-var file = "/Media/crowDriver/" + "corvidBase.db";
-var exists = fs.existsSync(file);
+//var fs = require("fs");
+//var file = "/Media/crowDriver/" + "corvidBase.db";
+//var exists = fs.existsSync(file);
 
-if(!exists) {
-  console.log("Creating DB file.");
-  fs.openSync(file, "w");
-}
+//if(!exists) {
+//  console.log("Creating DB file.");
+//  fs.openSync(file, "w");
+//}
 
-var sqlite3 = require("sqlite3").verbose();
-var db = new sqlite3.Database(file);
+//var sqlite3 = require("sqlite3").verbose();
+//var db = new sqlite3.Database(file);
 
-db.serialize(function() {
-	  if(!exists) {
-	    db.run("CREATE TABLE Birds (thing TEXT)");
-	  }
+//db.serialize(function() {
+//	  if(!exists) {
+//	    db.run("CREATE TABLE Birds (thing TEXT)");
+//	  }
 
-	  if(!exists) {
-	    db.run("CREATE TABLE Stages (thing TEXT)");
-	  }
+//	  if(!exists) {
+//	    db.run("CREATE TABLE Stages (thing TEXT)");
+//	  }
 
-	  if(!exists) {
-	    db.run("CREATE TABLE Trials (thing TEXT)");
-	  }
+//	  if(!exists) {
+//	    db.run("CREATE TABLE Trials (thing TEXT)");
+//	  }
 	  
-	  var stmt = db.prepare("INSERT INTO Birds VALUES (?)");
+//	  var stmt = db.prepare("INSERT INTO Birds VALUES (?)");
 	  
 	//Insert random data
-	  var rnd;
-	  for (var i = 0; i < 10; i++) {
-	    rnd = Math.floor(Math.random() * 10000000);
-	    stmt.run("Thing #" + rnd);
-	  }
+//	  var rnd;
+//	  for (var i = 0; i < 10; i++) {
+//	    rnd = Math.floor(Math.random() * 10000000);
+//	    stmt.run("Thing #" + rnd);
+//	  }
 	  
-	stmt.finalize();
-	  db.each("SELECT rowid AS id, thing FROM Stuff", function(err, row) {
-	    console.log(row.id + ": " + row.thing);
-	  });
-});
+//	stmt.finalize();
+//	  db.each("SELECT rowid AS id, thing FROM Stuff", function(err, row) {
+//	    console.log(row.id + ": " + row.thing);
+//	  });
+//});
 
-db.close();
+//db.close();
 
 
 
