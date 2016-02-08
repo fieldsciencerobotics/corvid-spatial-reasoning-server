@@ -108,6 +108,7 @@ var Meerkat = function() {
 	  			if (true) { //(feederNameToLagartoID[id]) { // is this device ID mapped to a feeder
 
 	  				eventType = feederFunctionToLagartoDotReference[functionID];
+	  				console.log(eventType);
 
 	  				switch (eventType) {
 				    	case 'perchEvent':
