@@ -110,8 +110,8 @@ var Meerkat = function() {
 	  				eventType = feederFunctionToLagartoDotReference[functionID];
 	  				console.log(eventType);
 
-	  				switch (eventType) {
-				    	case 'perchEvent':
+	  				switch (functionID) {
+				    	case '17.0': //'perchEvent':
 				        	console.log("PerchEvent", deviceID, value);
 
 				        	// Pasrse message, and topic
