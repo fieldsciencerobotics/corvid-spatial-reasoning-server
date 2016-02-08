@@ -61,9 +61,6 @@ var Meerkat = function() {
 		    console.log("status not defined");
 		} else {
 			console.log(status);
-		}
-
-	  	if (status.length > 0) { // this is not likely to really work... it will always trigger currently...
 
 	  		// Becuase it may contain multple values to status
 	  		for (var i=0; i<status.length; i++) {
