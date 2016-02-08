@@ -112,12 +112,12 @@ var Meerkat = function() {
 
 	  				switch (functionID) {
 				    	case '17.0': //'perchEvent':
-				        	console.log("PerchEvent", deviceID, value);
+				        	console.log("PerchEvent", id, value);
 
 				        	// Pasrse message, and topic
 
 				        	perchID = id; //set this based on the contents of the message
-				        	if(value == 'on'){
+				        	if (value == 'on') {
 				        		self.emit('perchEvent', lagartoIDtofeederName[perchID]);
 				        	}
 				        	
