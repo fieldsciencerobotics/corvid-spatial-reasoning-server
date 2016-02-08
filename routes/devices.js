@@ -33,6 +33,7 @@ var indicatorFunctionToLagartoDotReference = {'1': '0', '2': '0', '3': '0', '4':
 											  '7': '0', '8': '0', '9': '0', '10': '0',};
 
 
+
 // The EventEmitter Object that will report events back to the controller
 // Like a Meerkat, it is good at keeping watch : )
 var Meerkat = function() {
@@ -51,11 +52,16 @@ var Meerkat = function() {
 
 	  	parsedMessage = String(topic);
 	  	jsonMessage = JSON.parse(parsedMessage);
-	  	protcolName =jsonMessage['lagarto']['procname'];
-	  	httpServer =jsonMessage['lagarto']['httpserver'];
+	  	protcolName = jsonMessage['lagarto']['procname'];
+	  	httpServer = jsonMessage['lagarto']['httpserver'];
 	  	status = jsonMessage['lagarto']['status'];
 
-	  	console.log(status);
+	  	
+	  	if (typeof status === "undefined") {
+		    console.log("status not defined");
+		} else {
+			console.log(status);
+		}
 
 	  	if (status.length > 0) { // this is not likely to really work... it will always trigger currently...
 
@@ -201,6 +207,7 @@ exports.sendMessage = function() {
   console.log('sending a multipart message envelope');
   sock2.send(["{'lagarto': 'hello'}", 'meow!']);
 };
+
 
 //
 // Detecting Devices Methods
