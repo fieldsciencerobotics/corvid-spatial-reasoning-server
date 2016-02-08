@@ -73,10 +73,10 @@ var Meerkat = function() {
 	  			console.log("Event details are:", name, id, functionID, value);
 
 	  			// Hardcoded values - to be removed
-			  	eventType = 'perchEvent2';
-			  	deviceID = 1; // get this from
-			  	perchID = 1;
-			  	value = 'on';
+			  	//eventType = 'perchEvent2';
+			  	//deviceID = 1; // get this from
+			  	//perchID = 1;
+			  	//value = 'on';
 
 
 	  			// Did it come from the indicator?
@@ -117,7 +117,10 @@ var Meerkat = function() {
 				        	// Pasrse message, and topic
 
 				        	perchID = id; //set this based on the contents of the message
-				        	self.emit('perchEvent', lagartoIDtofeederName[perchID]);
+				        	if(value == 'on'){
+				        		self.emit('perchEvent', lagartoIDtofeederName[perchID]);
+				        	}
+				        	
 
 
 				        	break; 
