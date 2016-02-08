@@ -44,8 +44,8 @@
 const low = require('lowdb').
 const storage = require('lowdb/file-async')
  
-const db = low('/media/crowDriver/db.json', { storage })
-
+//const db = low('/media/crowDriver/db.json', { storage })
+var db = low('/media/crowDriver/db.json', { storage: storage })
 
 var exports = module.exports = {};
 
