@@ -80,32 +80,32 @@ var Meerkat = function() {
 
 
 	  			// Did it come from the indicator?
-	  			if (id == indicatorToLagartoID['indicator1']) {
+	  			//if (id == indicatorToLagartoID['indicator1']) {
 
-	  				eventType = indicatorFunctionToLagartoDotReference[functionID];
-
-
-	  				switch (eventType) {
-	  					case '':
+	  			//	eventType = indicatorFunctionToLagartoDotReference[functionID];
 
 
-	  						break;
-	  					case '':
+	  			//	switch (eventType) {
+	  			//		case '':
 
 
-	  						break;
-	  					case '':
+	  			//			break;
+	  			//		case '':
 
 
-	  						break;
-	  					default:
+	  			//			break;
+	  			//		case '':
 
 
-	  				}
-	  			}
+	  			//			break;
+	  			//		default:
+
+
+	  			//	}
+	  			//}
 
 	  			// Did it come from a feeder node
-	  			if (feederNameToLagartoID[id]) { // is this device ID mapped to a feeder
+	  			if (true) { //(feederNameToLagartoID[id]) { // is this device ID mapped to a feeder
 
 	  				eventType = feederFunctionToLagartoDotReference[functionID];
 
@@ -115,7 +115,7 @@ var Meerkat = function() {
 
 				        	// Pasrse message, and topic
 
-				        	perchID = 1; //set this based on the contents of the message
+				        	perchID = id; //set this based on the contents of the message
 				        	self.emit('perchEvent', perchID);
 
 
