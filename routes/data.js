@@ -41,8 +41,8 @@
 
 //db.close();
 
-const low = require('lowdb').
-const storage = require('lowdb/file-async')
+const low = require('lowdb');
+const storage = require('lowdb/file-async');
  
 //const db = low('/media/crowDriver/db.json', { storage })
 var db = low('/media/crowDriver/db.json', { storage: storage })
