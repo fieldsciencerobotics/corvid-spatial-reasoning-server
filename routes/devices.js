@@ -64,11 +64,11 @@ var Meerkat = function() {
 
 	  		// Becuase it may contain multple values to status
 	  		for (var i=0; i<status.length; i++) {
-	  			name = status['name'];
-	  			idAndFunction = status['id'];
+	  			name = status[i]['name'];
+	  			idAndFunction = status[i]['id'];
 	  			id = idAndFunction; //pull out the start
 	  			functionID = idAndFunction; //pull out the end
-	  			value = status['value'];
+	  			value = status[i]['value'];
 
 	  			console.log("Event details are:", name, idAndFunction, value);
 
