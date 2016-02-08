@@ -117,7 +117,7 @@ var Meerkat = function() {
 				        	// Pasrse message, and topic
 
 				        	perchID = id; //set this based on the contents of the message
-				        	self.emit('perchEvent', perchID);
+				        	self.emit('perchEvent', lagartoIDtofeederName[perchID]);
 
 
 				        	break; 

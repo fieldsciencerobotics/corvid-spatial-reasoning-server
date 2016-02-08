@@ -548,6 +548,7 @@ meerkat.on('perchEvent', function(perchID) {
     // Parse deviceID to experimental nodeID
 
     expNode = deviceNameToExpNode[perchID];
+    console.log(expNode);
 
     experiment.perchEvent(expNode);
 });
