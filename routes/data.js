@@ -1,6 +1,6 @@
 //var db = require('mongoskin').db('mongodb://localhost:27017/spatial_reasoning'); 
 //var fs = require("fs");
-//var file = "/Media/crowDriver/" + "corvidBase.db";
+//var file = "/media/crowDriver/" + "corvidBase.db";
 //var exists = fs.existsSync(file);
 
 //if(!exists) {
@@ -41,7 +41,10 @@
 
 //db.close();
 
-
+const low = require('lowdb').
+const storage = require('lowdb/file-async')
+ 
+const db = low('/media/crowDriver/db.json', { storage })
 
 
 var exports = module.exports = {};
@@ -138,6 +141,9 @@ exports.getNextTrialID = function(birdID, stageID) {
 
 	// connects to the database
 	// finds the highest trial id, for the filtered set of that birdID and stageID
+
+
+	// lowdb work required here
 
 	// hardcoded to return 1 currently
 	return 1;
