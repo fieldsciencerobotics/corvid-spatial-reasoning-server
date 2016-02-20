@@ -16,7 +16,7 @@ var request = require('request');
 // Not to be confussed with the experimental node ID, which will be unique to the arrangement of each session
 
 // Feeder Devices
-var lagartoIDtofeederName = {'7': 'a', '6': 'b', '0': 'c', '0': 'd', '0': 'e',
+var lagartoIDtofeederName = {'7': 'a', '6': 'b', '37': 'c', '0': 'd', '0': 'e',
 							'0': 'f', '0': 'g', '0': 'h', '0': 'i', '0': 'j'};
 
 var feederNameToLagartoID = {'a': '7', 'b': '6', 'c': '0', 'd': '0', 'e': '0',
@@ -242,7 +242,7 @@ exports.dropMeat = function(deviceName) {
 	deviceID = feederNameToLagartoID[deviceName];
 	functionID = feederFunctionToLagartoDotReference['dropMeat']; //maps to 11.0
 	deviceAndFunctionID = deviceID + '.' + functionID;
-	value = 'true';
+	value = 3; // enum for dropping meat
 
 	console.log("Dropping Meat on: ", deviceName);
 	console.log("Which mapped onto: ", deviceAndFunctionID);
