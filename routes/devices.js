@@ -273,7 +273,7 @@ exports.getRemainingMeat = function(deviceName) {
 exports.turnLightOn = function(experimentalLightID) {
 
 	deviceID = indicatorToLagartoID['indicator1'];
-	functionID = 13.0; //indicatorFunctionToLagartoDotReference[experimentalLightID];
+	functionID = '13.0'; //indicatorFunctionToLagartoDotReference[experimentalLightID];
 
 
 
@@ -295,7 +295,7 @@ exports.turnLightOn = function(experimentalLightID) {
 exports.turnLightOff = function(experimentalLightID) {
 
 	deviceID = indicatorToLagartoID['indicator1'];
-	functionID = 14.0; //indicatorFunctionToLagartoDotReference[experimentalLightID];
+	functionID = '14.0'; //indicatorFunctionToLagartoDotReference[experimentalLightID];
 	deviceAndFunctionID = deviceID + '.' + functionID;
 	value = experimentalLightID; //'false'; //or perhaps off / on ??
 
