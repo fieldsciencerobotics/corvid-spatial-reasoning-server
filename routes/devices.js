@@ -295,9 +295,9 @@ exports.turnLightOn = function(experimentalLightID) {
 exports.turnLightOff = function(experimentalLightID) {
 
 	deviceID = indicatorToLagartoID['indicator1'];
-	functionID = indicatorFunctionToLagartoDotReference[experimentalLightID];
+	functionID = 14.0; //indicatorFunctionToLagartoDotReference[experimentalLightID];
 	deviceAndFunctionID = deviceID + '.' + functionID;
-	value = 'false'; //or perhaps off / on ??
+	value = experimentalLightID; //'false'; //or perhaps off / on ??
 
 	console.log("Turning Light off on: ", experimentalLightID);
 	console.log("Which mapped onto: ", deviceAndFunctionID);
