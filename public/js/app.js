@@ -240,7 +240,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.progressPoller = null;
 
     $scope.startProgressPoller = function() {
-        $scope.progressPoller = setInterval(function(){ $scope.queryProgress() }, 3000); // 3 seconds
+        $scope.progressPoller = setInterval(function(){ $scope.queryProgress() }, 2000); // 2 seconds
     }
 
     $scope.queryProgress = function() {
@@ -298,6 +298,9 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $scope.experimentStageSelect(0);
     }
 
+
+    $scope.currentTrial = 0;
+
     // Start Session
     $scope.startSession = function() {
         // Notify the server
@@ -315,6 +318,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $scope.experimentStageSelect(2);
 
         $scope.startProgressPoller();
+        $scope.currentTrial = 0;
     }
 
     // End Session
@@ -347,7 +351,11 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
     $scope.getCurrentSessionProgress = function() {
         $scope.currentBlock = [];
-        $scope.sendToServerGerCurrentSessionProgress();
+
+        // get the length
+        // then pass on this value to the server
+        // it will decide what value to actuall refresh
+        $scope.sendToServerGerCurrentSessionProgress(); // pass row value here
     }
 
 
@@ -428,10 +436,26 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
-            $scope.currentBlock = data;
+
+            // needs testing
+            if(scope.currentBlock.length < 1){
+                $scope.currentBlock = data;
+            }
+            
+
+            $scope.currentBlock[currentTrial] = data[currentTrial];
+
+            if ($scope.currentBlock[currentTrial].success != null) {
+                currentTrial = currentTrial + 1;
+
+                if (currentTrial != ($scope.currentBlock.length-1)) {
+                    $scope.currentBlock[currentTrial] = data[currentTrial];
+                }
+                
+            }
+
 
             //Method to determine progress
-
             
             totalNumberOfTrials = $scope.currentBlock.length;
             completedNumberOfTrials = 0;
@@ -446,6 +470,10 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
             if (completedNumberOfTrials == totalNumberOfTrials) {
                 $scope.experimentRunning = [false, true];
+                $scope.stopProgressPoller();
+                $scope.currentTrial = 0;
+
+                // Experimental, might need further testing for edge cases
                 $scope.stopProgressPoller();
             }
             
@@ -745,8 +773,12 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // Methods to call on page load
     //
     $scope.openMapFeeders();
-    $scope.getBirds();
-    $scope.getStages();
+
+    // Could be broken needs to be tested
+    setTimeout(function(){
+        $scope.getBirds();
+        $scope.getStages();
+    }, 3000);
 
 
 

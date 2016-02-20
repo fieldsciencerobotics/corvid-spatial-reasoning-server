@@ -498,6 +498,11 @@ var experiment = new machina.Fsm( {
 
     // Data Methods
     getCurrentSessionProgress: function() {
+
+        // accept row value
+        // filer the 'currentBlock' by that value onwards
+        // return that block of data
+
         return currentBlock;
     },
 

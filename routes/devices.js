@@ -28,7 +28,7 @@ var feederFunctionToLagartoDotReference = {'dropMeat': '11.0', 'perchEvent': '17
 
 
 // Indicator device
-var indicatorToLagartoID = {'indicator1': '0'};
+var indicatorToLagartoID = {'indicator1': '39'};
 var indicatorFunctionToLagartoDotReference = {'1': '0', '2': '0', '3': '0', '4': '0', '5': '0', '6': '0',
 											  '7': '0', '8': '0', '9': '0', '10': '0',};
 
@@ -273,9 +273,12 @@ exports.getRemainingMeat = function(deviceName) {
 exports.turnLightOn = function(experimentalLightID) {
 
 	deviceID = indicatorToLagartoID['indicator1'];
-	functionID = indicatorFunctionToLagartoDotReference[experimentalLightID];
+	functionID = 13.0; //indicatorFunctionToLagartoDotReference[experimentalLightID];
+
+
+
 	deviceAndFunctionID = deviceID + '.' + functionID;
-	value = 'true'; //or perhaps off / on ??
+	value = experimentalLightID; //or perhaps off / on ??
 
 	console.log("Turning Light on: ", experimentalLightID);
 	console.log("Which mapped onto: ", deviceAndFunctionID);
