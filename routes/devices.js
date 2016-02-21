@@ -171,7 +171,7 @@ var Meerkat = function() {
 							//DropMeatFinished=6,
 							//MeatEmpty=7
 
-					        console.log("Feeder Action Event", deviceID, value);
+					        console.log("Feeder Action Event", id, value);
 
 					        switch (value) {
 				        		case '0':
@@ -245,25 +245,25 @@ var Meerkat = function() {
 					    // Bettery Events
 					    // Cell 1
 				    	case '23.0':
-					        console.log("BatteryUpdated. ", deviceID, " Cell 1: ", value);
+					        console.log("BatteryUpdated. ", id, " Cell 1: ", value);
 					        //self.emit('BatteryUpdated', deviceID)
 
 					        break;
 					    // Cell 2
 					    case '23.1':
-							console.log("BatteryUpdated. ", deviceID, " Cell 2: ", value);
+							console.log("BatteryUpdated. ", id, " Cell 2: ", value);
 					        //self.emit('BatteryUpdated', deviceID)
 
 					        break; 
 					    //Cell 3
 					    case '23.2':
-							console.log("BatteryUpdated. ", deviceID, " Cell 3: ", value);
+							console.log("BatteryUpdated. ", id, " Cell 3: ", value);
 					        //self.emit('BatteryUpdated', deviceID)
 
 					        break;
 					    // Meat Peices Left measure
 					    case '24.0':
-							console.log("Meat Pieces Left: ", deviceID, value);
+							console.log("Meat Pieces Left: ", id, value);
 					        //self.emit('BatteryUpdated', deviceID)
 
 					        break;  
