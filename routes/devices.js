@@ -70,7 +70,7 @@ var Meerkat = function() {
 	  			functionID = idAndFunction[1]+"."+idAndFunction[2]; //pull out the end
 	  			value = status[i]['value'];
 
-	  			//console.log("Event details are:", name, id, functionID, value);
+	  			console.log("Event details are:", name, id, functionID, value);
 
 	  			// Hardcoded values - to be removed
 			  	//eventType = 'perchEvent2';
@@ -81,7 +81,7 @@ var Meerkat = function() {
 
 			  	// Listening to Indicator events
 			  	if (id == '39') {
-			  		console.log("this is an indicator related message")
+			  		//console.log("this is an indicator related message")
 
 
 			  		switch (functionID) {
