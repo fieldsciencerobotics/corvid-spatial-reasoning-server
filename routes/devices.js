@@ -22,9 +22,9 @@ var lagartoIDtofeederName = {'7': 'a', '6': 'b', '37': 'c', '0': 'd', '0': 'e',
 var feederNameToLagartoID = {'a': '7', 'b': '6', 'c': '0', 'd': '0', 'e': '0',
 							'f': '0', 'g': '0', 'h': '0', 'i': '0', 'j': '0'};
 
-var lagartoDotReferenceToFeederFunction = {'11.0': 'dropMeat', '17.0': 'perchEvent', '0': 'event'}; // battery, reset etc etc etc
+var lagartoDotReferenceToFeederFunction = {'11.0': 'dropMeat', '11.0': 'primeMeat', '11.0': 'resetMeat', '17.0': 'perchEvent', '0': 'event'}; // battery, reset etc etc etc
 
-var feederFunctionToLagartoDotReference = {'dropMeat': '11.0', 'perchEvent': '17.0', 'event': '0'}; // battery, reset etc etc etc
+var feederFunctionToLagartoDotReference = {'dropMeat': '11.0', 'primeMeat': '11.0', 'resetMeat': '11.0', 'stopMeat': '11.0', 'perchEvent': '17.0', 'event': '0'}; // battery, reset etc etc etc
 
 
 // Indicator device
@@ -48,7 +48,7 @@ var Meerkat = function() {
 	console.log('Subscriber connected to port 5001');
 	 
 	sock.on('message', function(topic, message) {
-	  	console.log('Recieved Message: "%s"', topic);
+	  	//console.log('Recieved Message: "%s"', topic);
 
 	  	parsedMessage = String(topic);
 	  	jsonMessage = JSON.parse(parsedMessage);
@@ -60,7 +60,7 @@ var Meerkat = function() {
 	  	if (typeof status === "undefined") {
 		    console.log("status not defined");
 		} else {
-			console.log(status);
+			//console.log(status);
 
 	  		// Becuase it may contain multple values to status
 	  		for (var i=0; i<status.length; i++) {
@@ -70,7 +70,7 @@ var Meerkat = function() {
 	  			functionID = idAndFunction[1]+"."+idAndFunction[2]; //pull out the end
 	  			value = status[i]['value'];
 
-	  			console.log("Event details are:", name, id, functionID, value);
+	  			//console.log("Event details are:", name, id, functionID, value);
 
 	  			// Hardcoded values - to be removed
 			  	//eventType = 'perchEvent2';
@@ -78,6 +78,161 @@ var Meerkat = function() {
 			  	//perchID = 1;
 			  	//value = 'on';
 
+
+			  	// Listening to Indicator events
+			  	if (id == '39') {
+			  		console.log("this is an indicator related message")
+
+
+			  		switch (functionID) {
+				    	case '11.0': //'perchEvent':
+				        	console.log("Indicator Heartbeat:", id, value);
+				        	break; 
+				    	default:
+				    		console.log("Unmapping indicator event:", name, id, functionID, value);
+				    		//code goes here
+
+				    }
+
+
+				// Listening to Feeder Events below
+			  	} else {
+			  		console.log("this is a feeder related message")
+
+
+			  		// List of events to handle that come from the feeders
+
+			  		switch (functionID) {
+			  			// Perch Events
+				    	case '17.0': //'perchEvent':
+				        	//console.log("PerchEvent", id, value);
+
+				        	// Pasrse message, and topic
+
+				        	perchID = id; //set this based on the contents of the message
+				        	//if (value == '1') {
+				        	//	self.emit('perchEvent', lagartoIDtofeederName[perchID]);
+				        	//}
+
+				        	switch (value) {
+				        		case '1':
+				        			console.log("Perch Occupied", id);
+				        			self.emit('perchEvent', lagartoIDtofeederName[perchID]);
+				        			break;
+				        		case '0':
+				        			console.log("Perch Vaccant", id);
+				        			// code for when perch becomes un
+				        			break
+				        	}
+				        	
+				        	break; 
+				        // Heartbeat events
+				        case '19.0': //'perchEvent':
+				        	console.log("Feeder Heartbeat:", id, value);
+				        	break; 
+
+				        // Meat Action Events
+				    	case '12.0':
+				    		//Stopped=0,
+							//ResetStarted=1,
+							//ResetFinished=2,
+							//PrimeMeatStarted=3,
+							//PrimeMeatFinished=4,
+							//DropMeatStarted=5,
+							//DropMeatFinished=6,
+							//MeatEmpty=7
+
+					        console.log("Feeder Action Event", deviceID, value);
+
+					        switch (value) {
+				        		case '0':
+				        			console.log("Meat Stopped", id);
+				        			break;
+				        		case '1':
+				        			console.log("Restart Started", id);
+				        			// code for when perch becomes un
+				        			break
+				        		case '2':
+				        			console.log("Restart Finished", id);
+				        			// code for when perch becomes un
+				        			break
+				        		case '3':
+				        			console.log("Prime Meat Started", id);
+				        			break;
+				        		case '4':
+				        			console.log("Prime Meat Finished", id);
+				        			// code for when perch becomes un
+				        			break
+				        		case '5':
+				        			console.log("Drop Meat Started", id);
+				        			// code for when perch becomes un
+				        			break
+				        		case '6':
+				        			console.log("Drop Meat Finished", id);
+				        			break;
+				        		case '7':
+				        			console.log("Meat Empty", id);
+				        			// code for when perch becomes un
+				        			break
+				        	}
+
+
+
+
+
+					        // Pasrse message, and topic
+
+					        //feederID = 1; //set this based on the contents of the message
+					        //self.emit('MeatDropped', feederID)
+
+				        	break;
+
+				       	// Configuration Events
+				    	case '21.0':
+					        console.log("Meat-Loaded-Thresh", id, value);
+
+					        break;
+					    case '21.1':
+					        console.log("Meat-Dropped-Diff", id, value);
+
+					        break;
+					    case '21.2':
+					        console.log("Perch-Occupied-Thresh", id, value);
+
+					        break;
+					    case '21.3':
+					        console.log("Perch-Vaccant-Diff", id, value);
+
+					        break;
+
+					    // Bettery Events
+					    // Cell 1
+				    	case '23.0':
+					        console.log("BatteryUpdated. ", deviceID, " Cell 1: ", value);
+					        //self.emit('BatteryUpdated', deviceID)
+
+					        break;
+					    // Cell 2
+					    case '23.1':
+							console.log("BatteryUpdated. ", deviceID, " Cell 2: ", value);
+					        //self.emit('BatteryUpdated', deviceID)
+
+					        break; 
+					    //Cell 3
+					    case '23.2':
+							console.log("BatteryUpdated. ", deviceID, " Cell 3: ", value);
+					        //self.emit('BatteryUpdated', deviceID)
+
+					        break;  
+				    	default: 
+					        console.log("unhandled event");
+
+					        perchID = 1; //set this based on the contents of the message
+					        self.emit('dunno', perchID);
+					}
+
+
+			  	}
 
 	  			// Did it come from the indicator?
 	  			//if (id == indicatorToLagartoID['indicator1']) {
@@ -103,7 +258,7 @@ var Meerkat = function() {
 
 	  			//	}
 	  			//}
-
+	  			/*
 	  			// Did it come from a feeder node
 	  			if (true) { //(feederNameToLagartoID[id]) { // is this device ID mapped to a feeder
 
@@ -158,6 +313,8 @@ var Meerkat = function() {
 					        self.emit('dunno', perchID);
 					}
 	  			} 
+
+	  			*/
 
 	  		}
 	  	}
@@ -233,9 +390,73 @@ exports.getBatteryLife = function() {
 	return currentBattery = [1,1,1,1,1,1,1,1,1,1];
 }
 
+
+
 //
 // Meat Events
 //
+
+// Prime Meat
+exports.stopMeat = function(deviceName) {
+
+	// map device name, and the function to below
+	deviceID = feederNameToLagartoID[deviceName];
+	functionID = feederFunctionToLagartoDotReference['stopMeat']; //maps to 11.0
+	deviceAndFunctionID = deviceID + '.' + functionID;
+	value = 0; // enum for primming meat
+
+	console.log("Stop Meat on: ", deviceName);
+	console.log("Which mapped onto: ", deviceAndFunctionID);
+
+	// Sent command to Lagarto
+	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log("Sent stop meat command")
+      }
+    })
+};
+
+// Prime Meat
+exports.resetMeat = function(deviceName) {
+
+	// map device name, and the function to below
+	deviceID = feederNameToLagartoID[deviceName];
+	functionID = feederFunctionToLagartoDotReference['resetMeat']; //maps to 11.0
+	deviceAndFunctionID = deviceID + '.' + functionID;
+	value = 1; // enum for primming meat
+
+	console.log("Reset Meat on: ", deviceName);
+	console.log("Which mapped onto: ", deviceAndFunctionID);
+
+	// Sent command to Lagarto
+	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log("Sent reset meat command")
+      }
+    })
+};
+
+// Prime Meat
+exports.primeMeat = function(deviceName) {
+
+	// map device name, and the function to below
+	deviceID = feederNameToLagartoID[deviceName];
+	functionID = feederFunctionToLagartoDotReference['primeMeat']; //maps to 11.0
+	deviceAndFunctionID = deviceID + '.' + functionID;
+	value = 2; // enum for primming meat
+
+	console.log("Priming Meat on: ", deviceName);
+	console.log("Which mapped onto: ", deviceAndFunctionID);
+
+	// Sent command to Lagarto
+	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log("Sent prime meat command")
+      }
+    })
+};
+
+// Drop Meat
 exports.dropMeat = function(deviceName) {
 
 	// map device name, and the function to below
@@ -255,6 +476,7 @@ exports.dropMeat = function(deviceName) {
     })
 };
 
+// This can't be asked for, it is just given after the other meat events. This method should just look up a saved varied that represents there last known state of meat remaining
 exports.getRemainingMeat = function(deviceName) {
 
 	// Sent command to Lagarto
@@ -267,9 +489,11 @@ exports.getRemainingMeat = function(deviceName) {
 };
 
 
+
 //
-// Light Events
+// Indicator (Light) Events
 //
+
 exports.turnLightOn = function(experimentalLightID) {
 
 	deviceID = indicatorToLagartoID['indicator1'];
@@ -308,5 +532,28 @@ exports.turnLightOff = function(experimentalLightID) {
         console.log("Sent turn light off command")
       }
     })
+
+exports.turnAllLightsOff = function() {
+
+	deviceID = indicatorToLagartoID['indicator1'];
+	functionID = '14.0'; //indicatorFunctionToLagartoDotReference[experimentalLightID];
+	deviceAndFunctionID = deviceID + '.' + functionID;
+	value = experimentalLightID; //'false'; //or perhaps off / on ??
+
+	console.log("Turning Light off on: ", experimentalLightID);
+	console.log("Which mapped onto: ", deviceAndFunctionID);
+
+	for (var i = 0; i < 10; i++) {
+
+		// Sent command to Lagarto
+		request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + i, function (error, response, body) {
+		  if (!error && response.statusCode == 200) {
+		    console.log("Sent turn All lights off command")
+		  }
+		})
+
+	}
+
+	
 
 };
