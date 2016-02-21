@@ -110,9 +110,12 @@ var Meerkat = function() {
 				    	case '11.0': //'perchEvent':
 				        	console.log("Indicator Heartbeat:", id, value);
 
-				        	if (value == '1' || '2' ) {
+				        	if (value == '0' || '1' ) {
 				        		ackIndicator();
 				        	}
+				        	break;
+				        case '12.0': //'perchEvent':
+				        	console.log("Indicator Heartbeat Ack Recieved:", id, value);
 				        	break; 
 				    	default:
 				    		console.log("Unmapping indicator event:", name, id, functionID, value);
