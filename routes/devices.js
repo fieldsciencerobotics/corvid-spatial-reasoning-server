@@ -49,7 +49,7 @@ var ackIndicator = function() {
 	// Sent command to Lagarto
 	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        console.log("Sent turn ligh on command")
+        console.log("Sent Indicator ACK - ACK function")
       }
     })
 
@@ -126,7 +126,7 @@ var Meerkat = function() {
 
 				// Listening to Feeder Events below
 			  	} else {
-			  		console.log("this is a feeder related message")
+			  		console.log("FEEDER MESSAGE:")
 
 
 			  		// List of events to handle that come from the feeders
@@ -233,6 +233,14 @@ var Meerkat = function() {
 					        console.log("Perch-Vaccant-Diff", id, value);
 
 					        break;
+					    case '21.4':
+					        console.log("Motor Direction", id, value);
+
+					        break;
+					    case '21.5':
+					        console.log("Max Meat Pieces", id, value);
+
+					        break;
 
 					    // Bettery Events
 					    // Cell 1
@@ -250,6 +258,12 @@ var Meerkat = function() {
 					    //Cell 3
 					    case '23.2':
 							console.log("BatteryUpdated. ", deviceID, " Cell 3: ", value);
+					        //self.emit('BatteryUpdated', deviceID)
+
+					        break;
+					    // Meat Peices Left measure
+					    case '24.0':
+							console.log("Meat Pieces Left: ", deviceID, value);
 					        //self.emit('BatteryUpdated', deviceID)
 
 					        break;  
