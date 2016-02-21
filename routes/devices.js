@@ -533,6 +533,8 @@ exports.turnLightOff = function(experimentalLightID) {
       }
     })
 
+};
+
 exports.turnAllLightsOff = function() {
 
 	deviceID = indicatorToLagartoID['indicator1'];
@@ -553,7 +555,4 @@ exports.turnAllLightsOff = function() {
 		})
 
 	}
-
-	
-
 };
