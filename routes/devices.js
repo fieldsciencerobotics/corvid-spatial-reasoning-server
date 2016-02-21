@@ -112,6 +112,7 @@ var Meerkat = function() {
 
 				        	if (value == '1' || '2' ) {
 				        		ackIndicator();
+				        	}
 				        	break; 
 				    	default:
 				    		console.log("Unmapping indicator event:", name, id, functionID, value);
