@@ -34,6 +34,28 @@ var indicatorFunctionToLagartoDotReference = {'1': '0', '2': '0', '3': '0', '4':
 
 
 
+var ackIndicator = function() {
+
+	deviceID = indicatorToLagartoID['indicator1'];
+	functionID = '12.0'; 
+
+
+
+	deviceAndFunctionID = deviceID + '.' + functionID;
+	value = '5'; // value not important, just so long as there is one at all
+
+	console.log("Acknowdging Indicator is Online: ", deviceAndFunctionID);
+
+	// Sent command to Lagarto
+	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log("Sent turn ligh on command")
+      }
+    })
+
+};
+
+
 // The EventEmitter Object that will report events back to the controller
 // Like a Meerkat, it is good at keeping watch : )
 var Meerkat = function() {
@@ -87,6 +109,9 @@ var Meerkat = function() {
 			  		switch (functionID) {
 				    	case '11.0': //'perchEvent':
 				        	console.log("Indicator Heartbeat:", id, value);
+
+				        	if (value == '1' || '2' ) {
+				        		ackIndicator();
 				        	break; 
 				    	default:
 				    		console.log("Unmapping indicator event:", name, id, functionID, value);
@@ -493,6 +518,7 @@ exports.getRemainingMeat = function(deviceName) {
 //
 // Indicator (Light) Events
 //
+
 
 exports.turnLightOn = function(experimentalLightID) {
 
