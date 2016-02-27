@@ -875,6 +875,7 @@ var MapFeedersModalInstanceCtrl = function ($scope, $modalInstance, feeders, onl
     $scope.mapFeeders = {};
     $scope.feeders = feeders;
     $scope.onlineList = onlineList;
+    console.log($scope.onlineList);
 
     // Feeder can only be assigned to ONE experimental node at a time
     // It must be removed from that node, before it can be assigned to another
