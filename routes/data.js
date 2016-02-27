@@ -69,10 +69,16 @@ var existingStages = [
                     'feederArrangement': [true, true, true, false, false, false, false, false, false, false]},
                     ];
 
-var deviceMapping = [{nodeID: 1, deviceID: 7}, {nodeID: 2, deviceID: null}, {nodeID: 3, deviceID: null}, 
-					{nodeID: 4, deviceID: null}, {nodeID: 5, deviceID: null},{nodeID: 6, deviceID: null}, 
-			 		{nodeID: 7, deviceID: null}, {nodeID: 8, deviceID: null}, {nodeID: 9, deviceID: null}, 
-			 		{nodeID: 10, deviceID: null}];
+var deviceMapping = [{nodeID: 1, deviceID: 7}, 
+					{nodeID: 2, deviceID: 6}, 
+					{nodeID: 3, deviceID: 37}, 
+					{nodeID: 4, deviceID: 0}, 
+					{nodeID: 5, deviceID: 0},
+					{nodeID: 6, deviceID: 0}, 
+			 		{nodeID: 7, deviceID: 0}, 
+			 		{nodeID: 8, deviceID: 0}, 
+			 		{nodeID: 9, deviceID: 0}, 
+			 		{nodeID: 10, deviceID: 0}];
 
 var existingTrials = [];
 
