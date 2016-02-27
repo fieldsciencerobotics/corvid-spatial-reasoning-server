@@ -130,7 +130,7 @@ exports.newStage = function(newStage) { //name, desc, delay, autoEnd, autoEndTim
 }
 
 
-exports.setDeviceMapping = function() {
+exports.setDeviceMapping = function(newMapping) {
 	// finish method - passing in an array is likely not the correct way to do it...
 	db.collection('devices').insert([{nodeID: 1, deviceID: 7}, {nodeID: 2, deviceID: null}, {nodeID: 3, deviceID: null}, {nodeID: 4, deviceID: null}, {nodeID: 5, deviceID: null},
 			 {nodeID: 6, deviceID: null}, {nodeID: 7, deviceID: null}, {nodeID: 8, deviceID: null}, {nodeID: 9, deviceID: null}, {nodeID: 10, deviceID: null}], function(err, result) {
@@ -148,7 +148,40 @@ exports.getDeviceMapping = function() {
 
 exports.getDeviceToLagartoMapping = function() {
 	return deviceToLagartoMapping;
-}
+} 
+
+
+exports.getDeviceNameToExpNode = function() {
+
+	deviceNameToExpNode = {'a': '1', 
+                            'b': '2', 
+                            'c': '3', 
+                            'd': '4', 
+                            'e': '5',
+                            'f': '6', 
+                            'g': '7', 
+                            'h': '8', 
+                            'i': '9', 
+                            'j': '10'};
+
+	return deviceNameToExpNode;
+} 
+
+exports.getExpNodeToDeviceName = function() {
+
+	expNodeToDeviceName = {'1': 'a', 
+                            '2': 'b', 
+                            '3': 'c', 
+                            '4': 'd', 
+                            '5': 'e',
+                            '6': 'f', 
+                            '7': 'g', 
+                            '8': 'h', 
+                            '9': 'i', 
+                            '10': 'j'};
+
+	return expNodeToDeviceName;
+} 
 
 // Change all of the below to getters rather than insert methods
 exports.getTrials = function() {

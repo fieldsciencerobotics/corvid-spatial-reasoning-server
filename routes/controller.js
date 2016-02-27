@@ -14,35 +14,13 @@ var currentBirdID = "";
 var currentStage = null;
 
 
-// This is where I need to go to the database to change this
+// Mappings between Experiment Nodes, Device ID's, and Lagarto ID's
+expToDevice = data.getDeviceMapping();
+onlineDeviceList = {};
+lagartoToDevice = data.getDeviceToLagartoMapping();
 
-// and create an api call which changes this (which exists, but required modification
-
-// the thing in the date file is not currently being used - its about the array below)
-
-//var expNodeToDeviceName = data.getDeviceMapping();
-
-var expNodeToDeviceName = {'1': 'a', 
-                            '2': 'b', 
-                            '3': 'c', 
-                            '4': 'd', 
-                            '5': 'e',
-                            '6': 'f', 
-                            '7': 'g', 
-                            '8': 'h', 
-                            '9': 'i', 
-                            '10': 'j'};
-
-var deviceNameToExpNode = {'a': '1', 
-                            'b': '2', 
-                            'c': '3', 
-                            'd': '4', 
-                            'e': '5',
-                            'f': '6', 
-                            'g': '7', 
-                            'h': '8', 
-                            'i': '9', 
-                            'j': '10'};
+expNodeToDeviceName = getExpNodeToDeviceName();
+deviceNameToExpNode = getDeviceNameToExpNode();
 
 
 // get the online list
@@ -547,10 +525,7 @@ var experiment = new machina.Fsm( {
     getOnlineDeviceList: function() {
 
         console.log("Insider getDevicesList in controller");
-        expToDevice = data.getDeviceMapping();
         onlineDeviceList = lagarto.getOnlineDeviceList();
-
-        lagartoToDevice = data.getDeviceToLagartoMapping();
 
         console.log(expToDevice);
         console.log(onlineDeviceList);
@@ -649,13 +624,60 @@ var experiment = new machina.Fsm( {
     setDeviceMapping: function(newDeviceMapping) {
         
 
+        // Take what is passed through to update the data.setDeviceMapping
+        // and also whatever temp variable that is required during the course of this session
+
+        // This is what is returned, turn this into
+        
 
 
+        deviceNameToExpNode1 = {'a': '0', 
+                            'b': '0', 
+                            'c': '0', 
+                            'd': '0', 
+                            'e': '0',
+                            'f': '0', 
+                            'g': '0', 
+                            'h': '0', 
+                            'i': '0', 
+                            'j': '0'};
 
 
+        expNodeToDeviceName1 = {'1': 'a', 
+                            '2': 'b', 
+                            '3': 'c', 
+                            '4': 'd', 
+                            '5': 'e',
+                            '6': 'f', 
+                            '7': 'g', 
+                            '8': 'h', 
+                            '9': 'i', 
+                            '10': 'j'};
+
+        /*
+        deviceMapping = [{nodeID: 1, deviceID: 'a'}, 
+                        {nodeID: 2, deviceID: 'b'}, 
+                        {nodeID: 3, deviceID: 'c'}, 
+                        {nodeID: 4, deviceID: 'd'}, 
+                        {nodeID: 5, deviceID: 'e'},
+                        {nodeID: 6, deviceID: 'f'}, 
+                        {nodeID: 7, deviceID: 'g'}, 
+                        {nodeID: 8, deviceID: 'h'}, 
+                        {nodeID: 9, deviceID: 'i'}, 
+                        {nodeID: 10, deviceID: 'j'}];
+        */
+
+        for (var i=0; i<10; i++) {
+            deviceNameToExpNode1[newDeviceMapping[i].deviceID] = newDeviceMapping[i].nodeID;
+
+            expNodeToDeviceName1[i] = newDeviceMapping[i].deviceID;
+        }
+
+        deviceNameToExpNode = null;
+        expNodeToDeviceName = null;
 
 
-        expNodeToDeviceName = newDeviceMapping;
+        data.setDeviceMapping(newDeviceMapping);
     },
 
     getLeaderBoard: function() {
