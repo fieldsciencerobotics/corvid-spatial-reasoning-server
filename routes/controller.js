@@ -627,8 +627,8 @@ var experiment = new machina.Fsm( {
                                 'g': [lagartoToDevice[expToDevice[6].deviceID]].online, 
                                 'h': [lagartoToDevice[expToDevice[7].deviceID]].online, 
                                 'i': [lagartoToDevice[expToDevice[8].deviceID]].online, 
-                                'j': [lagartoToDevice[expToDevice[9].deviceID]].online;
-                    };
+                                'j': [lagartoToDevice[expToDevice[9].deviceID]].online,
+                    }};
 
             for (var i=0; i<10; i++) {
                 if (feeders['feederList'][i].connected == true){
