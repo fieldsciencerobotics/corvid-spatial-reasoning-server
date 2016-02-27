@@ -34,21 +34,29 @@ var indicatorFunctionToLagartoDotReference = {'1': '0', '2': '0', '3': '0', '4':
 
 
 
-var onlineDevices = {'7': {'deviceID': 'a', 'online': false}, 
-					'6': {'deviceID': 'b', 'online': false},  
-					'37': {'deviceID': 'c', 'online': false}, 
-					'0': {'deviceID': 'd', 'online': false},  
-					'0': {'deviceID': 'e', 'online': false}, 
-					'0': {'deviceID': 'f', 'online': false}, 
-					'0': {'deviceID': 'g', 'online': false}, 
-					'0': {'deviceID': 'h', 'online': false},  
-					'0': {'deviceID': 'i', 'online': false}, 
-					'0': {'deviceID': 'j', 'online': false}, 
+var onlineDevices = {'7': {'deviceID': 'a', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
+					'6': {'deviceID': 'b', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false},  
+					'37': {'deviceID': 'c', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
+					'0': {'deviceID': 'd', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false},  
+					'0': {'deviceID': 'e', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
+					'0': {'deviceID': 'f', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
+					'0': {'deviceID': 'g', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
+					'0': {'deviceID': 'h', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false},  
+					'0': {'deviceID': 'i', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
+					'0': {'deviceID': 'j', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
 				};
 
 
+// get the state
+
+// get the remaining pieces of meat
 
 
+
+// Method to poll for heartbeats
+	// set recheck value to zero
+	// poll all devices
+	// aftertime out, if device is still recheck to zero, them assume it is offline
 
 
 // The EventEmitter Object that will report events back to the controller
@@ -443,6 +451,11 @@ exports.getDevices = function() {
       }
     })
 };
+
+exports.getOnlineDeviceList = function () {
+
+	return onlineDevices;
+}
 
 
 exports.getBatteryLife = function() {

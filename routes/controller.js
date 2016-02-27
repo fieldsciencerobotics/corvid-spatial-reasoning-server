@@ -14,11 +14,41 @@ var currentBirdID = "";
 var currentStage = null;
 
 
-var expNodeToDeviceName = {'1': 'a', '2': 'b', '3': 'c', '4': 'd', '5': 'e',
-                            '6': 'f', '7': 'g', '8': 'h', '9': 'i', '10': 'j'};
+// This is where I need to go to the database to change this
 
-var deviceNameToExpNode = {'a': '1', 'b': '2', 'c': '3', 'd': '4', 'e': '5',
-                            'f': '6', 'g': '7', 'h': '8', 'i': '9', 'j': '10'};
+// and create an api call which changes this (which exists, but required modification
+
+// the thing in the date file is not currently being used - its about the array below)
+
+//var expNodeToDeviceName = data.getDeviceMapping();
+
+var expNodeToDeviceName = {'1': 'a', 
+                            '2': 'b', 
+                            '3': 'c', 
+                            '4': 'd', 
+                            '5': 'e',
+                            '6': 'f', 
+                            '7': 'g', 
+                            '8': 'h', 
+                            '9': 'i', 
+                            '10': 'j'};
+
+var deviceNameToExpNode = {'a': '1', 
+                            'b': '2', 
+                            'c': '3', 
+                            'd': '4', 
+                            'e': '5',
+                            'f': '6', 
+                            'g': '7', 
+                            'h': '8', 
+                            'i': '9', 
+                            'j': '10'};
+
+
+// get the online list
+    // tie this to the UI event, so it has given enough time to get a handle on what is currently online
+// add the mapping to that online list (get the device mapping)
+
 
 // reset all values
 var resetAllValues = function() {
@@ -514,6 +544,34 @@ var experiment = new machina.Fsm( {
         return data.getStages();
     },
 
+    getOnlineDeviceList: function() {
+
+        expToDevice = data.getDeviceMapping();
+        onlineDeviceList = lagarto.getOnlineDeviceList();
+
+
+        // reverse list
+        onlineDeviceList[expToDevice[0].deviceID].batteryLevel
+
+
+        feeders = {'feederList': [
+            {'id': 1, 'mappedTo': expToDevice[0].deviceID, 'batteryLevel': onlineDeviceList[expToDevice[0].deviceID].batteryLevel, 'meatRemaining': onlineDeviceList[expToDevice[0].deviceID].meatRemaining, 'state': onlineDeviceList[expToDevice[0].deviceID].state,'connected': onlineDeviceList[expToDevice[0].deviceID].online, 'colour': 'red', 'perch-colour': 'black' }, 
+            {'id': 2, 'mappedTo': expToDevice[1].deviceID, 'batteryLevel': onlineDeviceList[expToDevice[1].deviceID].batteryLevel, 'meatRemaining': onlineDeviceList[expToDevice[1].deviceID].meatRemaining, 'state': onlineDeviceList[expToDevice[1].deviceID].state, 'connected': onlineDeviceList[expToDevice[1].deviceID].online, 'colour': 'red', 'perch-colour': 'black' },
+            {'id': 3, 'mappedTo': expToDevice[2].deviceID, 'batteryLevel': onlineDeviceList[expToDevice[2].deviceID].batteryLevel, 'meatRemaining': onlineDeviceList[expToDevice[2].deviceID].meatRemaining, 'state': onlineDeviceList[expToDevice[2].deviceID].state, 'connected': onlineDeviceList[expToDevice[2].deviceID].online, 'colour': 'red', 'perch-colour': 'black' },
+            {'id': 4, 'mappedTo': expToDevice[3].deviceID, 'batteryLevel': onlineDeviceList[expToDevice[3].deviceID].batteryLevel, 'meatRemaining': onlineDeviceList[expToDevice[3].deviceID].meatRemaining, 'state': onlineDeviceList[expToDevice[3].deviceID].state, 'connected': onlineDeviceList[expToDevice[3].deviceID].online, 'colour': 'red', 'perch-colour': 'black' },
+            {'id': 5, 'mappedTo': expToDevice[4].deviceID, 'batteryLevel': onlineDeviceList[expToDevice[4].deviceID].batteryLevel, 'meatRemaining': onlineDeviceList[expToDevice[4].deviceID].meatRemaining, 'state': onlineDeviceList[expToDevice[4].deviceID].state, 'connected': onlineDeviceList[expToDevice[4].deviceID].online, 'colour': 'red', 'perch-colour': 'black' },
+            {'id': 6, 'mappedTo': expToDevice[5].deviceID, 'batteryLevel': onlineDeviceList[expToDevice[5].deviceID].batteryLevel, 'meatRemaining': onlineDeviceList[expToDevice[5].deviceID].meatRemaining, 'state': onlineDeviceList[expToDevice[5].deviceID].state, 'connected': onlineDeviceList[expToDevice[5].deviceID].online, 'colour': 'red', 'perch-colour': 'black' },
+            {'id': 7, 'mappedTo': expToDevice[6].deviceID, 'batteryLevel': onlineDeviceList[expToDevice[6].deviceID].batteryLevel, 'meatRemaining': onlineDeviceList[expToDevice[6].deviceID].meatRemaining, 'state': onlineDeviceList[expToDevice[6].deviceID].state, 'connected': onlineDeviceList[expToDevice[6].deviceID].online, 'colour': 'red', 'perch-colour': 'black' },
+            {'id': 8, 'mappedTo': expToDevice[7].deviceID, 'batteryLevel': onlineDeviceList[expToDevice[7].deviceID].batteryLevel, 'meatRemaining': onlineDeviceList[expToDevice[7].deviceID].meatRemaining, 'state': onlineDeviceList[expToDevice[7].deviceID].state, 'connected': onlineDeviceList[expToDevice[7].deviceID].online, 'colour': 'red', 'perch-colour': 'black' },
+            {'id': 9, 'mappedTo': expToDevice[8].deviceID, 'batteryLevel': onlineDeviceList[expToDevice[8].deviceID].batteryLevel, 'meatRemaining': onlineDeviceList[expToDevice[8].deviceID].meatRemaining, 'state': onlineDeviceList[expToDevice[8].deviceID].state, 'connected': onlineDeviceList[expToDevice[8].deviceID].online, 'colour': 'red', 'perch-colour': 'black' },
+            {'id': 10, 'mappedTo': expToDevice[9].deviceID, 'batteryLevel': onlineDeviceList[expToDevice[9].deviceID].batteryLevel, 'meatRemaining': onlineDeviceList[expToDevice[9].deviceID].meatRemaining, 'state': onlineDeviceList[expToDevice[9].deviceID].state, 'connected': onlineDeviceList[expToDevice[9].deviceID].online, 'colour': 'red', 'perch-colour': 'black'}],
+                    'onlineList': lagarto.getOnlineDeviceList();
+                    };
+
+
+        return feeders;
+    },
+
     getDeviceMapping: function() {
         return expNodeToDeviceName;
     },
@@ -576,6 +634,33 @@ meerkat.on('lightChanged', function(lightID) {
     experiment.lightChanged(lightID);
 });
 
+// add a 'device offline' event listener
+meerkat.on('feederOfline', function(feederID) {
+    console.log('Feeder went offline: "%s"', feederID);
+
+    // Parse deviceID to experimental nodeID
+
+    //experiment.perchEvent(perchID);
+});
+
+// add a 'feeder online' event listener
+meerkat.on('feederOnline', function(feederID) {
+    console.log('Feeder went online: "%s"', feederID);
+
+    // Parse deviceID to experimental nodeID
+
+    //experiment.perchEvent(perchID);
+});
+
+// add a 'meat levels updated' event listener - - - this could be combine with meat dropped perhaps
+meerkat.on('meatUpdate', function(feederID, meatLeft) {
+    console.log('Meat levels changed: "%s %s"', feederID, meatleft);
+
+    // Parse deviceID to experimental nodeID
+
+    //experiment.perchEvent(perchID);
+});
+
 // add a 'lightChange' event listener
 meerkat.on('dunno', function(perchID) {
     console.log('[dunno] perch event listenter: "%s"', perchID);
@@ -584,6 +669,41 @@ meerkat.on('dunno', function(perchID) {
 
     //experiment.perchEvent(perchID);
 });
+
+
+// What other actions should be listened for
+
+// Meat levels changed
+
+// Battery levels changed
+
+// devices going online / offline
+
+
+
+
+// Start with: get all available devices (called from when a state changes, prompted by UI)
+
+// Then subscribe to updates after that
+
+
+
+
+// get state
+
+// battery lists
+// meat left lists
+// device on list
+
+
+// devices can be stateless, controller keeps it all up-to-date
+
+// setup phases loads in the list
+// calls devices to get the initial list
+//      - what is on, what the battery levels are, how much meat is left, what the deviceID's are
+//  devices doesnt really care what the experimental nodes are, or what is being used, its just an interface
+
+
 
 
 module.exports.experiment = experiment;

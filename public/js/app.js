@@ -102,6 +102,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.existingBirds = [];
     $scope.existingStages = [];
 
+    $scope.onlineDeviceMapping = [];
+
 
     //
     // UI Methods (Called from clicking on various UI elements)
@@ -113,14 +115,17 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     //
 
     // Initialize
-    $scope.initialize = function() {
+    $scope.initialize = function(mapping) {
         //feeder.colour = 'green';
         //$scope.resetColour(feeder);
 
-        $scope.newDeviceMapping = {'1': 'a', '2': 'b', '3': 'c', '4': 'd', '5': 'e',
-                            '6': 'f', '7': 'g', '8': 'h', '9': 'i', '10': 'j'};
+        //$scope.newDeviceMapping = {'1': 'a', '2': 'b', '3': 'c', '4': 'd', '5': 'e',
+        //                    '6': 'f', '7': 'g', '8': 'h', '9': 'i', '10': 'j'};
 
-        $scope.sendToServerInitialize($scope.newDeviceMapping);
+
+        // This is where the results need to be set.
+
+        $scope.sendToServerInitialize(mapping);
     }
 
     //
@@ -610,6 +615,25 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // GET DATA METHODS:
     // 
 
+    //GET ONLINE DEVICES: Query what devices are currently online, and what the mapping currently is
+    $scope.sendToServerGetOnlineDeviceList = function() {
+        $http({
+            url: '/data/getOnlineDeviceList',
+            method: "POST",
+            data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            //$scope.existingStages = data;
+            $scope.feeders = data['feederList'];
+            $scope.onlineDeviceMapping = data['onlineList'];
+            // Now open the Modal
+            $scope.openMapFeeders();
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
     //GET EXISTING BIRDS: Used to retrieve all the existing birds defiend in the database
     $scope.sendToServerGetBirds = function() {
         $http({
@@ -756,14 +780,38 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             resolve: {
                 feeders: function () {
                     return $scope.feeders;
+                },
+                onlineList: function () {
+                    return $scope.onlineList;
                 }
             }
         });
 
         // Handles the Submittion or cancelation of the Modal Window
-        MapFeedersModalInstance.result.then(function (newStage) {
-            // add new stage to the existing list
-            $scope.initialize();
+        MapFeedersModalInstance.result.then(function (feeders, onlineList) {
+            // update feeders list
+            $scope.feeders = feeders;
+
+
+            // Pull out the updated device mapping here
+            deviceMapping = [{nodeID: 1, deviceID: 7}, 
+                    {nodeID: 2, deviceID: null}, 
+                    {nodeID: 3, deviceID: null}, 
+                    {nodeID: 4, deviceID: null}, 
+                    {nodeID: 5, deviceID: null},
+                    {nodeID: 6, deviceID: null}, 
+                    {nodeID: 7, deviceID: null}, 
+                    {nodeID: 8, deviceID: null}, 
+                    {nodeID: 9, deviceID: null}, 
+                    {nodeID: 10, deviceID: null}];
+
+            for (var i=0; i<10; i++) {
+                deviceMapping[i].deviceID = feeders[i].mappedTo;
+            }
+
+
+            $scope.initialize(deviceMapping);
+
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });
@@ -772,7 +820,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     //
     // Methods to call on page load
     //
-    $scope.openMapFeeders();
+    $scope.sendToServerGetOnlineDeviceList();
 
     // Could be broken needs to be tested
     setTimeout(function(){
