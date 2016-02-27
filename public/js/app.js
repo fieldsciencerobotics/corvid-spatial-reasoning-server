@@ -152,7 +152,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
         // This is where the results need to be set.
         
-        if (inFreeformMode) {
+        if ($scope.inFreeformMode) {
             $scope.sendToServerGetOnlineDeviceListFreeform();
         } else {
             console.log("must in in freeform mode to rest configurations")
@@ -171,7 +171,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.freeFormDropMeat = function(feederId) {
         //feeder.colour = 'green';
         //$scope.resetColour(feeder);
-        if (inFreeformMode) {
+        if ($scope.inFreeformMode) {
             // Freeform action here
             $scope.sendToServerDropMeat(feederId);
         } else {
@@ -182,7 +182,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
     // Toggle Ligh
     $scope.freeFormLightToggle = function (light) {
-        if (inFreeformMode) {
+        if ($scope.inFreeformMode) {
             // Freeform action here
             if(light.on == true){
                 light.on = false;
