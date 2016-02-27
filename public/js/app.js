@@ -788,7 +788,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         });
 
         // Handles the Submittion or cancelation of the Modal Window
-        MapFeedersModalInstance.result.then(function (feeders, onlineList) {
+        MapFeedersModalInstance.result.then(function (feeders) {
             // update feeders list
             $scope.feeders = feeders;
 
@@ -892,11 +892,11 @@ var MapFeedersModalInstanceCtrl = function ($scope, $modalInstance, feeders, onl
 
 
     $scope.ok = function () {
-        console.log($scope.mapFeeders);
-        $modalInstance.close($scope.newStage);
+        console.log($scope.feeders);
+        $modalInstance.close($scope.feeders);
     };
 
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    };
+    //$scope.cancel = function () {
+    //    $modalInstance.dismiss('cancel');
+    //};
 };
