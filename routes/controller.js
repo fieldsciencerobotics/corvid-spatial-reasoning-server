@@ -619,17 +619,18 @@ var experiment = new machina.Fsm( {
             'state': onlineDeviceList[lagartoToDevice[expToDevice[9].deviceID]].state, 
             'connected': onlineDeviceList[lagartoToDevice[expToDevice[9].deviceID]].online, 
             'colour': 'red', 'perch-colour': 'black'}],
-                    'onlineList': {'a': [lagartoToDevice[expToDevice[0].deviceID]].online, 
-                                    'b': [lagartoToDevice[expToDevice[1].deviceID]].online, 
-                                    'c': [lagartoToDevice[expToDevice[2].deviceID]].online, 
-                                    'd': [lagartoToDevice[expToDevice[3].deviceID]].online, 
-                                    'e': [lagartoToDevice[expToDevice[4].deviceID]].online,
-                                    'f': [lagartoToDevice[expToDevice[5].deviceID]].online, 
-                                    'g': [lagartoToDevice[expToDevice[6].deviceID]].online, 
-                                    'h': [lagartoToDevice[expToDevice[7].deviceID]].online, 
-                                    'i': [lagartoToDevice[expToDevice[8].deviceID]].online, 
-                                    'j': [lagartoToDevice[expToDevice[9].deviceID]].online,
-                    }};
+                    'onlineList': [
+                    {'id': 'a', 'connected': onlineDeviceList[lagartoToDevice[expToDevice[0].deviceID]].online}, 
+                    {'id': 'b', 'connected': onlineDeviceList[lagartoToDevice[expToDevice[1].deviceID]].online}, 
+                    {'id': 'c', 'connected': onlineDeviceList[lagartoToDevice[expToDevice[2].deviceID]].online}, 
+                    {'id': 'd', 'connected': onlineDeviceList[lagartoToDevice[expToDevice[3].deviceID]].online}, 
+                    {'id': 'e', 'connected': onlineDeviceList[lagartoToDevice[expToDevice[4].deviceID]].online},
+                    {'id': 'f', 'connected': onlineDeviceList[lagartoToDevice[expToDevice[5].deviceID]].online}, 
+                    {'id': 'g', 'connected': onlineDeviceList[lagartoToDevice[expToDevice[6].deviceID]].online}, 
+                    {'id': 'h', 'connected': onlineDeviceList[lagartoToDevice[expToDevice[7].deviceID]].online}, 
+                    {'id': 'i', 'connected': onlineDeviceList[lagartoToDevice[expToDevice[8].deviceID]].online}, 
+                    {'id': 'j', 'connected': onlineDeviceList[lagartoToDevice[expToDevice[9].deviceID]].online},
+                    ]};
 
             for (var i=0; i<10; i++) {
                 if (feeders['feederList'][i].connected == true){

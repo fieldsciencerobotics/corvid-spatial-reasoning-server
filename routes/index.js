@@ -103,8 +103,8 @@ router.post('/data/getDeviceMapping', function(req, res, next) {
 });
 
 router.post('/data/getOnlineDeviceList', function(req, res, next) {
-  mapping = controller.experiment.getOnlineDeviceList();
-  res.send(mapping);
+  onlineDevices = controller.experiment.getOnlineDeviceList();
+  res.send(onlineDevices);
 });
 
 router.post('/data/getTrialsOfBirdInStage', function(req, res, next) {

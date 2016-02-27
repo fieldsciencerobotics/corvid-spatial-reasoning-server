@@ -870,7 +870,7 @@ var NewStageModalInstanceCtrl = function ($scope, $modalInstance) {
 };
 
 // New Stage Modal Controller 
-var MapFeedersModalInstanceCtrl = function ($scope, $modalInstance, feeders) {
+var MapFeedersModalInstanceCtrl = function ($scope, $modalInstance, feeders, onlineList) {
 
     $scope.mapFeeders = {};
     $scope.feeders = feeders;

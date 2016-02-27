@@ -54,6 +54,7 @@
 
       <div class="modal-body" style="height: 300px;">
         <div style="padding-left: 10px;">
+
           <div class="feeder" ng-repeat="feeder in feeders" ng-click="freeFormDropMeat(feeder)">
               <b>Feeder: {{feeder.id}}</b>
               <svg height="60" width="60">
@@ -62,13 +63,16 @@
               <div class="form-group">
                   <label for="select" class="col-lg-2 control-label">Select Device</label>
                   <div class="col-lg-10">
+
                     <select class="form-control" id="select" placeholder="Bird" ng-model="selectBird">
-                      <option></option>
-                      <option ng-repeat="feeder1 in feeders">{{feeder1.id}}</option>
+                      <option>{{feeder.mappedTo}}</option>
+                      <option ng-repeat="option in onlineList">{{option.id}} {{option.connect}}</option>
                     </select>
+
                   </div>
               </div>
            </div>
+
          </div>
          <div class="form-group" style="padding-left:550px; margin-top: 50px">
               <div class="col-lg-10 col-lg-offset-2">

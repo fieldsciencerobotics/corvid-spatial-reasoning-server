@@ -47,6 +47,7 @@ var onlineDevices = {'7': {'deviceID': 'a', 'online': false, 'batteryLevel': 0, 
 				};
 
 
+
 // get the state
 
 // get the remaining pieces of meat
