@@ -6,17 +6,17 @@
 
 	<div class="jumbotron" style="padding-top: 22px; padding-bottom: 22px;">
 		<div id="feeders" style="float: right;">
-			<div class="feeder" ng-repeat="feeder in feeders" ng-click="freeFormDropMeat(feeder.id)">
+			<div class="feeder" ng-repeat="feeder in feeders">
 				Feeder: {{feeder.id}}
 				<svg height="80" width="80">
 				  <rect x="20" y="20" width="30" height="50" stroke="black" stroke-width="3" ng-attr-fill="{{feeder.colour}}" />
 				  <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle">{{feeder.meatRemaining}}</text>
 				</svg>
 
-				<span class="btn btn-success"ng-click="freeFormDropMeat(feeder.id)">Drop</span><br />
-				<span class="btn btn-info"ng-click="primeFeeder(feeder.id)">Prime</span><br />
-				<span class="btn btn-warning"ng-click="resetFeeder(feeder.id)">Reset</span><br />
-				<span class="btn btn-danger"ng-click="stopFeeder(feeder.id)">Stop</span>
+				<span class="btn btn-success" ng-class="{disable: !connected}" ng-click="freeFormDropMeat(feeder.id)">Drop</span><br />
+				<span class="btn btn-info" ng-class="{disable: !connected}" ng-click="primeFeeder(feeder.id)">Prime</span><br />
+				<span class="btn btn-warning" ng-class="{disable: !connected}" ng-click="resetFeeder(feeder.id)">Reset</span><br />
+				<span class="btn btn-danger" ng-class="{disable: !connected}" ng-click="stopFeeder(feeder.id)">Stop</span>
 
 			</div>
 	   </div>
@@ -34,7 +34,7 @@
 			</div>
 		</div>
 		<h1>Indicators</h1>
-	  	<p>Press to toggle light</p>
+	  	<p>Press to toggle flag</p>
 	</div>
 </div>
 
