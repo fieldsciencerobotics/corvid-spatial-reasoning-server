@@ -568,7 +568,7 @@ var experiment = new machina.Fsm( {
                     'onlineList': lagarto.getOnlineDeviceList()
                     };
 
-
+        console.log(feeders);
         return feeders;
     },
 
