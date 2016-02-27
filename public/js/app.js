@@ -180,6 +180,50 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         
     }
 
+
+    //
+    // Feeder Stages
+    //
+
+    // Stop Feeder
+    $scope.stopFeeder = function(feederId) {
+        //feeder.colour = 'green';
+        //$scope.resetColour(feeder);
+        if ($scope.inFreeformMode) {
+            // Freeform action here
+            $scope.sendToServerStopFeeder(feederId);
+        } else {
+            console.log("must in in freeform mode to rest configurations")
+        }
+        
+    }
+
+    // Reset Feeder
+    $scope.resetFeeder = function(feederId) {
+        //feeder.colour = 'green';
+        //$scope.resetColour(feeder);
+        if ($scope.inFreeformMode) {
+            // Freeform action here
+            $scope.sendToServerResetFeeder(feederId);
+        } else {
+            console.log("must in in freeform mode to rest configurations")
+        }
+        
+    }
+
+    // Reset Feeder
+    $scope.primeFeeder = function(feederId) {
+        //feeder.colour = 'green';
+        //$scope.resetColour(feeder);
+        if ($scope.inFreeformMode) {
+            // Freeform action here
+            $scope.sendToServerPrimeFeeder(feederId);
+        } else {
+            console.log("must in in freeform mode to rest configurations")
+        }
+        
+    }
+
     // Toggle Ligh
     $scope.freeFormLightToggle = function (light) {
         if ($scope.inFreeformMode) {
