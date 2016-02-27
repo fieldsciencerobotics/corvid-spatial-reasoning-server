@@ -19,8 +19,8 @@ expToDevice = data.getDeviceMapping();
 onlineDeviceList = {};
 lagartoToDevice = data.getDeviceToLagartoMapping();
 
-expNodeToDeviceName = getExpNodeToDeviceName();
-deviceNameToExpNode = getDeviceNameToExpNode();
+expNodeToDeviceName = data.getExpNodeToDeviceName();
+deviceNameToExpNode = data.getDeviceNameToExpNode();
 
 
 // get the online list
