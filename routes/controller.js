@@ -550,7 +550,7 @@ var experiment = new machina.Fsm( {
         expToDevice = data.getDeviceMapping();
         onlineDeviceList = lagarto.getOnlineDeviceList();
 
-        lagartoToDevice = lagarto.getDeviceToLagartoMapping();
+        lagartoToDevice = data.getDeviceToLagartoMapping();
 
         console.log(expToDevice);
         console.log(onlineDeviceList);
