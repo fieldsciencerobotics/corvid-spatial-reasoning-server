@@ -574,7 +574,7 @@ var experiment = new machina.Fsm( {
             'batteryLevel': onlineDeviceList[lagartoToDevice[expToDevice[2].deviceID]].batteryLevel, 
             'meatRemaining': onlineDeviceList[lagartoToDevice[expToDevice[2].deviceID]].meatRemaining, 
             'state': onlineDeviceList[lagartoToDevice[expToDevice[2].deviceID]].state, 
-            'connected': onlineDeviceList[lagartoToDevice[expToDevice[2].deviceID]}.online, 
+            'connected': onlineDeviceList[lagartoToDevice[expToDevice[2].deviceID]].online, 
             'colour': 'red', 'perch-colour': 'black' },
             {'id': 4, 'mappedTo': expToDevice[3].deviceID, 
             'batteryLevel': onlineDeviceList[lagartoToDevice[expToDevice[3].deviceID]].batteryLevel, 
