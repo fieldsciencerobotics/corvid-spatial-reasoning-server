@@ -34,26 +34,21 @@ var indicatorFunctionToLagartoDotReference = {'1': '0', '2': '0', '3': '0', '4':
 
 
 
-var ackIndicator = function() {
+var onlineDevices = {'7': {'deviceID': 'a', 'online': false}, 
+					'6': {'deviceID': 'b', 'online': false},  
+					'37': {'deviceID': 'c', 'online': false}, 
+					'0': {'deviceID': 'd', 'online': false},  
+					'0': {'deviceID': 'e', 'online': false}, 
+					'0': {'deviceID': 'f', 'online': false}, 
+					'0': {'deviceID': 'g', 'online': false}, 
+					'0': {'deviceID': 'h', 'online': false},  
+					'0': {'deviceID': 'i', 'online': false}, 
+					'0': {'deviceID': 'j', 'online': false}, 
+				};
 
-	deviceID = indicatorToLagartoID['indicator1'];
-	functionID = '12.0'; 
 
 
 
-	deviceAndFunctionID = deviceID + '.' + functionID;
-	value = '5'; // value not important, just so long as there is one at all
-
-	console.log("Acknowdging Indicator is Online: ", deviceAndFunctionID);
-
-	// Sent command to Lagarto
-	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        console.log("Sent Indicator ACK - ACK function")
-      }
-    })
-
-};
 
 
 // The EventEmitter Object that will report events back to the controller
@@ -111,14 +106,25 @@ var Meerkat = function() {
 				        	console.log("Indicator Heartbeat:", id, value);
 
 				        	if (value == '0' || '1' ) {
-				        		ackIndicator();
+				        		//ackIndicator();
 				        	}
+
+				        	//set value in particular list
+				        	
+
 				        	break;
 				        case '12.0': //'perchEvent':
 				        	console.log("Indicator Heartbeat Ack Recieved:", id, value);
+				        	break;
+				        case '13.0': //'perchEvent':
+				        	console.log("Flag Raised:", id, value);
 				        	break; 
+				        case '14.0': //'perchEvent':
+				        	console.log("Flag Lowered:", id, value);
+				        	break; 
+
 				    	default:
-				    		console.log("Unmapping indicator event:", name, id, functionID, value);
+				    		console.log("Unmapped indicator event:", name, id, functionID, value);
 				    		//code goes here
 
 				    }
@@ -158,6 +164,10 @@ var Meerkat = function() {
 				        // Heartbeat events
 				        case '19.0': //'perchEvent':
 				        	console.log("Feeder Heartbeat:", id, value);
+
+				        	onlineDevices[id].online = true;
+				        	print(onlineDevices);
+				        	
 				        	break; 
 
 				        // Meat Action Events
@@ -417,6 +427,14 @@ exports.getDevices = function() {
 
 	//Perhaps this should pre cache??
 
+
+
+	for (var i = 0; i < 10; i++) {
+
+
+	}
+
+
 	// Sent command to Lagarto
 	request('http://127.0.0.1:8001/values?id=7.11.0&value=true', function (error, response, body) {
       if (!error && response.statusCode == 200) {
@@ -537,6 +555,27 @@ exports.getRemainingMeat = function(deviceName) {
 // Indicator (Light) Events
 //
 
+
+exports.ackIndicator = function() {
+
+	deviceID = indicatorToLagartoID['indicator1'];
+	functionID = '12.0'; 
+
+
+
+	deviceAndFunctionID = deviceID + '.' + functionID;
+	value = '5'; // value not important, just so long as there is one at all
+
+	console.log("Acknowdging Indicator is Online: ", deviceAndFunctionID);
+
+	// Sent command to Lagarto
+	request('http://127.0.0.1:8001/values?id=' + deviceAndFunctionID + '&value=' + value, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log("Sent Indicator ACK - ACK function")
+      }
+    })
+
+};
 
 exports.turnLightOn = function(experimentalLightID) {
 
