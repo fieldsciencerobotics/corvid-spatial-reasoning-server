@@ -550,7 +550,8 @@ var experiment = new machina.Fsm( {
         expToDevice = data.getDeviceMapping();
         onlineDeviceList = lagarto.getOnlineDeviceList();
 
-        lagartoToDevice = getDeviceToLagartoMapping();
+        lagartoToDevice = lagarto.getDeviceToLagartoMapping();
+
         console.log(expToDevice);
         console.log(onlineDeviceList);
         console.log(lagartoToDevice);
@@ -619,15 +620,15 @@ var experiment = new machina.Fsm( {
             'connected': onlineDeviceList[lagartoToDevice[expToDevice[9].deviceID]].online, 
             'colour': 'red', 'perch-colour': 'black'}],
                     'onlineList': {'a': [lagartoToDevice[expToDevice[0].deviceID]].online, 
-                                'b': [lagartoToDevice[expToDevice[1].deviceID]].online, 
-                                'c': [lagartoToDevice[expToDevice[2].deviceID]].online, 
-                                'd': [lagartoToDevice[expToDevice[3].deviceID]].online, 
-                                'e': [lagartoToDevice[expToDevice[4].deviceID]].online,
-                                'f': [lagartoToDevice[expToDevice[5].deviceID]].online, 
-                                'g': [lagartoToDevice[expToDevice[6].deviceID]].online, 
-                                'h': [lagartoToDevice[expToDevice[7].deviceID]].online, 
-                                'i': [lagartoToDevice[expToDevice[8].deviceID]].online, 
-                                'j': [lagartoToDevice[expToDevice[9].deviceID]].online,
+                                    'b': [lagartoToDevice[expToDevice[1].deviceID]].online, 
+                                    'c': [lagartoToDevice[expToDevice[2].deviceID]].online, 
+                                    'd': [lagartoToDevice[expToDevice[3].deviceID]].online, 
+                                    'e': [lagartoToDevice[expToDevice[4].deviceID]].online,
+                                    'f': [lagartoToDevice[expToDevice[5].deviceID]].online, 
+                                    'g': [lagartoToDevice[expToDevice[6].deviceID]].online, 
+                                    'h': [lagartoToDevice[expToDevice[7].deviceID]].online, 
+                                    'i': [lagartoToDevice[expToDevice[8].deviceID]].online, 
+                                    'j': [lagartoToDevice[expToDevice[9].deviceID]].online,
                     }};
 
             for (var i=0; i<10; i++) {
