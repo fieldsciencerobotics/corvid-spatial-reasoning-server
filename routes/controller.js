@@ -565,7 +565,7 @@ var experiment = new machina.Fsm( {
             {'id': 8, 'mappedTo': expToDevice[7].deviceID, 'batteryLevel': onlineDeviceList[expToDevice[7].deviceID].batteryLevel, 'meatRemaining': onlineDeviceList[expToDevice[7].deviceID].meatRemaining, 'state': onlineDeviceList[expToDevice[7].deviceID].state, 'connected': onlineDeviceList[expToDevice[7].deviceID].online, 'colour': 'red', 'perch-colour': 'black' },
             {'id': 9, 'mappedTo': expToDevice[8].deviceID, 'batteryLevel': onlineDeviceList[expToDevice[8].deviceID].batteryLevel, 'meatRemaining': onlineDeviceList[expToDevice[8].deviceID].meatRemaining, 'state': onlineDeviceList[expToDevice[8].deviceID].state, 'connected': onlineDeviceList[expToDevice[8].deviceID].online, 'colour': 'red', 'perch-colour': 'black' },
             {'id': 10, 'mappedTo': expToDevice[9].deviceID, 'batteryLevel': onlineDeviceList[expToDevice[9].deviceID].batteryLevel, 'meatRemaining': onlineDeviceList[expToDevice[9].deviceID].meatRemaining, 'state': onlineDeviceList[expToDevice[9].deviceID].state, 'connected': onlineDeviceList[expToDevice[9].deviceID].online, 'colour': 'red', 'perch-colour': 'black'}],
-                    'onlineList': lagarto.getOnlineDeviceList();
+                    'onlineList': lagarto.getOnlineDeviceList()
                     };
 
 
@@ -577,6 +577,14 @@ var experiment = new machina.Fsm( {
     },
 
     setDeviceMapping: function(newDeviceMapping) {
+        
+
+
+
+
+
+
+
         expNodeToDeviceName = newDeviceMapping;
     },
 
