@@ -62,7 +62,7 @@ var Meerkat = function() {
     // Connect to Lagarto over ZMQ to subscrbe to events
 	sock.connect('tcp://0.0.0.0:5001');
 	sock.subscribe('');
-	console.log('Subscriber connected to port 5001');
+	console.log('Subscribed to Lagarto on port 5001');
 	 
 	sock.on('message', function(topic, message) {
 	  	//console.log('Recieved Message: "%s"', topic);
@@ -166,8 +166,8 @@ var Meerkat = function() {
 				        	console.log("Feeder Heartbeat:", id, value);
 
 				        	onlineDevices[id].online = true;
-				        	print(onlineDevices);
-				        	
+				        	console.log(onlineDevices);
+
 				        	break; 
 
 				        // Meat Action Events
@@ -398,7 +398,8 @@ var Meerkat = function() {
     
     // EventEmitters inherit a single event listener, see it in action
     this.on('newListener', function(listener) {
-        console.log('Event Listener: ' + listener);
+        //records when new event listeners subscribe
+        //console.log('Event Listener: ' + listener);
     });
     
 };
