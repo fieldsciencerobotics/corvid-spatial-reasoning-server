@@ -132,11 +132,13 @@ exports.newStage = function(newStage) { //name, desc, delay, autoEnd, autoEndTim
 
 exports.setDeviceMapping = function(newMapping) {
 	// finish method - passing in an array is likely not the correct way to do it...
+	/*
 	db.collection('devices').insert([{nodeID: 1, deviceID: 7}, {nodeID: 2, deviceID: null}, {nodeID: 3, deviceID: null}, {nodeID: 4, deviceID: null}, {nodeID: 5, deviceID: null},
 			 {nodeID: 6, deviceID: null}, {nodeID: 7, deviceID: null}, {nodeID: 8, deviceID: null}, {nodeID: 9, deviceID: null}, {nodeID: 10, deviceID: null}], function(err, result) {
     	if (err) throw err;
     	if (result) console.log('Logged Trail!');
 	});
+	*/
 }
 
 

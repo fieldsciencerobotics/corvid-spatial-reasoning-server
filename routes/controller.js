@@ -673,8 +673,8 @@ var experiment = new machina.Fsm( {
             expNodeToDeviceName1[i] = newDeviceMapping[i].deviceID;
         }
 
-        deviceNameToExpNode = null;
-        expNodeToDeviceName = null;
+        deviceNameToExpNode = deviceNameToExpNode1;
+        expNodeToDeviceName = expNodeToDeviceName1;
 
 
         data.setDeviceMapping(newDeviceMapping);
