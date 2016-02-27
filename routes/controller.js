@@ -546,13 +546,12 @@ var experiment = new machina.Fsm( {
 
     getOnlineDeviceList: function() {
 
+        console.log("Insider getDevicesList in controller");
         expToDevice = data.getDeviceMapping();
         onlineDeviceList = lagarto.getOnlineDeviceList();
 
-
+        console.log("Retrived values from devices in controller");
         // reverse list
-        onlineDeviceList[expToDevice[0].deviceID].batteryLevel
-
 
         feeders = {'feederList': [
             {'id': 1, 'mappedTo': expToDevice[0].deviceID, 'batteryLevel': onlineDeviceList[expToDevice[0].deviceID].batteryLevel, 'meatRemaining': onlineDeviceList[expToDevice[0].deviceID].meatRemaining, 'state': onlineDeviceList[expToDevice[0].deviceID].state,'connected': onlineDeviceList[expToDevice[0].deviceID].online, 'colour': 'red', 'perch-colour': 'black' }, 
