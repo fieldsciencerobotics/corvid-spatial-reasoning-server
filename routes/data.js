@@ -69,16 +69,27 @@ var existingStages = [
                     'feederArrangement': [true, true, true, false, false, false, false, false, false, false]},
                     ];
 
-var deviceMapping = [{nodeID: 1, deviceID: 7}, 
-					{nodeID: 2, deviceID: 6}, 
-					{nodeID: 3, deviceID: 37}, 
-					{nodeID: 4, deviceID: 0}, 
-					{nodeID: 5, deviceID: 0},
-					{nodeID: 6, deviceID: 0}, 
-			 		{nodeID: 7, deviceID: 0}, 
-			 		{nodeID: 8, deviceID: 0}, 
-			 		{nodeID: 9, deviceID: 0}, 
-			 		{nodeID: 10, deviceID: 0}];
+var deviceMapping = [{nodeID: 1, deviceID: 'a'}, 
+					{nodeID: 2, deviceID: 'b'}, 
+					{nodeID: 3, deviceID: 'c'}, 
+					{nodeID: 4, deviceID: 'd'}, 
+					{nodeID: 5, deviceID: 'e'},
+					{nodeID: 6, deviceID: 'f'}, 
+			 		{nodeID: 7, deviceID: 'g'}, 
+			 		{nodeID: 8, deviceID: 'h'}, 
+			 		{nodeID: 9, deviceID: 'i'}, 
+			 		{nodeID: 10, deviceID: 'j'}];
+
+var deviceToLagartoMapping = {'a': '7', 
+	                            'b': '6', 
+	                            'c': '37', 
+	                            'd': '0', 
+	                            'e': '0',
+	                            'f': '0', 
+	                            'g': '0', 
+	                            'h': '0', 
+	                            'i': '0', 
+	                            'j': '0'};
 
 var existingTrials = [];
 
@@ -133,6 +144,10 @@ exports.setDeviceMapping = function() {
 
 exports.getDeviceMapping = function() {
 	return deviceMapping;
+}
+
+exports.getDeviceToLagartoMapping = function() {
+	return deviceToLagartoMapping;
 }
 
 // Change all of the below to getters rather than insert methods
