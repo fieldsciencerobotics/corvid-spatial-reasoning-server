@@ -178,7 +178,7 @@ var experiment = new machina.Fsm( {
 
             },
 
-            reInititalize: function(){
+            reInitialize: function(){
                 // Reset the feeder mappings
                 this.transition( "uninitialized" );
             },
@@ -530,7 +530,7 @@ var experiment = new machina.Fsm( {
     sendToServerGetOnlineDeviceListFreeform: function() {
 
         // But should I also change the current state?
-
+        this.handle( "reInitialize" );
         return experiment.getOnlineDeviceList();
     },
 

@@ -679,7 +679,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     //GET ONLINE DEVICES FROM FREEFORM MODE: Query what devices are currently online, and what the mapping currently is
     $scope.sendToServerGetOnlineDeviceListFreeform = function() {
         $http({
-            url: '/data/sendToServerGetOnlineDeviceListFreeform',
+            url: '/data/getOnlineDeviceListFreeform',
             method: "POST",
             data: angular.toJson([{'id': 2}]),
             headers: {'Content-Type': 'application/json'}

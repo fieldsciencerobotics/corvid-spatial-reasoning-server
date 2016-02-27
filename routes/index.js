@@ -107,6 +107,11 @@ router.post('/data/getOnlineDeviceList', function(req, res, next) {
   res.send(onlineDevices);
 });
 
+router.post('/data/getOnlineDeviceListFreeform', function(req, res, next) {
+  onlineDevices = controller.experiment.getOnlineDeviceListFreeform();
+  res.send(onlineDevices);
+});
+
 router.post('/data/getTrialsOfBirdInStage', function(req, res, next) {
   trials = controller.experiment.getTrialsOfBirdInStage(req.body.birdID, req.body.stageID);
   res.send(trials);
