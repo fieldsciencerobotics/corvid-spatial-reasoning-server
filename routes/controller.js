@@ -634,7 +634,7 @@ var experiment = new machina.Fsm( {
 
             for (var i=0; i<10; i++) {
                 if (feeders['feederList'][i].connected == true){
-                    eeders['feederList'][i].colour == 'green';
+                    feeders['feederList'][i].colour = 'green';
                 }
             }
 
