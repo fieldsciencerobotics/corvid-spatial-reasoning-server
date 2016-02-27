@@ -131,6 +131,34 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     //
     // Freeform
     //
+    $scope.inFreeformMode = true;
+
+    $scope.enterFreeform = function() {
+        $scope.inFreeformMode = true;
+    }
+
+    $scope.leaveFreeform = function() {
+        $scope.inFreeformMode = false;
+    }
+
+    // Reset Devive Configuration
+    $scope.resetDeivceConfiguration = function() {
+        //feeder.colour = 'green';
+        //$scope.resetColour(feeder);
+
+        //$scope.newDeviceMapping = {'1': 'a', '2': 'b', '3': 'c', '4': 'd', '5': 'e',
+        //                    '6': 'f', '7': 'g', '8': 'h', '9': 'i', '10': 'j'};
+
+
+        // This is where the results need to be set.
+        
+        if (inFreeformMode) {
+            $scope.sendToServerGetOnlineDeviceListFreeform();
+        } else {
+            console.log("must in in freeform mode to rest configurations")
+        }
+        
+    }
 
     // Part of the Drop meat method (though it is not working currently)
     $scope.resetColour = function(feeder) {
@@ -143,20 +171,32 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.freeFormDropMeat = function(feederId) {
         //feeder.colour = 'green';
         //$scope.resetColour(feeder);
-        $scope.sendToServerDropMeat(feederId);
+        if (inFreeformMode) {
+            // Freeform action here
+            $scope.sendToServerDropMeat(feederId);
+        } else {
+            console.log("must in in freeform mode to rest configurations")
+        }
+        
     }
 
     // Toggle Ligh
     $scope.freeFormLightToggle = function (light) {
-        if(light.on == true){
-            light.on = false;
-            light.colour = 'black';
-            $scope.freeFormTurnOffLight(light.id);
+        if (inFreeformMode) {
+            // Freeform action here
+            if(light.on == true){
+                light.on = false;
+                light.colour = 'black';
+                $scope.freeFormTurnOffLight(light.id);
+            } else {
+                light.on = true;
+                light.colour = 'yellow';
+                $scope.freeFormTurnOnLight(light.id);
+            }
         } else {
-            light.on = true;
-            light.colour = 'yellow';
-            $scope.freeFormTurnOnLight(light.id);
+            console.log("must in in freeform mode to rest configurations")
         }
+        
     }
 
     $scope.freeFormTurnOnLight = function(lightId) {
@@ -428,6 +468,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         });
     };
 
+
+
     //
     // RUNNING EXPERIMENT METHODS:
     // 
@@ -634,6 +676,27 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         });
     };
 
+    //GET ONLINE DEVICES FROM FREEFORM MODE: Query what devices are currently online, and what the mapping currently is
+    $scope.sendToServerGetOnlineDeviceListFreeform = function() {
+        $http({
+            url: '/data/sendToServerGetOnlineDeviceListFreeform',
+            method: "POST",
+            data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            //$scope.existingStages = data;
+            $scope.feeders = data['feederList'];
+            $scope.onlineDeviceMapping = data['onlineList'];
+            // Now open the Modal
+            $scope.openMapFeeders();
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+    
+
     //GET EXISTING BIRDS: Used to retrieve all the existing birds defiend in the database
     $scope.sendToServerGetBirds = function() {
         $http({
@@ -794,16 +857,16 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
 
             // Pull out the updated device mapping here
-            deviceMapping = [{nodeID: 1, deviceID: 7}, 
-                    {nodeID: 2, deviceID: null}, 
-                    {nodeID: 3, deviceID: null}, 
-                    {nodeID: 4, deviceID: null}, 
-                    {nodeID: 5, deviceID: null},
-                    {nodeID: 6, deviceID: null}, 
-                    {nodeID: 7, deviceID: null}, 
-                    {nodeID: 8, deviceID: null}, 
-                    {nodeID: 9, deviceID: null}, 
-                    {nodeID: 10, deviceID: null}];
+            deviceMapping = [{nodeID: 1, deviceID: null}, 
+                            {nodeID: 2, deviceID: null}, 
+                            {nodeID: 3, deviceID: null}, 
+                            {nodeID: 4, deviceID: null}, 
+                            {nodeID: 5, deviceID: null},
+                            {nodeID: 6, deviceID: null}, 
+                            {nodeID: 7, deviceID: null}, 
+                            {nodeID: 8, deviceID: null}, 
+                            {nodeID: 9, deviceID: null}, 
+                            {nodeID: 10, deviceID: null}];
 
             for (var i=0; i<10; i++) {
                 deviceMapping[i].deviceID = feeders[i].mappedTo;

@@ -178,6 +178,11 @@ var experiment = new machina.Fsm( {
 
             },
 
+            reInititalize: function(){
+                // Reset the feeder mappings
+                this.transition( "uninitialized" );
+            },
+
             perchEvent: function(perchID) {
                 console.log("perch event occured inside freeForm");
             }
@@ -520,6 +525,13 @@ var experiment = new machina.Fsm( {
 
     getStages: function() {
         return data.getStages();
+    },
+
+    sendToServerGetOnlineDeviceListFreeform: function() {
+
+        // But should I also change the current state?
+
+        return experiment.getOnlineDeviceList();
     },
 
     getOnlineDeviceList: function() {
