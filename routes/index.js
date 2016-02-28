@@ -104,8 +104,8 @@ router.post('/freeForm/primeFeeder', function(req, res, next) {
 
 /* Data Retrieval Methods */
 router.post('/data/getBirds', function(req, res, next) {
-  birds = controller.experiment.getBirds();
-  res.send(birds);
+  birds = controller.experiment.getBirds(res);
+  //res.send(birds);
 });
 
 router.post('/data/getStages', function(req, res, next) {

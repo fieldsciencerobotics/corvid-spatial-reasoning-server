@@ -230,7 +230,7 @@ var experiment = new machina.Fsm( {
                 if (currentTrialNum < currentBlock.length) {
                     // Delay before running next trial
                     console.log("Delaying Trial Start by:", delayValue);
-                    currentBlock[currentTrialNum].totalTime = "[Delaying by" + (delayValue/1000) + "sec ...]";
+                    currentBlock[currentTrialNum].totalTime = "[Delaying by " + (delayValue/1000) + "sec ...]";
                     this.timer = setTimeout( function() {
                         this.handle( "delayEnded" );
                     }.bind( this ), delayValue );
@@ -565,8 +565,10 @@ var experiment = new machina.Fsm( {
         return currentBlock;
     },
 
-    getBirds: function() {
-        return data.getBirds();
+    getBirds: function(res) {
+        birds = data.getBirds();
+
+        res.send(birds);
     },
 
     getStages: function() {
