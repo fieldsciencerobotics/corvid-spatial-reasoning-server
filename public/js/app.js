@@ -77,16 +77,16 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // Data Values (To be factored out and retrived from the server)
     // =========================================================================
 
-    $scope.lights = [{'id': 0, 'on': false, 'colour': 'black'},
-                    {'id': 1, 'on': false, 'colour': 'black'}, 
-                    {'id': 2, 'on': false, 'colour': 'black'}, 
-                    {'id': 3, 'on': false, 'colour': 'black'}, 
-                    {'id': 4, 'on': false, 'colour': 'black'}, 
-                    {'id': 5, 'on': false, 'colour': 'black'}, 
-                    {'id': 6, 'on': false, 'colour': 'black'}, 
-                    {'id': 7, 'on': false, 'colour': 'black'}, 
-                    {'id': 8, 'on': false, 'colour': 'black'}, 
-                    {'id': 9, 'on': false, 'colour': 'black'}];
+    $scope.lights = [{'id': 0, 'on': false, 'colour': 'grey'},
+                    {'id': 1, 'on': false, 'colour': 'grey'}, 
+                    {'id': 2, 'on': false, 'colour': 'grey'}, 
+                    {'id': 3, 'on': false, 'colour': 'grey'}, 
+                    {'id': 4, 'on': false, 'colour': 'grey'}, 
+                    {'id': 5, 'on': false, 'colour': 'grey'}, 
+                    {'id': 6, 'on': false, 'colour': 'grey'}, 
+                    {'id': 7, 'on': false, 'colour': 'grey'}, 
+                    {'id': 8, 'on': false, 'colour': 'grey'}, 
+                    {'id': 9, 'on': false, 'colour': 'grey'}];
 
     $scope.feeders = [{'id': 1, 'connected': true, 'colour': 'red', 'perch-colour': 'black' }, 
                     {'id': 2, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
@@ -230,7 +230,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             // Freeform action here
             if(light.on == true){
                 light.on = false;
-                light.colour = 'black';
+                light.colour = 'grey';
                 $scope.freeFormTurnOffLight(light.id);
             } else {
                 light.on = true;
