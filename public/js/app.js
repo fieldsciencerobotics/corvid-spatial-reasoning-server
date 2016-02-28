@@ -432,6 +432,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // Start Session
     $scope.startSession = function() {
         // Notify the server
+
         $scope.sendToServerStartExperimentalSession(parseInt($scope.numOfTrials.num));
 
         $scope.progressBarTotal = $scope.numOfTrials.num;
@@ -619,13 +620,13 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             }
             
 
-            $scope.currentBlock[currentTrial] = data[currentTrial];
+            $scope.currentBlock[$scope.currentTrial] = data[$scope.currentTrial];
 
-            if ($scope.currentBlock[currentTrial].success != null) {
-                currentTrial = currentTrial + 1;
+            if ($scope.currentBlock[$scope.currentTrial].success != null) {
+                $scope.currentTrial = $scope.currentTrial + 1;
 
-                if (currentTrial != ($scope.currentBlock.length-1)) {
-                    $scope.currentBlock[currentTrial] = data[currentTrial];
+                if ($scope.currentTrial != ($scope.currentBlock.length-1)) {
+                    $scope.currentBlock[$scope.currentTrial] = data[$scope.currentTrial];
                 }
                 
             }
