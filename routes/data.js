@@ -286,8 +286,12 @@ function runInserts() {
                     'feederArrangement': [true, true, true, false, false, false, false, false, false, false]},
                     ];
 
+    expNodeToDeviceName = {'1': 'a', '2': 'b', '3': 'c', '4': 'd', '5': 'e',
+	                        '6': 'f', '7': 'g', '8': 'h', '9': 'i', '10': 'j'};
+
     //insertBirds(existingBirds1);
     //insertStages(existingStages1);
+    addDeviceMapping(expNodeToDeviceName)
 }
 
 runInserts();
@@ -357,14 +361,11 @@ exports.newStage = function(newStage, res, getStages) {
 
 
 exports.setDeviceMapping = function(newMapping) {
-	// finish method - passing in an array is likely not the correct way to do it...
-	/*
-	db.collection('devices').insert([{nodeID: 1, deviceID: 7}, {nodeID: 2, deviceID: null}, {nodeID: 3, deviceID: null}, {nodeID: 4, deviceID: null}, {nodeID: 5, deviceID: null},
-			 {nodeID: 6, deviceID: null}, {nodeID: 7, deviceID: null}, {nodeID: 8, deviceID: null}, {nodeID: 9, deviceID: null}, {nodeID: 10, deviceID: null}], function(err, result) {
-    	if (err) throw err;
-    	if (result) console.log('Logged Trail!');
-	});
-	*/
+	
+	// {'1': 'a', '2': 'b', '3': 'c', '4': 'd', '5': 'e',
+	// '6': 'f', '7': 'g', '8': 'h', '9': 'i', '10': 'j'};
+
+	addDeviceMapping(newMapping)
 }
 
 
