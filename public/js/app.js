@@ -381,14 +381,27 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             if($scope.selectedStage.id.feederArrangement[i] == true) {
                 if ($scope.expFeederArrangement[i].connected == true) {
                     $scope.expFeederArrangement[i].check = true;
+                    $scope.expFeederArrangement[i].colour = 'green';
                 } else {
                     $scope.expFeederArrangement[i].check = false;
+                    $scope.expFeederArrangement[i].colour = 'red';
                 }
+
+
             } else {
-                $scope.expFeederArrangement[i].check = true;
+                if ($scope.expFeederArrangement[i].connected == true) {
+                    $scope.expFeederArrangement[i].colour = 'honeydew';
+                    $scope.expFeederArrangement[i].check = true;
+                } else {
+                    $scope.expFeederArrangement[i].colour = 'pink';
+                    $scope.expFeederArrangement[i].check = true;
+                }
+                
+
+
             }
             // set this to be $scope.expFeederArrangement = []; and then change the UI code to reflect this
-            console.log($scope.expFeederArrangement[i].check);
+            console.log($scope.expFeederArrangement[i]);
         }
 
         console.log($scope.expFeederArrangement);
