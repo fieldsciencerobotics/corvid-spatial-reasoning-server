@@ -622,6 +622,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
             $scope.currentBlock[$scope.currentTrial] = data[$scope.currentTrial];
 
+
             if ($scope.currentBlock[$scope.currentTrial].success != null) {
                 $scope.currentTrial = $scope.currentTrial + 1;
 
@@ -653,6 +654,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
                 // Experimental, might need further testing for edge cases
                 $scope.stopProgressPoller();
             }
+
+            console.log($scope.currentTrial);
             
 
         }).error(function (data, status, headers, config) {
