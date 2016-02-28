@@ -512,6 +512,52 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         });
     };
 
+    //
+    // Feeder Stages
+    //
+
+    
+    // STOP FEEDER: Used to stop the feeder just in case
+    $scope.sendToServerStopFeeder = function(feederID) {
+        $http({
+            url: '/freeForm/stopFeeder',
+            method: "POST",
+            data: angular.toJson({'feederID': feederID}),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+    // RESET FEEDER: Used to stop the feeder just in case
+    $scope.sendToServerResetFeeder = function(feederID) {
+        $http({
+            url: '/freeForm/resetFeeder',
+            method: "POST",
+            data: angular.toJson({'feederID': feederID}),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+    // PRIME FEEDER: Used to stop the feeder just in case
+    $scope.sendToServerPrimeFeeder = function(feederID) {
+        $http({
+            url: '/freeForm/primeFeeder',
+            method: "POST",
+            data: angular.toJson({'feederID': feederID}),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
 
 
     //

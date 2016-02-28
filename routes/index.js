@@ -85,6 +85,22 @@ router.post('/freeForm/perchEvent', function(req, res, next) {
   res.send('Perch event triggered');
 });
 
+/* Feeder Stages */
+router.post('/freeForm/stopFeeder', function(req, res, next) {
+  controller.experiment.stopFeeder(req.body.feederID);
+  res.send('Meat Dropped');
+});
+
+router.post('/freeForm/resetFeeder', function(req, res, next) {
+  controller.experiment.resetFeeder(req.body.feederID);
+  res.send('Meat Dropped');
+});
+
+router.post('/freeForm/primeFeeder', function(req, res, next) {
+  controller.experiment.primeFeeder(req.body.feederID);
+  res.send('Meat Dropped');
+});
+
 
 /* Data Retrieval Methods */
 router.post('/data/getBirds', function(req, res, next) {
