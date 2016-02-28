@@ -479,7 +479,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     }
 
     $scope.getCurrentSessionProgress = function() {
-        $scope.currentBlock = [];
+        //$scope.currentBlock = [];
 
         // get the length
         // then pass on this value to the server
