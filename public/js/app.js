@@ -374,6 +374,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
         $scope.expFeederArrangement = angular.copy($scope.feeders);
 
+        console.log($scope.selectedStage.id.feederArrangement);
         for (var i=0; i<$scope.selectedStage.id.feederArrangement; i++) {
 
 
