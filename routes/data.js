@@ -1,47 +1,3 @@
-//var db = require('mongoskin').db('mongodb://localhost:27017/spatial_reasoning'); 
-//var fs = require("fs");
-//var file = "/media/crowDriver/" + "corvidBase.db";
-//var exists = fs.existsSync(file);
-
-//if(!exists) {
-//  console.log("Creating DB file.");
-//  fs.openSync(file, "w");
-//}
-
-//var sqlite3 = require("sqlite3").verbose();
-//var db = new sqlite3.Database(file);
-
-//db.serialize(function() {
-//	  if(!exists) {
-//	    db.run("CREATE TABLE Birds (thing TEXT)");
-//	  }
-
-//	  if(!exists) {
-//	    db.run("CREATE TABLE Stages (thing TEXT)");
-//	  }
-
-//	  if(!exists) {
-//	    db.run("CREATE TABLE Trials (thing TEXT)");
-//	  }
-	  
-//	  var stmt = db.prepare("INSERT INTO Birds VALUES (?)");
-	  
-	//Insert random data
-//	  var rnd;
-//	  for (var i = 0; i < 10; i++) {
-//	    rnd = Math.floor(Math.random() * 10000000);
-//	    stmt.run("Thing #" + rnd);
-//	  }
-	  
-//	stmt.finalize();
-//	  db.each("SELECT rowid AS id, thing FROM Stuff", function(err, row) {
-//	    console.log(row.id + ": " + row.thing);
-//	  });
-//});
-
-//db.close();
-
-
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('/media/crowDriver/crowBase.db');
 var check;
@@ -75,9 +31,10 @@ db.serialize(function() {
 });
 
 
-
+//
 //
 // SQLite Database Methods
+//
 //
 
 
@@ -183,14 +140,14 @@ function removeStages() {
 //
 // Device Mappings
 //
-function getDeviceMappings() {
+
+// The formatting of the results varies depending on the called methods, the callback function handles this
+function getDeviceMappings(format, res) {
     var sql = "SELECT * FROM device_mapping";
     console.log(sql);
     // Print the records as JSON
     db.all(sql, function(err, rows) {
-      for (var i = 0; i < rows.length; i++) {
-		    deviceMappings[rows[i].expNode] = rows[i].device;
-		}
+    	format(res, rows);
     });
 }
 
@@ -206,6 +163,98 @@ function addDeviceMapping(deviceMapping) {
 		stmt.finalize();
 	});
 }
+
+// END OF DEVICE MAPPINGS
+
+
+//
+// Trials
+//
+
+function insertTrial(trial) {
+    db.run("INSERT INTO trials VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [trial.trialID , trial.bird , trial.stage , trial.intended , trial.actual , trial.success , trial.startTime , trial.endTime , trial.totalTime , trial.videoFilePath , trial.notes])
+}
+
+function insertTrials(trials) {
+	for(var i = 0; i < trials.length; i++) {
+		insertTrial(trials[i]);
+	}
+}
+
+// get trials is slightly more complicated and involves a few seperate methods
+
+function getAllTrialsByBird(birdID) {
+	console.log("Print out all trials for:" + birdID);
+    var sql = "SELECT * FROM trials WHERE bird = ? ";
+    // Print the records as JSON
+    db.all(sql, birdID, function(err, rows) {
+      trials = rows; //JSON.stringify(rows);
+    });
+}
+
+function getLast20TrialsByBird(birdID) {
+	console.log("Print out last 20 trials for:" + birdID);
+    var sql = "SELECT * FROM trials WHERE bird = ? "; // order by, restrict count
+    // Print the records as JSON
+    db.all(sql, birdID, function(err, rows) {
+      trials = rows; //JSON.stringify(rows);
+    });
+}
+
+
+function getAllTrialsInStageByBird(birdID, stageID) {
+	console.log("Print out trials for:" + birdID + " and stage: " + stageID);
+    var sql = "SELECT * FROM trials WHERE bird = ? AND stage = ?"; // order by, restrict count
+    // Print the records as JSON
+    db.all(sql, birdID, stageID, function(err, rows) {
+      trials = rows; //JSON.stringify(rows);
+    });
+}
+
+// Used for generating the next TrialID
+function getNextTrialID(birdID, stageID) {
+	// finds the highest trial id, for the filtered set of that birdID and stageID
+	var sql = "SELECT * FROM trials WHERE bird = ? AND stage = ?"; // order by, restrict count
+
+    db.all(sql, birdID, stageID, function(err, rows) {
+      nextTrialID = 1;
+      for (var i = 0; i < rows.length; i++) {
+		   if (rows[i].trialID > nextTrialID) {
+		   	nextTrialID = rows[i].trialID;
+		   }
+		}
+		console.log(nextTrialID + 1);
+    });
+
+}
+
+function removeTrialsOfBird(BirdID) {
+
+}
+
+function removeTrialsOfStage(StageID) {
+
+}
+
+function removeTrailsOfBirdAndStage(BirdID, StageID) {
+
+}
+
+function removeAllTrials(){
+
+}
+
+
+// Still required some thoughts - def needs some counts....
+// getLeaderBoard()
+
+
+
+//
+//
+// END OF THE DATABASE FUNCTIONS
+//
+//
 
 
 
@@ -233,7 +282,7 @@ function runInserts() {
                     ];
 
     //insertBirds(existingBirds1);
-    insertStages(existingStages1);
+    //insertStages(existingStages1);
 }
 
 runInserts();
@@ -249,7 +298,9 @@ runInserts();
 
 var exports = module.exports = {};
 
-
+//
+// To be removed, just as soon as I connect the insert functions up
+//
 var existingBirds = [
                     {'id': 'Green', 'gender': 'male', 'age': 'adult'},
                     {'id': 'Blue', 'gender': 'female', 'age': 'juvenile'},
@@ -269,27 +320,7 @@ var existingStages = [
                     'feederArrangement': [true, true, true, false, false, false, false, false, false, false]},
                     ];
 
-var deviceMapping = [{nodeID: 1, deviceID: 'a'}, 
-					{nodeID: 2, deviceID: 'b'}, 
-					{nodeID: 3, deviceID: 'c'}, 
-					{nodeID: 4, deviceID: 'd'}, 
-					{nodeID: 5, deviceID: 'e'},
-					{nodeID: 6, deviceID: 'f'}, 
-			 		{nodeID: 7, deviceID: 'g'}, 
-			 		{nodeID: 8, deviceID: 'h'}, 
-			 		{nodeID: 9, deviceID: 'i'}, 
-			 		{nodeID: 10, deviceID: 'j'}];
-
-var deviceToLagartoMapping = {'a': '7', 
-	                            'b': '6', 
-	                            'c': '37', 
-	                            'd': '0', 
-	                            'e': '0',
-	                            'f': '0', 
-	                            'g': '0', 
-	                            'h': '0', 
-	                            'i': '0', 
-	                            'j': '0'};
+// * * * *
 
 var existingTrials = [];
 
@@ -309,24 +340,14 @@ exports.logTrial = function(trial) {
 
 }
 
-exports.newBird = function(newBird) { //birdID, gender, age, notes) {
-	//temp variable
-	existingBirds.push(newBird);
-
-	//db.collection('birds').insert({birdID: birdID, gender: gender, age: age, notes: notes }, function(err, result) {
-    //	if (err) throw err;
-    //	if (result) console.log('Added Bird!');
-	//});
+exports.newBird = function(newBird) { 
+	//birdID, gender, age, notes) {
+	insertBird(newBird);
 }
 
-exports.newStage = function(newStage) { //name, desc, delay, autoEnd, autoEndTime, feederArrangement) {
-	//temp variable
-	existingStages.push(newStage);
-
-	//db.collection('stages').insert({'name': name, 'desc':desc, 'delay': delay, 'autoEnd': autoEnd, 'autoEndTime': autoEndTime, 'feederArrangement': feederArrangement}, function(err, result) {
-    //	if (err) throw err;
-    //	if (result) console.log('Added Stage!');
-	//});
+exports.newStage = function(newStage) { 
+	//name, desc, delay, autoEnd, autoEndTime, feederArrangement) {
+	insertStage(newStage);
 }
 
 
@@ -344,18 +365,53 @@ exports.setDeviceMapping = function(newMapping) {
 
 /* Get methods */
 
-// Callback methods
-exports.getDeviceMapping = function(res) {
-	res(deviceMapping);
-}
+	
 
 
+// Callback methods - link up to the actual database
+
+// This doesn't have to be in the database, it's fairly set in stone... (I think...)
 exports.getDeviceToLagartoMapping = function(res) {
+	deviceToLagartoMapping = {'a': '1', 
+	                            'b': '2', 
+	                            'c': '3', 
+	                            'd': '4', 
+	                            'e': '5',
+	                            'f': '6', 
+	                            'g': '7', 
+	                            'h': '8', 
+	                            'i': '9', 
+	                            'j': '10'};
+
 	res(deviceToLagartoMapping);
 } 
 
+function formatDeviceMapping(res, rows){
 
-exports.getDeviceNameToExpNode = function(res) {
+	//for (var i = 0; i < rows.length; i++) {
+	//	    deviceMappings[rows[i].expNode] = rows[i].device;
+	//	}
+
+
+	deviceMapping = [{nodeID: 1, deviceID: 'a'}, 
+					{nodeID: 2, deviceID: 'b'}, 
+					{nodeID: 3, deviceID: 'c'}, 
+					{nodeID: 4, deviceID: 'd'}, 
+					{nodeID: 5, deviceID: 'e'},
+					{nodeID: 6, deviceID: 'f'}, 
+			 		{nodeID: 7, deviceID: 'g'}, 
+			 		{nodeID: 8, deviceID: 'h'}, 
+			 		{nodeID: 9, deviceID: 'i'}, 
+			 		{nodeID: 10, deviceID: 'j'}];
+	res(deviceMapping);
+}
+
+exports.getDeviceMapping = function(res) {
+	getDeviceMappings(formatDeviceMapping, res);
+}
+
+
+function formatDeviceNameToExpNode(res, rows){
 
 	deviceNameToExpNode = {'a': '1', 
                             'b': '2', 
@@ -369,10 +425,13 @@ exports.getDeviceNameToExpNode = function(res) {
                             'j': '10'};
 
 	res(deviceNameToExpNode);
+}
+
+exports.getDeviceNameToExpNode = function(res) {
+	getDeviceMappings(formatDeviceNameToExpNode, res);
 } 
 
-exports.getExpNodeToDeviceName = function(res) {
-
+function formatExpNodeToDeviceName(res, rows){
 	expNodeToDeviceName = {'1': 'a', 
                             '2': 'b', 
                             '3': 'c', 
@@ -385,7 +444,12 @@ exports.getExpNodeToDeviceName = function(res) {
                             '10': 'j'};
 
 	res(expNodeToDeviceName);
+}
+
+exports.getExpNodeToDeviceName = function(res) {
+	getDeviceMappings(formatExpNodeToDeviceName, res);
 } 
+
 
 
 

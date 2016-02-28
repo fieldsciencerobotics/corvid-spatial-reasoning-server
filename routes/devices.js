@@ -16,11 +16,11 @@ var request = require('request');
 // Not to be confussed with the experimental node ID, which will be unique to the arrangement of each session
 
 // Feeder Devices
-var lagartoIDtofeederName = {'7': 'a', '6': 'b', '37': 'c', '0': 'd', '0': 'e',
-							'0': 'f', '0': 'g', '0': 'h', '0': 'i', '0': 'j'};
+var lagartoIDtofeederName = {'1': 'a', '2': 'b', '3': 'c', '4': 'd', '5': 'e',
+							'6': 'f', '7': 'g', '8': 'h', '9': 'i', '10': 'j'};
 
-var feederNameToLagartoID = {'a': '7', 'b': '6', 'c': '0', 'd': '0', 'e': '0',
-							'f': '0', 'g': '0', 'h': '0', 'i': '0', 'j': '0'};
+var feederNameToLagartoID = {'a': '1', 'b': '2', 'c': '3', 'd': '4', 'e': '5',
+							'f': '6', 'g': '7', 'h': '8', 'i': '9', 'j': '10'};
 
 var lagartoDotReferenceToFeederFunction = {'11.0': 'dropMeat', '11.0': 'primeMeat', '11.0': 'resetMeat', '17.0': 'perchEvent', '0': 'event'}; // battery, reset etc etc etc
 
@@ -28,22 +28,22 @@ var feederFunctionToLagartoDotReference = {'dropMeat': '11.0', 'primeMeat': '11.
 
 
 // Indicator device
-var indicatorToLagartoID = {'indicator1': '39'};
+var indicatorToLagartoID = {'indicator1': '50'};
 var indicatorFunctionToLagartoDotReference = {'1': '0', '2': '0', '3': '0', '4': '0', '5': '0', '6': '0',
 											  '7': '0', '8': '0', '9': '0', '10': '0',};
 
 
 
-var onlineDevices = {'7': {'deviceID': 'a', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
-					'6': {'deviceID': 'b', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false},  
-					'37': {'deviceID': 'c', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
-					'0': {'deviceID': 'd', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false},  
-					'0': {'deviceID': 'e', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
-					'0': {'deviceID': 'f', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
-					'0': {'deviceID': 'g', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
-					'0': {'deviceID': 'h', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false},  
-					'0': {'deviceID': 'i', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
-					'0': {'deviceID': 'j', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
+var onlineDevices = {'1': {'deviceID': 'a', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
+					'2': {'deviceID': 'b', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false},  
+					'3': {'deviceID': 'c', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
+					'4': {'deviceID': 'd', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false},  
+					'5': {'deviceID': 'e', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
+					'6': {'deviceID': 'f', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
+					'7': {'deviceID': 'g', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
+					'8': {'deviceID': 'h', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false},  
+					'9': {'deviceID': 'i', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
+					'10': {'deviceID': 'j', 'online': false, 'batteryLevel': 0, 'meatRemaining': 0, 'state': 0, 'recheck': false}, 
 				};
 
 
