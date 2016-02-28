@@ -392,7 +392,7 @@ exports.getDeviceToLagartoMapping = function(res) {
 
 function formatDeviceMapping(res, rows){
 
-	/*
+	console.log(rows);
 	deviceMapping = [{nodeID: 1, deviceID: 'a'}, 
 					{nodeID: 2, deviceID: 'b'}, 
 					{nodeID: 3, deviceID: 'c'}, 
@@ -403,13 +403,17 @@ function formatDeviceMapping(res, rows){
 			 		{nodeID: 8, deviceID: 'h'}, 
 			 		{nodeID: 9, deviceID: 'i'}, 
 			 		{nodeID: 10, deviceID: 'j'}];
-	*/
+	
 
-	deviceMapping = []
+	deviceMapping = [];
 	for (var i = 0; i < rows.length; i++) {
-	    deviceMapping.push({'nodeID': rows[i].expNode, 'deviceID': rows[i].device}) 
+	    deviceMapping.push({'nodeID': rows[i].expNode, 'deviceID': rows[i].device});
+
+
+	    //deviceMapping[i].deviceID
 	}
 
+	console.log(deviceMapping);
 	res(deviceMapping);
 }
 
