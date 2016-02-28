@@ -372,13 +372,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         // Notify the server
         $scope.sendToServerStartExperiment($scope.selectedBird.id.id, $scope.selectedStage.id); 
 
-        for (var i=0; i<$scope.existingStages.length; i++) {
-            if ($scope.existingStages[i].name == $scope.selectedStage.id) {
-                $scope.expFeederArrangement = $scope.existingStages[i].feederArrangement;
-            }
-        }
         
-        console.log($scope.expFeederArrangement);
+        console.log($scope.selectedStage.id);
 
         // this is where I would create the array from which I would draw in the 'Run experiment view'
 
