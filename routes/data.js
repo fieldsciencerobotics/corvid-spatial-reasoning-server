@@ -116,6 +116,102 @@ function removeBirds() {
 
 // END OF BIRD METHODS
 
+
+
+//
+// Stages
+//
+
+function insertStage(stage) {
+    db.run("INSERT INTO stages VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [stage.name , stage.desc , stage.delay , stage.autoEnd , stage.autoEndTime, stage.feederArrangement[0], stage.feederArrangement[1], stage.feederArrangement[2], stage.feederArrangement[3], stage.feederArrangement[4], stage.feederArrangement[5], stage.feederArrangement[6], stage.feederArrangement[7], stage.feederArrangement[8], stage.feederArrangement[9] ])
+}
+
+function insertStages(stages) {
+	for (var i = 0; i < stages.length; i++) {
+		insertStage(stages[i]);
+	}
+}
+
+function getStages(res) {
+	console.log("Print out all stages");
+    var sql = "SELECT * FROM stages";
+    // Print the records as JSON
+    db.all(sql, function(err, rows) {
+      stages = rows; //JSON.stringify(rows);
+
+      for (var i = 0; i < stages.length; i++) {
+      	//console.log(stages[i]);
+	  	stages[i].feederArrangement = [];
+	    stages[i].feederArrangement.push(stages[i].feeder1); 
+	    delete stages[i].feeder1;
+	    stages[i].feederArrangement[1] = stages[i].feeder2; 
+	    delete stages[i].feeder2;
+	    stages[i].feederArrangement[2] = stages[i].feeder3; 
+	    delete stages[i].feeder3;
+	    stages[i].feederArrangement[3] = stages[i].feeder4; 
+	    delete stages[i].feeder4;
+	    stages[i].feederArrangement[4] = stages[i].feeder5; 
+	    delete stages[i].feeder5;
+	    stages[i].feederArrangement[5] = stages[i].feeder6; 
+	    delete stages[i].feeder6;
+	    stages[i].feederArrangement[6] = stages[i].feeder7; 
+	    delete stages[i].feeder7;
+	    stages[i].feederArrangement[7] = stages[i].feeder8; 
+	    delete stages[i].feeder8;
+	    stages[i].feederArrangement[8]= stages[i].feeder9; 
+	    delete stages[i].feeder9;
+	    stages[i].feederArrangement[9]= stages[i].feeder10; 
+	    delete stages[i].feeder10;
+	  }
+
+	  res.send(stages);
+    });
+}
+
+function removeStage(stageID) {
+
+}
+
+function removeStages() {
+
+}
+
+// END OF STAGES METHODS
+
+
+
+//
+// Device Mappings
+//
+function getDeviceMappings() {
+    var sql = "SELECT * FROM device_mapping";
+    console.log(sql);
+    // Print the records as JSON
+    db.all(sql, function(err, rows) {
+      for (var i = 0; i < rows.length; i++) {
+		    deviceMappings[rows[i].expNode] = rows[i].device;
+		}
+    });
+}
+
+function addDeviceMapping(deviceMapping) {
+	db.serialize(function() {
+
+		//var stmt = db.prepare("INSERT INTO device_mapping VALUES (?, ?)");
+		var stmt = db.prepare("INSERT OR REPLACE INTO device_mapping (device, expNode) VALUES (?, ?)");
+
+		for (var i = 1; i < 11; i++) {
+		    stmt.run(expNodeToDeviceName[i], i);
+		}
+		stmt.finalize();
+	});
+}
+
+
+
+
+
+
 function runInserts() {
 	existingBirds1 = [
                     {'id': 'Green', 'gender': 'male', 'age': 'adult', 'notes': ""},
@@ -124,7 +220,20 @@ function runInserts() {
                     {'id': 'Red-Yellow', 'gender': 'female', 'age': 'juvenile', 'notes': ""},
                     {'id': 'Red-Blue', 'gender': 'female', 'age': 'juvenile', 'notes': ""},
                     ];
+
+    existingStages1 = [
+                    {'name': 'first 5 feeders', 'desc': "This is training part one", 'delay': 20, 'autoEnd': false, 'autoEndTime': 180, 
+                    'feederArrangement': [true, true, true, true, true, false, false, false, false, false]},
+                    {'name': 'last 5 feeders', 'desc': "This is experiment part one", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 
+                    'feederArrangement': [false, false, false, false, false, true, true, true, true, true]},
+                    {'name': 'every second', 'desc': "This is experiment part two", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 
+                    'feederArrangement': [true, false, true, false, true, false, true, false, true, false]},
+                    {'name': 'first three', 'desc': "This is experiment part three", 'delay': 15, 'autoEnd': true, 'autoEndTime': 120, 
+                    'feederArrangement': [true, true, true, false, false, false, false, false, false, false]},
+                    ];
+
     //insertBirds(existingBirds1);
+    insertStages(existingStages1);
 }
 
 runInserts();
@@ -235,16 +344,18 @@ exports.setDeviceMapping = function(newMapping) {
 
 /* Get methods */
 
-exports.getDeviceMapping = function() {
-	return deviceMapping;
+// Callback methods
+exports.getDeviceMapping = function(res) {
+	res(deviceMapping);
 }
 
-exports.getDeviceToLagartoMapping = function() {
-	return deviceToLagartoMapping;
+
+exports.getDeviceToLagartoMapping = function(res) {
+	res(deviceToLagartoMapping);
 } 
 
 
-exports.getDeviceNameToExpNode = function() {
+exports.getDeviceNameToExpNode = function(res) {
 
 	deviceNameToExpNode = {'a': '1', 
                             'b': '2', 
@@ -257,10 +368,10 @@ exports.getDeviceNameToExpNode = function() {
                             'i': '9', 
                             'j': '10'};
 
-	return deviceNameToExpNode;
+	res(deviceNameToExpNode);
 } 
 
-exports.getExpNodeToDeviceName = function() {
+exports.getExpNodeToDeviceName = function(res) {
 
 	expNodeToDeviceName = {'1': 'a', 
                             '2': 'b', 
@@ -273,8 +384,10 @@ exports.getExpNodeToDeviceName = function() {
                             '9': 'i', 
                             '10': 'j'};
 
-	return expNodeToDeviceName;
+	res(expNodeToDeviceName);
 } 
+
+
 
 // Change all of the below to getters rather than insert methods
 exports.getTrials = function() {
@@ -304,12 +417,12 @@ exports.getBirds = function(res) {
 	getBirds(res);
 }
 
-exports.getStages = function() {
+exports.getStages = function(res) {
 	//db.collection('stages').insert({'name': name, 'desc':desc, 'delay': delay, 'autoEnd': autoEnd, 'autoEndTime': autoEndTime, 'feederArrangement': feederArrangement}, function(err, result) {
     //	if (err) throw err;
     //	if (result) console.log('Added Stage!');
 	//});
-	return existingStages
+	getStages(res);
 }
 
 

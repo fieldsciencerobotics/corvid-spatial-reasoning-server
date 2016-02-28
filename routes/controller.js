@@ -14,13 +14,35 @@ var currentBirdID = "";
 var currentStage = null;
 
 
-// Mappings between Experiment Nodes, Device ID's, and Lagarto ID's
-expToDevice = data.getDeviceMapping();
-onlineDeviceList = {};
-lagartoToDevice = data.getDeviceToLagartoMapping();
+// Call backs for the data functions below
 
-expNodeToDeviceName = data.getExpNodeToDeviceName();
-deviceNameToExpNode = data.getDeviceNameToExpNode();
+function setLagartoToDevice(result) {
+    lagartoToDevice = result;
+}
+
+function setExpNodeToDeviceName(result) {
+    expNodeToDeviceName = result;
+}
+
+function setDeviceNameToExpNode(result) {
+    deviceNameToExpNode = result;
+}
+
+function setExpToDevice(result) {
+    expToDevice = result;
+}
+
+// Mappings between Experiment Nodes, Device ID's, and Lagarto ID's
+onlineDeviceList = {};
+
+data.getDeviceToLagartoMapping(setLagartoToDevice);
+data.getExpNodeToDeviceName(setExpNodeToDeviceName);
+data.getDeviceNameToExpNode(setDeviceNameToExpNode);
+data.getDeviceMapping(setExpToDevice);
+
+// Map these onto the data functions
+
+
 
 
 // get the online list
@@ -569,8 +591,8 @@ var experiment = new machina.Fsm( {
         data.getBirds(res);
     },
 
-    getStages: function() {
-        return data.getStages();
+    getStages: function(res) {
+        data.getStages(res);
     },
 
     getOnlineDeviceListFreeform: function() {
