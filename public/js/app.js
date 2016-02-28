@@ -623,14 +623,15 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             
 
             // Split this up into each field, not a straight copy replace
-            $scope.currentBlock[$scope.currentTrial].endTime = data[$scope.currentTrial].endTime;
+            //$scope.currentBlock[$scope.currentTrial].endTime = data[$scope.currentTrial].endTime;
             $scope.currentBlock[$scope.currentTrial].success = data[$scope.currentTrial].success;
             $scope.currentBlock[$scope.currentTrial].totalTime = data[$scope.currentTrial].totalTime;
             $scope.currentBlock[$scope.currentTrial].actual = data[$scope.currentTrial].actual;
-            $scope.currentBlock[$scope.currentTrial].startTime = data[$scope.currentTrial].startTime;
+            //$scope.currentBlock[$scope.currentTrial].startTime = data[$scope.currentTrial].startTime;
 
 
             if (data === parseInt($scope.currentBlock[$scope.currentTrial].totalTime, 10)) {
+                console.log("inside the method")
                 $scope.currentBlock[$scope.currentTrial].totalTime = $scope.currentBlock[$scope.currentTrial].totalTime / 1000 + " secs";                
             }
 
