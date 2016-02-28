@@ -363,13 +363,16 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.selectedStage = {};
     $scope.numOfTrials = {};
     $scope.currentBlock = [];
+    $scope.expFeederArrangement = [];
 
     $scope.experimentRunning = [true, false];
 
     // Start Experiment
     $scope.startExperiment = function() {
         // Notify the server
-        $scope.sendToServerStartExperiment($scope.selectedBird.id.id, $scope.selectedStage.id); 
+        $scope.sendToServerStartExperiment($scope.selectedBird.id.id, $scope.selectedStage.name); 
+        $scope.expFeederArrangement = $scope.selectedStage.feederArrangement;
+        console.log($scope.expFeederArrangement);
         // Reset the values
         $scope.selectedBird = {};
         $scope.selectedStage = {};
