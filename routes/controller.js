@@ -565,16 +565,16 @@ var experiment = new machina.Fsm( {
 
     // End Experimental Methods
 
-    addNewBird: function(newBird) {
+    addNewBird: function(newBird, res) {
         console.log("addNewBird API", newBird);
-        data.newBird(newBird);
-        return data.getBirds();
+        data.newBird(newBird, res, experiment.getBirds);
+        //return data.getBirds();
     },
 
-    addNewStage: function(newStage) {
+    addNewStage: function(newStage, res) {
         console.log("addNewStage API", newStage);
-        data.newStage(newStage);
-        return data.getStages()
+        data.newStage(newStage,res, experiment.getStages);
+        //return data.getStages()
     },
 
     // Data Methods

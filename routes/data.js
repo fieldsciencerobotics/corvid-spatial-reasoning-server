@@ -41,8 +41,10 @@ db.serialize(function() {
 //
 // Birds
 //
-function insertBird(bird) {
-    db.run("INSERT INTO birds VALUES (?, ?, ?, ?)", [bird.id, bird.gender, bird.age, bird.notes]);
+function insertBird(bird, res, getBirds) {
+    db.run("INSERT INTO birds VALUES (?, ?, ?, ?)", [bird.id, bird.gender, bird.age, bird.notes], function(err){
+    	getBirds(res);
+    });
 }
 
 function insertBirds(birds) {
@@ -79,8 +81,10 @@ function removeBirds() {
 // Stages
 //
 
-function insertStage(stage) {
-    db.run("INSERT INTO stages VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [stage.name , stage.desc , stage.delay , stage.autoEnd , stage.autoEndTime, stage.feederArrangement[0], stage.feederArrangement[1], stage.feederArrangement[2], stage.feederArrangement[3], stage.feederArrangement[4], stage.feederArrangement[5], stage.feederArrangement[6], stage.feederArrangement[7], stage.feederArrangement[8], stage.feederArrangement[9] ])
+function insertStage(stage, res, getStages) {
+    db.run("INSERT INTO stages VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [stage.name , stage.desc , stage.delay , stage.autoEnd , stage.autoEndTime, stage.feederArrangement[0], stage.feederArrangement[1], stage.feederArrangement[2], stage.feederArrangement[3], stage.feederArrangement[4], stage.feederArrangement[5], stage.feederArrangement[6], stage.feederArrangement[7], stage.feederArrangement[8], stage.feederArrangement[9] ], function(err) {
+    		getStages(res);
+    })
 }
 
 function insertStages(stages) {
@@ -340,14 +344,14 @@ exports.logTrial = function(trial) {
 
 }
 
-exports.newBird = function(newBird) { 
+exports.newBird = function(newBird, res, getBirds) { 
 	//birdID, gender, age, notes) {
-	insertBird(newBird);
+	insertBird(newBird, res, getBirds);
 }
 
-exports.newStage = function(newStage) { 
+exports.newStage = function(newStage, res, getStages) { 
 	//name, desc, delay, autoEnd, autoEndTime, feederArrangement) {
-	insertStage(newStage);
+	insertStage(newStage, res, getStages);
 }
 
 
