@@ -372,11 +372,20 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         // Notify the server
         $scope.sendToServerStartExperiment($scope.selectedBird.id.id, $scope.selectedStage.id); 
 
+        for (var i=0; i<$scope.selectedStage.id.feederArrangement; i++) {
+
+            // The aim is to create an array from which I can draw the feeders visually
+            // Colours for being on
+            // Tick or Cross for that being ok!
+            //  Tick for On when needed, or off when not needed
+            //  Cross for off when actually required
+
+            // set this to be $scope.expFeederArrangement = []; and then change the UI code to reflect this
+            
+        }
         
-        console.log($scope.selectedStage.id);
-
-        // this is where I would create the array from which I would draw in the 'Run experiment view'
-
+        // There is room here to consider whether a warning message should be sent
+        // or a check to make sure it is possible to run this session (make absolute rather than being creative with the experiemtnatl planning as a starting point)
 
         // Reset the values
         $scope.selectedBird = {};
