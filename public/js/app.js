@@ -620,18 +620,12 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             }
             
 
-            $scope.currentBlock[$scope.currentTrial] = data[$scope.currentTrial];
-
-
-            if ($scope.currentBlock[$scope.currentTrial].success != null) {
-                $scope.currentTrial = $scope.currentTrial + 1;
-
-                if ($scope.currentTrial != ($scope.currentBlock.length-1)) {
-                    $scope.currentBlock[$scope.currentTrial] = data[$scope.currentTrial];
-                }
-                
-            }
-
+            // Split this up into each field, not a straight copy replace
+            $scope.currentBlock[$scope.currentTrial].endTime = data[$scope.currentTrial].endTime;
+            $scope.currentBlock[$scope.currentTrial].success = data[$scope.currentTrial].success;
+            $scope.currentBlock[$scope.currentTrial].totalTime = data[$scope.currentTrial].totalTime;
+            $scope.currentBlock[$scope.currentTrial].actual = data[$scope.currentTrial].actual;
+            $scope.currentBlock[$scope.currentTrial].startTime = data[$scope.currentTrial].startTime;
 
             //Method to determine progress
             
@@ -645,7 +639,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             }
 
             $scope.progressBarCurrent = completedNumberOfTrials;
-
+            /*
             if (completedNumberOfTrials == totalNumberOfTrials) {
                 $scope.experimentRunning = [false, true];
                 $scope.stopProgressPoller();
@@ -653,6 +647,21 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
                 // Experimental, might need further testing for edge cases
                 $scope.stopProgressPoller();
+            }
+            */
+            if ($scope.currentBlock[$scope.currentTrial].success != null) {
+                $scope.currentTrial = $scope.currentTrial + 1;
+
+                if ($scope.currentTrial == ($scope.currentBlock.length)) {
+                    //$scope.currentBlock[$scope.currentTrial] = data[$scope.currentTrial];
+                    $scope.experimentRunning = [false, true];
+                    $scope.stopProgressPoller();
+                    $scope.currentTrial = 0;
+
+                    // Experimental, might need further testing for edge cases
+                    $scope.stopProgressPoller();
+                }
+                
             }
 
             console.log($scope.currentTrial);
