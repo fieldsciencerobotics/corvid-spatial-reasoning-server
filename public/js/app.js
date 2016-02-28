@@ -631,8 +631,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
 
             if ($scope.currentBlock[$scope.currentTrial].totalTime === parseInt($scope.currentBlock[$scope.currentTrial].totalTime, 10)) {
-                console.log("inside the method")
-                $scope.currentBlock[$scope.currentTrial].totalTime = $scope.currentBlock[$scope.currentTrial].totalTime / 1000 + " secs";                
+            
+                $scope.currentBlock[$scope.currentTrial].totalTime = (Math.round( ($scope.currentBlock[$scope.currentTrial].totalTime / 1000) * 10 ) / 10) + " secs";                
             }
 
             //Method to determine progress
