@@ -233,7 +233,7 @@ function runInserts() {
                     ];
 
     //insertBirds(existingBirds1);
-    insertStages(existingStages1);
+    //insertStages(existingStages1);
 }
 
 runInserts();
