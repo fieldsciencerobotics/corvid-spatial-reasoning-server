@@ -46,7 +46,12 @@ var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('/media/crowDriver/crowBase.db');
 var check;
 
+device_mapping_length = 0;
 
+birds = null;
+stages = null;
+trials = null;
+deviceMappings = {};
 
 //
 // Initialize the Database tables
@@ -71,15 +76,66 @@ db.serialize(function() {
 
 
 
+//
+// SQLite Database Methods
+//
+
+
+//
+// Birds
+//
+function insertBird(bird) {
+    db.run("INSERT INTO birds VALUES (?, ?, ?, ?)", [bird.id, bird.gender, bird.age, bird.notes]);
+}
+
+function insertBirds(birds) {
+	for (var i = 0; i < birds.length; i++) {
+		insertBird(birds[i]);
+	}
+}
+
+function getBirds(birdsCallback) {
+
+	console.log("Print out all birds");
+	var sql = "SELECT * FROM birds";
+	// Print the records as JSON
+    db.all(sql, function(err, rows) {
+    	//console.log(JSON.stringify(rows))
+    	birds = rows; //JSON.stringify(rows);
+    });
+}
+
+function removeBird(birdID) {
+
+}
+
+function removeBirds() {
+
+}
+
+// END OF BIRD METHODS
+
+function runInserts() {
+	existingBirds1 = [
+                    {'id': 'Green', 'gender': 'male', 'age': 'adult', 'notes': ""},
+                    {'id': 'Blue', 'gender': 'female', 'age': 'juvenile', 'notes': ""},
+                    {'id': 'Red', 'gender': 'female', 'age': 'juvenile', 'notes': ""},
+                    {'id': 'Red-Yellow', 'gender': 'female', 'age': 'juvenile', 'notes': ""},
+                    {'id': 'Red-Blue', 'gender': 'female', 'age': 'juvenile', 'notes': ""},
+                    ];
+    insertBirds(existingBirds1);
+}
 
 
 
 
-const low = require('lowdb');
-const storage = require('lowdb/file-async');
+//const low = require('lowdb');
+//const storage = require('lowdb/file-async');
  
 //const db = low('/media/crowDriver/db.json', { storage })
-var db = low('/media/crowDriver/db.json', { storage: storage })
+//var db = low('/media/crowDriver/db.json', { storage: storage })
+
+
 
 var exports = module.exports = {};
 
@@ -239,12 +295,12 @@ exports.getNextTrialID = function(birdID, stageID) {
 	return 1;
 }
 
-exports.getBirds = function() {
+exports.getBirds = function(res) {
 	//db.collection('birds').insert({birdID: birdID, gender: gender, age: age, notes: notes }, function(err, result) {
     //	if (err) throw err;
     //	if (result) console.log('Added Bird!');
 	//});
-	return existingBirds;
+	res.send(existingBirds);
 }
 
 exports.getStages = function() {

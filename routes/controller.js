@@ -566,9 +566,7 @@ var experiment = new machina.Fsm( {
     },
 
     getBirds: function(res) {
-        birds = data.getBirds();
-
-        res.send(birds);
+        data.getBirds(res);
     },
 
     getStages: function() {
