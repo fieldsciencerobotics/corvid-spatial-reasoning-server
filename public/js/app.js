@@ -379,7 +379,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
 
             if($scope.selectedStage.id.feederArrangement[i] == true) {
-                if ($scope.expFeederArrangement[i].connected) {
+                if ($scope.expFeederArrangement[i].connected == true) {
                     $scope.expFeederArrangement[i].check = true;
                 } else {
                     $scope.expFeederArrangement[i].check = false;
@@ -388,7 +388,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
                 $scope.expFeederArrangement[i].check = true;
             }
             // set this to be $scope.expFeederArrangement = []; and then change the UI code to reflect this
-            
+            console.log($scope.expFeederArrangement[i].check);
         }
 
         console.log($scope.expFeederArrangement);
