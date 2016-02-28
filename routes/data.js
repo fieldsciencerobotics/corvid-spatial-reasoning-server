@@ -94,7 +94,7 @@ function insertBirds(birds) {
 	}
 }
 
-function getBirds(birdsCallback) {
+function getBirds(res) {
 
 	console.log("Print out all birds");
 	var sql = "SELECT * FROM birds";
@@ -102,6 +102,7 @@ function getBirds(birdsCallback) {
     db.all(sql, function(err, rows) {
     	//console.log(JSON.stringify(rows))
     	birds = rows; //JSON.stringify(rows);
+    	res.send(birds);
     });
 }
 
@@ -123,7 +124,7 @@ function runInserts() {
                     {'id': 'Red-Yellow', 'gender': 'female', 'age': 'juvenile', 'notes': ""},
                     {'id': 'Red-Blue', 'gender': 'female', 'age': 'juvenile', 'notes': ""},
                     ];
-    insertBirds(existingBirds1);
+    //insertBirds(existingBirds1);
 }
 
 
@@ -300,7 +301,7 @@ exports.getBirds = function(res) {
     //	if (err) throw err;
     //	if (result) console.log('Added Bird!');
 	//});
-	res.send(existingBirds);
+	getBirds(res);
 }
 
 exports.getStages = function() {
