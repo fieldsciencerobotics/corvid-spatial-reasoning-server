@@ -124,7 +124,7 @@ function runInserts() {
                     {'id': 'Red-Yellow', 'gender': 'female', 'age': 'juvenile', 'notes': ""},
                     {'id': 'Red-Blue', 'gender': 'female', 'age': 'juvenile', 'notes': ""},
                     ];
-    insertBirds(existingBirds1);
+    //insertBirds(existingBirds1);
 }
 
 runInserts();
