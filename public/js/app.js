@@ -372,17 +372,25 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         // Notify the server
         $scope.sendToServerStartExperiment($scope.selectedBird.id.id, $scope.selectedStage.id); 
 
+        $scope.expFeederArrangement = Angular.copy($scope.feeders);
+
         for (var i=0; i<$scope.selectedStage.id.feederArrangement; i++) {
 
-            // The aim is to create an array from which I can draw the feeders visually
-            // Colours for being on
-            // Tick or Cross for that being ok!
-            //  Tick for On when needed, or off when not needed
-            //  Cross for off when actually required
 
+            if($scope.selectedStage.id.feederArrangement[i] == true) {
+                if ($scope.expFeederArrangement[i].connected) {
+                    $scope.expFeederArrangement[i].check = true;
+                } else {
+                    $scope.expFeederArrangement[i].check = false;
+                }
+            } else {
+                $scope.expFeederArrangement[i].check = true;
+            }
             // set this to be $scope.expFeederArrangement = []; and then change the UI code to reflect this
             
         }
+
+        console.log($scope.expFeederArrangement);
         
         // There is room here to consider whether a warning message should be sent
         // or a check to make sure it is possible to run this session (make absolute rather than being creative with the experiemtnatl planning as a starting point)
