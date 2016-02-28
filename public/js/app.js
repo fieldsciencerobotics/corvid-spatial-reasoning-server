@@ -372,8 +372,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         // Notify the server
         $scope.sendToServerStartExperiment($scope.selectedBird.id.id, $scope.selectedStage.id); 
 
-        for (var i=0; i<existingStages.length; i++) {
-            if (existingStages[i].name == $scope.selectedStage.id) {
+        for (var i=0; i<$scope.existingStages.length; i++) {
+            if ($scope.existingStages[i].name == $scope.selectedStage.id) {
                 $scope.expFeederArrangement = $scope.existingStages[i].feederArrangement;
             }
         }
