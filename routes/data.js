@@ -41,6 +41,40 @@
 
 //db.close();
 
+
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('/media/crowDriver/crowBase.db');
+var check;
+
+
+
+//
+// Initialize the Database tables
+//
+db.serialize(function() {
+	// Creates Birds Table (if it doesnt already exist)
+	db.run("CREATE TABLE if not exists birds (id TEXT, gender TEXT, age TEXT, notes TEXT)");
+	//db.run("DROP TABLE birds")
+
+	// Creates Stages Table (if it doesnt already exist)
+	db.run("CREATE TABLE if not exists stages (name TEXT, desc TEXT, delay INTEGER, autoEnd BOOL, autoEndTime INTEGER, feeder1 BOOL, feeder2 BOOL, feeder3 BOOL, feeder4 BOOL, feeder5 BOOL, feeder6 BOOL, feeder7 BOOL, feeder8 BOOL, feeder9 BOOL, feeder10 BOOL)");
+	//db.run("DROP TABLE stages");
+
+	// Creating Device Mapping Table (if it doesnt already exist)
+	db.run("CREATE TABLE if not exists device_mapping (device VARCHAR, expNode INTEGER)");
+	//db.run("DROP TABLE device_mapping");
+
+	// Creates the Trials Table (if it doesnt already exist)
+	db.run("CREATE TABLE if not exists trials (trialID INTEGER, bird TEXT, stage TEXT, intended INTEGER, actual INTEGER, success BOOL, startTime INTEGER, endTime INTEGER, totalTime INTEGER, videoFilePath TEXT, notes TEXT)");
+	//db.run("DROP TABLE trials");
+});
+
+
+
+
+
+
+
 const low = require('lowdb');
 const storage = require('lowdb/file-async');
  
