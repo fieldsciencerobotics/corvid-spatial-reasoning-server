@@ -252,10 +252,10 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     }
 
     // Simulate Perch event of node 2 - only used for testing
-    $scope.simulatePerchEvent = function() {
+    $scope.simulatePerchEvent = function(num) {
         //feeder.colour = 'green';
         //$scope.resetColour(feeder);
-        $scope.sendToServerPerchEvent(2);
+        $scope.sendToServerPerchEvent(num);
     }
 
 
@@ -414,6 +414,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $scope.selectedStage = {};
         $scope.progressBarTotal = 0;
         $scope.progressBarCurrent = 0;
+        $scope.currentBlock = [];
         // Change the View
         $scope.experimentStageSelect(1);
     }
@@ -476,6 +477,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
         // Change the View
         $scope.experimentStageSelect(0);
+        $scope.currentBlock = [];
     }
 
     $scope.getCurrentSessionProgress = function() {
@@ -626,6 +628,11 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             $scope.currentBlock[$scope.currentTrial].totalTime = data[$scope.currentTrial].totalTime;
             $scope.currentBlock[$scope.currentTrial].actual = data[$scope.currentTrial].actual;
             $scope.currentBlock[$scope.currentTrial].startTime = data[$scope.currentTrial].startTime;
+
+
+            if (data === parseInt($scope.currentBlock[$scope.currentTrial].totalTime, 10)) {
+                $scope.currentBlock[$scope.currentTrial].totalTime = $scope.currentBlock[$scope.currentTrial].totalTime / 1000 + " secs";                
+            }
 
             //Method to determine progress
             

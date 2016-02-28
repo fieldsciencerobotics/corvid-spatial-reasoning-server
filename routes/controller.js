@@ -155,18 +155,23 @@ var experiment = new machina.Fsm( {
                 // Transform experimental Feeder ID into the actual device Name
                 deviceNameID = expNodeToDeviceName[feederID];
 
+                // DEVICEMAPPING
                 lagarto.dropMeat(deviceNameID);
             },
 
             lightOn: function(lightID) {
                 //Hardwired for Node 1, TO-DO make general case
                 console.log("turn light on: ", lightID);
+
+                // DEVICEMAPPING
                 lagarto.turnLightOn(lightID);
 
             },
 
             lightOff: function(lightID) {
                 console.log("turn lights off");
+
+                // DEVICEMAPPING
                 lagarto.turnLightOff(lightID);
 
             },
@@ -184,7 +189,7 @@ var experiment = new machina.Fsm( {
             },
 
             perchEvent: function(perchID) {
-                console.log("perch event occured inside freeForm");
+                console.log("perch event occured inside freeForm", perchID);
             }
 
         },
@@ -225,7 +230,7 @@ var experiment = new machina.Fsm( {
                 if (currentTrialNum < currentBlock.length) {
                     // Delay before running next trial
                     console.log("Delaying Trial Start by:", delayValue);
-                    currentBlock[currentTrialNum].totalTime = "[Delayed start...]";
+                    currentBlock[currentTrialNum].totalTime = "[Delaying start...]";
                     this.timer = setTimeout( function() {
                         this.handle( "delayEnded" );
                     }.bind( this ), delayValue );
@@ -262,8 +267,11 @@ var experiment = new machina.Fsm( {
             _onEnter: function(randomNumber) {
                 console.log("In trial ", currentTrialNum);
                 currentBlock[currentTrialNum].startTime = new Date().getTime();
+
+
+                // DEVICEMAPPING
                 lagarto.turnLightOn(currentBlock[currentTrialNum].intended);
-                //console.log("passed through number", randomNumber);
+
 
                 this.timer = setTimeout( function() {
                     this.handle( "timeout" );
@@ -277,6 +285,7 @@ var experiment = new machina.Fsm( {
                 currentBlock[currentTrialNum].actual = 'timeout';
                 currentBlock[currentTrialNum].success = false;
 
+                // DEVICEMAPPING
                 lagarto.turnLightOff(currentBlock[currentTrialNum].intended);
 
                 console.log(currentBlock[currentTrialNum]);
@@ -320,6 +329,7 @@ var experiment = new machina.Fsm( {
                 // Mapping from device ID to experimental ID required
                 currentBlock[currentTrialNum].actual = perchID;
 
+                // DEVICEMAPPING
                 lagarto.turnLightOff(currentBlock[currentTrialNum].intended);
 
                 if (currentBlock[currentTrialNum].intended == currentBlock[currentTrialNum].actual) {
@@ -334,6 +344,7 @@ var experiment = new machina.Fsm( {
                     deviceNameID = expNodeToDeviceName[currentBlock[currentTrialNum].intended];
 
                     // Drop the Meat
+                    // DEVICEMAPPING
                     lagarto.dropMeat(deviceNameID);
 
                     // If finished, go to ended session, not session
