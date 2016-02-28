@@ -119,7 +119,7 @@ var Meerkat = function() {
 				        	}
 
 				        	//set value in particular list
-				        	
+				        	// akin to the way the feeders were done
 
 				        	break;
 				        case '12.0': //'perchEvent':
@@ -473,7 +473,7 @@ exports.getBatteryLife = function() {
 //
 
 // Prime Meat
-exports.stopMeat = function(deviceName) {
+exports.stopFeeder = function(deviceName) {
 
 	// map device name, and the function to below
 	deviceID = feederNameToLagartoID[deviceName];
@@ -493,7 +493,7 @@ exports.stopMeat = function(deviceName) {
 };
 
 // Prime Meat
-exports.resetMeat = function(deviceName) {
+exports.resetFeeder = function(deviceName) {
 
 	// map device name, and the function to below
 	deviceID = feederNameToLagartoID[deviceName];
@@ -513,7 +513,7 @@ exports.resetMeat = function(deviceName) {
 };
 
 // Prime Meat
-exports.primeMeat = function(deviceName) {
+exports.primeFeeder = function(deviceName) {
 
 	// map device name, and the function to below
 	deviceID = feederNameToLagartoID[deviceName];

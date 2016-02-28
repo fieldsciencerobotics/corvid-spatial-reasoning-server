@@ -495,6 +495,41 @@ var experiment = new machina.Fsm( {
         console.log("perchEvent API");
         this.handle("lightChangedEvent", lightID);
     },
+
+
+    // Feeder Stages Methods
+    stopFeeder: function(feederID) {
+        console.log("stopFeeder API", feederID);
+
+        // Transform experimental Feeder ID into the actual device Name
+        deviceNameID = expNodeToDeviceName[feederID];
+        lagarto.stopFeeder(deviceNameID);
+
+        // Consider the interaction with the state machine later
+        //this.handle("stopFeeder", feederID);
+    },
+
+    resetFeeder: function(feederID) {
+        console.log("resetFeeder API", feederID);
+        // Transform experimental Feeder ID into the actual device Name
+        deviceNameID = expNodeToDeviceName[feederID];
+        lagarto.resetFeeder(deviceNameID);
+
+        // Consider the interaction with the state machine later
+        //this.handle("resetFeeder", feederID);
+    },
+
+    primeFeeder: function(feederID) {
+        console.log("primeFeeder API", feederID);
+        // Transform experimental Feeder ID into the actual device Name
+        deviceNameID = expNodeToDeviceName[feederID];
+        lagarto.primeFeeder(deviceNameID);
+
+        // Consider the interaction with the state machine later
+        //this.handle("primeFeeder", feederID);
+    },
+
+
     // End Experimental Methods
 
     addNewBird: function(newBird) {
