@@ -372,7 +372,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         // Notify the server
         $scope.sendToServerStartExperiment($scope.selectedBird.id.id, $scope.selectedStage.id); 
 
-        $scope.expFeederArrangement = Angular.copy($scope.feeders);
+        $scope.expFeederArrangement = angular.copy($scope.feeders);
 
         for (var i=0; i<$scope.selectedStage.id.feederArrangement; i++) {
 
