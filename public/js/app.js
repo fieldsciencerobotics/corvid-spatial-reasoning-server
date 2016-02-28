@@ -630,7 +630,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             //$scope.currentBlock[$scope.currentTrial].startTime = data[$scope.currentTrial].startTime;
 
 
-            if (data === parseInt($scope.currentBlock[$scope.currentTrial].totalTime, 10)) {
+            if ($scope.currentBlock[$scope.currentTrial].totalTime === parseInt($scope.currentBlock[$scope.currentTrial].totalTime, 10)) {
                 console.log("inside the method")
                 $scope.currentBlock[$scope.currentTrial].totalTime = $scope.currentBlock[$scope.currentTrial].totalTime / 1000 + " secs";                
             }
