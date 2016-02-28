@@ -392,11 +392,7 @@ exports.getDeviceToLagartoMapping = function(res) {
 
 function formatDeviceMapping(res, rows){
 
-	//for (var i = 0; i < rows.length; i++) {
-	//	    deviceMappings[rows[i].expNode] = rows[i].device;
-	//	}
-
-
+	/*
 	deviceMapping = [{nodeID: 1, deviceID: 'a'}, 
 					{nodeID: 2, deviceID: 'b'}, 
 					{nodeID: 3, deviceID: 'c'}, 
@@ -407,6 +403,13 @@ function formatDeviceMapping(res, rows){
 			 		{nodeID: 8, deviceID: 'h'}, 
 			 		{nodeID: 9, deviceID: 'i'}, 
 			 		{nodeID: 10, deviceID: 'j'}];
+	*/
+
+	deviceMapping = []
+	for (var i = 0; i < rows.length; i++) {
+	    deviceMapping.push({'nodeID': rows[i].expNode, 'deviceID': rows[i].device}) 
+	}
+
 	res(deviceMapping);
 }
 
@@ -417,6 +420,7 @@ exports.getDeviceMapping = function(res) {
 
 function formatDeviceNameToExpNode(res, rows){
 
+	/*
 	deviceNameToExpNode = {'a': '1', 
                             'b': '2', 
                             'c': '3', 
@@ -427,6 +431,12 @@ function formatDeviceNameToExpNode(res, rows){
                             'h': '8', 
                             'i': '9', 
                             'j': '10'};
+    */
+
+	deviceNameToExpNode = {}
+	for (var i = 0; i < rows.length; i++) {
+	    deviceMappings[rows[i].device] = rows[i].expNode;
+	}
 
 	res(deviceNameToExpNode);
 }
@@ -436,16 +446,24 @@ exports.getDeviceNameToExpNode = function(res) {
 } 
 
 function formatExpNodeToDeviceName(res, rows){
+
+	/*
 	expNodeToDeviceName = {'1': 'a', 
-                            '2': 'b', 
-                            '3': 'c', 
-                            '4': 'd', 
-                            '5': 'e',
-                            '6': 'f', 
-                            '7': 'g', 
-                            '8': 'h', 
-                            '9': 'i', 
-                            '10': 'j'};
+                        '2': 'b', 
+                        '3': 'c', 
+                        '4': 'd', 
+                        '5': 'e',
+                        '6': 'f', 
+                        '7': 'g', 
+                        '8': 'h', 
+                        '9': 'i', 
+                        '10': 'j'};
+    */
+
+	expNodeToDeviceName = {}
+	for (var i = 0; i < rows.length; i++) {
+	    expNodeToDeviceName[rows[i].expNode] = rows[i].device;
+	}
 
 	res(expNodeToDeviceName);
 }
