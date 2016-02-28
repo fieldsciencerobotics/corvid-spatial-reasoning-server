@@ -575,7 +575,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             console.log(data);
 
             // needs testing
-            if(scope.currentBlock.length < 1){
+            if($scope.currentBlock.length < 1){
                 $scope.currentBlock = data;
             }
             
