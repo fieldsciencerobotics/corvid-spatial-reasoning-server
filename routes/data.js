@@ -151,7 +151,8 @@ function getDeviceMappings(format, res) {
     console.log(sql);
     // Print the records as JSON
     db.all(sql, function(err, rows) {
-    	format(res, rows);
+    	myRows = rows;
+    	format(res, myRows);
     });
 }
 
