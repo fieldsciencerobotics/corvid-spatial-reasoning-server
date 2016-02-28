@@ -562,7 +562,7 @@ var experiment = new machina.Fsm( {
         return data.getStages();
     },
 
-    sendToServerGetOnlineDeviceListFreeform: function() {
+    getOnlineDeviceListFreeform: function() {
 
         // But should I also change the current state?
         this.handle( "reInitialize" );
