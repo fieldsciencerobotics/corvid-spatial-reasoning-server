@@ -109,8 +109,8 @@ router.post('/data/getBirds', function(req, res, next) {
 });
 
 router.post('/data/getStages', function(req, res, next) {
-  stages= controller.experiment.getStages();
-  res.send(stages);
+  stages= controller.experiment.getStages(res);
+  //res.send(stages);
 });
 
 router.post('/data/getDeviceMapping', function(req, res, next) {
