@@ -127,7 +127,7 @@ function runInserts() {
     //insertBirds(existingBirds1);
 }
 
-
+runInserts();
 
 
 //const low = require('lowdb');
