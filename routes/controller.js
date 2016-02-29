@@ -13,6 +13,7 @@ var delayValue = 0;
 var currentBirdID = "";
 var currentStage = null;
 
+var initialTrialID = 1;
 
 // Call backs for the data functions below
 
@@ -62,6 +63,10 @@ var resetAllValues = function() {
     delayValue = 0;
 }
 
+var generateNextTrialIDInAdvance(newID){
+    initialTrialID = newID;
+}
+
 var trialGenerator = function() {
 
     // Filled from the stage object
@@ -71,7 +76,6 @@ var trialGenerator = function() {
     timeOutLeadsToFail = currentStage.autoEnd;
 
     birdID = currentBirdID;
-    initialTrialID = data.getNextTrialID(birdID, stageID); // currently will always return 1
     numOfTrials = currentNumOfTrials;
 
     
@@ -201,6 +205,7 @@ var experiment = new machina.Fsm( {
             startExperiment: function(birdID, stage) {
                 currentBirdID = birdID;
                 currentStage = stage;
+                data.getNextTrialID(birdID, stageID, generateNextTrialIDInAdvance);
                 this.transition( "experiment" );
 
             },
@@ -764,8 +769,8 @@ var experiment = new machina.Fsm( {
         return data.getLeaderBoard();
     },
 
-    getTrialsOfBirdInStage: function(birdID, stageID) {
-        return data.getTrialsOfBirdInStage(birdID, stageID);
+    getTrialsOfBirdInStage: function(birdID, stageID, res) {
+        data.getTrialsOfBirdInStage(birdID, stageID, res);
     },
 
     getCurrentBatteryLife: function() {

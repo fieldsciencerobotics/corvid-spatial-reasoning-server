@@ -207,7 +207,17 @@ function getLast20TrialsByBird(birdID) {
 }
 
 
-function getAllTrialsInStageByBird(birdID, stageID) {
+function getAllTrialsInStageByBird(birdID, stageID, res) {
+	console.log("Print out trials for:" + birdID + " and stage: " + stageID);
+    var sql = "SELECT * FROM trials WHERE bird = ? AND stage = ?"; // order by, restrict count
+    // Print the records as JSON
+    db.all(sql, birdID, stageID, function(err, rows) {
+      trials = rows; //JSON.stringify(rows);
+      res.send(trials);
+    });
+}
+
+function getRangeOfTrialsInStageByBird(birdID, stageID, start, stop) {
 	console.log("Print out trials for:" + birdID + " and stage: " + stageID);
     var sql = "SELECT * FROM trials WHERE bird = ? AND stage = ?"; // order by, restrict count
     // Print the records as JSON
@@ -217,7 +227,7 @@ function getAllTrialsInStageByBird(birdID, stageID) {
 }
 
 // Used for generating the next TrialID
-function getNextTrialID(birdID, stageID) {
+function getNextTrialID(birdID, stageID, res) {
 	// finds the highest trial id, for the filtered set of that birdID and stageID
 	var sql = "SELECT * FROM trials WHERE bird = ? AND stage = ?"; // order by, restrict count
 
@@ -229,6 +239,7 @@ function getNextTrialID(birdID, stageID) {
 		   }
 		}
 		console.log(nextTrialID + 1);
+		res(nextTrialID + 1);
     });
 
 }
@@ -291,7 +302,7 @@ function runInserts() {
 
     //insertBirds(existingBirds1);
     //insertStages(existingStages1);
-    addDeviceMapping(expNodeToDeviceName)
+    //addDeviceMapping(expNodeToDeviceName)
 }
 
 runInserts();
@@ -338,14 +349,9 @@ var existingTrials = [];
 /* Set methods */
 
 exports.logTrial = function(trial) {
-
-
 	console.log("Saving Trial: ", trial);
 
-	//db.collection('trials').insert({trialID: "15", result: "success" }, function(err, result) {
-    //	if (err) throw err;
-    //	if (result) console.log('Logged Trail!');
-	//});
+	insertTrial(trial);
 
 }
 
@@ -394,7 +400,7 @@ exports.getDeviceToLagartoMapping = function(res) {
 
 function formatDeviceMapping(res, rows){
 
-	console.log(rows);
+	//console.log(rows);
 	deviceMapping = [{nodeID: 1, deviceID: 'a'}, 
 					{nodeID: 2, deviceID: 'b'}, 
 					{nodeID: 3, deviceID: 'c'}, 
@@ -415,7 +421,7 @@ function formatDeviceMapping(res, rows){
 	    //deviceMapping[i].deviceID
 	}
 
-	console.log(deviceMapping);
+	//console.log(deviceMapping);
 	res(deviceMapping);
 }
 
@@ -489,17 +495,20 @@ exports.getTrials = function() {
 	});
 }
 
-exports.getNextTrialID = function(birdID, stageID) {
-
-	// connects to the database
-	// finds the highest trial id, for the filtered set of that birdID and stageID
-
-
-	// lowdb work required here
-
-	// hardcoded to return 1 currently
-	return 1;
+exports.getNextTrialID = function(birdID, stageID, res) {
+	getNextTrialID(birdID, stageID, res);
 }
+
+
+exports.getLeaderBoard = function() {
+	return {'birdies': 'data'};
+}
+
+exports.getTrialsOfBirdInStage = function(birdID, stageID, res) {
+	getAllTrialsInStageByBird(birdID, stageID, res);
+}
+
+
 
 exports.getBirds = function(res) {
 	//db.collection('birds').insert({birdID: birdID, gender: gender, age: age, notes: notes }, function(err, result) {
@@ -517,13 +526,5 @@ exports.getStages = function(res) {
 	getStages(res);
 }
 
-
-exports.getLeaderBoard = function() {
-	return {'birdies': 'data'};
-}
-
-exports.getTrialsOfBirdInStage = function(birdID, stageID) {
-	return {'specificBird': 'data'};
-}
 
 

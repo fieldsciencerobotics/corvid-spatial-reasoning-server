@@ -73,6 +73,44 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $scope.currentDataBeingExplored[stage] = true;
     }
 
+
+    // In the data tab: what data is currently being explored
+    $scope.currentNumberOfStages = 0;
+    $scope.currentDataStageBeingExplored = []; // (leaderboard, or specific bird)
+    $scope.indexOfCurrentlySelectedStage = null;
+
+    $scope.dataExploreStageSelectSetup = function() {
+        $scope.currentNumberOfStages = $scope.existingStages.length;
+        $scope.currentDataStageBeingExplored = [];
+
+        if ($scope.currentNumberOfStages > 0){
+            $scope.currentDataStageBeingExplored.push(true);
+            $scope.indexOfCurrentlySelectedStage = 0;
+
+            if ($scope.currentNumberOfStages > 1){
+                for (i=1;i<$scope.existingStages.length;i++){
+                    $scope.currentDataStageBeingExplored.push(false);
+                }
+            }
+        }
+    }
+
+    $scope.dataExploreStageSelect = function(stage, index) {
+
+        if ($scope.existingStages.length != $scope.currentNumberOfStages){
+            $scope.dataExploreStageSelectSetup();
+        }
+        $scope.currentDataStageBeingExplored = [];
+        for (i=0;i<$scope.existingStages.length;i++){
+            $scope.currentDataStageBeingExplored.push(false);
+        }
+        $scope.indexOfCurrentlySelectedStage = index;
+        $scope.currentDataStageBeingExplored[index] = true;
+
+        $scope.updateCurrentBirdStageTrials()
+    }
+
+
     //
     // Data Values (To be factored out and retrived from the server)
     // =========================================================================
@@ -99,8 +137,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
                     {'id': 9, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
                     {'id': 10, 'connected': true, 'colour': 'red', 'perch-colour': 'black'  }];
 
-    $scope.existingBirds = [];
-    $scope.existingStages = [];
+    $scope.existingBirds = [{'id': 'bird1'},{'id': 'bird2'},{'id': 'bird3'}];
+    $scope.existingStages = [{'name': "stage1"},{'name': "stage2"},{'name': "stage3"}];
 
     $scope.onlineDeviceMapping = [];
 
@@ -297,22 +335,30 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     }
 
     $scope.leaderBoard = {};
-    $scope.currentBirdStageTrials = {};
+    $scope.currentBirdStageTrials = [];
 
     $scope.getLeaderBoard = function() {
         $scope.sendToServerGetLeaderBoard();
     }
 
-    $scope.updateCurrentBirdStageTrials = function(birdID, stageID){
-        $scope.sendToServerGetTrialsOfBirdInStage(birdID, stageID);
+    // Updating the data table for showing the bird in stages in the data section
+    $scope.updateCurrentBirdStageTrials = function(){
+
+        if($scope.dataSelectedBird != null && $scope.indexOfCurrentlySelectedStage != null){
+            console.log("sending request: ", $scope.existingBirds[$scope.dataSelectedBird].id, $scope.existingStages[$scope.indexOfCurrentlySelectedStage].name);
+            $scope.currentBirdStageTrials = [];
+            $scope.sendToServerGetTrialsOfBirdInStage($scope.existingBirds[$scope.dataSelectedBird].id, $scope.existingStages[$scope.indexOfCurrentlySelectedStage].name);
+        }
+
+        
     }
 
 
-    $scope.dataExploreChangeToBird = function(birdID) {
+    $scope.dataSelectedBird = null;
 
-        // send to server get bird data
-
-        // update the table drawing function
+    $scope.dataExploreChangeToBird = function(birdID, index) {
+        $scope.dataSelectedBird = index;
+        $scope.updateCurrentBirdStageTrials()
     }
 
 
@@ -631,7 +677,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
 
             if ($scope.currentBlock[$scope.currentTrial].totalTime === parseInt($scope.currentBlock[$scope.currentTrial].totalTime, 10)) {
-            
+
                 $scope.currentBlock[$scope.currentTrial].totalTime = (Math.round( ($scope.currentBlock[$scope.currentTrial].totalTime / 1000) * 10 ) / 10) + " secs";                
             }
 
@@ -872,6 +918,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         }).success(function (data, status, headers, config) {
             console.log(data);
             $scope.existingStages = data;
+            dataExploreStageSelectSetup();
         }).error(function (data, status, headers, config) {
             $scope.status = status + ' ' + headers;
         });
@@ -889,6 +936,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             $scope.currentBirdStageTrials = data;
         }).error(function (data, status, headers, config) {
             $scope.status = status + ' ' + headers;
+
+            $scope.currentBirdStageTrials = [ { 'trialID': 5, 'totaltime': "12 sec" , 'intended': 2, 'actual': 2, 'success': true}];
         });
     };
 

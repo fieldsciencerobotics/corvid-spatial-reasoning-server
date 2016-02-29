@@ -175,7 +175,7 @@ Experiments Tab
 				</tr>
 			</thead>
 			<tbody>
-			<tr ng-repeat="trial in currentBlock" ng-class="{ 'success': trial.success == true, 'warning': trial.success == false}">
+				<tr ng-repeat="trial in currentBlock" ng-class="{ 'success': trial.success == true, 'warning': trial.success == false}">
 					<td>{{trial.trialID}}</td>
 					<td>{{trial.totalTime}}</td>
 					<td>{{trial.intended}}</td>
