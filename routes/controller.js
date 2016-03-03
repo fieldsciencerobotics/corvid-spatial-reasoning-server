@@ -16,20 +16,23 @@ var currentStage = null;
 var initialTrialID = 1;
 
 // Call backs for the data functions below
-
 function setLagartoToDevice(result) {
+    console.log("lagartoToDevice", result);
     lagartoToDevice = result;
 }
 
 function setExpNodeToDeviceName(result) {
+    console.log("expNodeToDeviceName", result);
     expNodeToDeviceName = result;
 }
 
 function setDeviceNameToExpNode(result) {
+    console.log("deviceNameToExpNode", result);
     deviceNameToExpNode = result;
 }
 
 function setExpToDevice(result) {
+    console.log("expToDevice", result);
     expToDevice = result;
 }
 
