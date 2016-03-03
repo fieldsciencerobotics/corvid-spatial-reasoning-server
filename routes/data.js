@@ -163,8 +163,8 @@ function addDeviceMapping(deviceMapping) {
 		//var stmt = db.prepare("INSERT INTO device_mapping VALUES (?, ?)");
 		var stmt = db.prepare("INSERT OR REPLACE INTO device_mapping (device, expNode) VALUES (?, ?)");
 
-		for (var i = 1; i < 11; i++) {
-		    stmt.run(expNodeToDeviceName[i], i);
+		for (var i = 0; i < 10; i++) {
+		    stmt.run(deviceMapping[i], i);
 		}
 		stmt.finalize();
 	});
@@ -371,7 +371,7 @@ exports.setDeviceMapping = function(newMapping) {
 	
 	// {'1': 'a', '2': 'b', '3': 'c', '4': 'd', '5': 'e',
 	// '6': 'f', '7': 'g', '8': 'h', '9': 'i', '10': 'j'};
-
+	console.log("inside setDeviceMapping: ", newMapping);
 	addDeviceMapping(newMapping)
 }
 
@@ -415,7 +415,6 @@ function formatDeviceMapping(res, rows){
 			 		{nodeID: 10, deviceID: 'j'}];
 	*/
 	
-	console.log("inside formatDeviceMapping: ", rows);
 	deviceMapping = [];
 	for (var i = 0; i < rows.length; i++) {
 	    deviceMapping.push({'nodeID': rows[i].expNode, 'deviceID': rows[i].device});
