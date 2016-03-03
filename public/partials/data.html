@@ -162,7 +162,7 @@
 			  	<!-- Repeated section here-->
 			  	<tr ng-repeat="trial in currentBirdStageTrials" ng-class="{ 'success': trial.success == true, 'warning': trial.success == false}">
 					<td>{{trial.trialID}}</td>
-					<td>{{trial.startTime | date:MMM d, y, h:mm a:+1100}}</td>
+					<td>{{trial.startTime | date:'MMM d, y, h:mm a':+1100}}</td>
 					<td>{{trial.totalTime}}</td>
 					<td>{{trial.intended}}</td>
 					<td>{{trial.actual}}</td>
