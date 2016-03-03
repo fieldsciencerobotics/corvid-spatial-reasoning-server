@@ -17,7 +17,7 @@
 			<li ng-class="{'active':currentDataBeingExplored[1]}"><a href="#" ng-click="dataExploreSelect(1)">Birds</a></li>
 		</ul>
 
-	  	<div class="list-group" ng-show="currentDataBeingExplored[1]">
+	  	<div class="list-group" style="height:100%, overflow-y:auto; " ng-show="currentDataBeingExplored[1]">
 	  		<br />
 	  		<h5>Select Bird and Stage:</h5>
 	  		<ul class="nav nav-pills nav-stacked">
@@ -151,7 +151,7 @@
 			  <thead>
 			    <tr>
 			      <th>Trial #</th>
-			      <th>Date/Time #</th>
+			      <th>Date/Time</th>
 			      <th>Time Taken</th>
 			      <th>Desired Feeder</th>
 			      <th>Feeder Chosen</th>
