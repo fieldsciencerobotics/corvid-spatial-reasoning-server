@@ -161,10 +161,11 @@
 			  	<!-- Repeated section here-->
 			  	<tr ng-repeat="trial in currentBirdStageTrials" ng-class="{ 'success': trial.success == true, 'warning': trial.success == false}">
 					<td>{{trial.trialID}}</td>
+					<td>{{trial.startTime | date:short:+1100}}</td>
 					<td>{{trial.totalTime}}</td>
 					<td>{{trial.intended}}</td>
 					<td>{{trial.actual}}</td>
-					<td>{{trial.success}} <span ng-class="{ 'glyphicon glyphicon-ok': trial.success == true, 'glyphicon glyphicon-remove': trial.success == false}"></span></td>
+					<td><span ng-class="{ 'glyphicon glyphicon-ok': trial.success == true, 'glyphicon glyphicon-remove': trial.success == false}"></span></td>
 				</tr>
 				<!--
 			    <tr class="success">

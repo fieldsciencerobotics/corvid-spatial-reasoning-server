@@ -933,7 +933,13 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
+
             $scope.currentBirdStageTrials = data;
+
+            for(i=0;i<data.length;i++){
+                $scope.currentBirdStageTrials[i].totaltime = (Math.round( ($scope.currentBirdStageTrials[i].totalTime / 1000) * 10 ) / 10) + " secs";                 
+            }
+
         }).error(function (data, status, headers, config) {
             $scope.status = status + ' ' + headers;
 
