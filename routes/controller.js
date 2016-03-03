@@ -67,6 +67,7 @@ var resetAllValues = function() {
 }
 
 var generateNextTrialIDInAdvance = function(newID){
+    console.log("generate ID", newID);
     initialTrialID = newID;
 }
 

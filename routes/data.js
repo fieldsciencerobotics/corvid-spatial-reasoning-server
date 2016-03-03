@@ -228,19 +228,28 @@ function getRangeOfTrialsInStageByBird(birdID, stageID, start, stop) {
 }
 
 // Used for generating the next TrialID
-function getNextTrialID(birdID, stageID, res) {
+function getNextTrialIDFromDB(birdID, stageID, res) {
 	// finds the highest trial id, for the filtered set of that birdID and stageID
 	var sql = "SELECT * FROM trials WHERE bird = ? AND stage = ?"; // order by, restrict count
 
     db.all(sql, birdID, stageID, function(err, rows) {
-      nextTrialID = 1;
-      for (var i = 0; i < rows.length; i++) {
-		   if (rows[i].trialID > nextTrialID) {
-		   	nextTrialID = rows[i].trialID;
-		   }
-		}
-		console.log(nextTrialID + 1);
-		res(nextTrialID + 1);
+    	if (rows.length > 0){
+    		nextTrialID = 1;
+    		for (var i = 0; i < rows.length; i++) {
+			   if (rows[i].trialID > nextTrialID) {
+			   	nextTrialID = rows[i].trialID;
+			   }
+			}
+			console.log(nextTrialID + 1);
+			res(nextTrialID + 1);
+    	} else {
+    		nextTrialID = 1;
+    		console.log(nextTrialID);
+			res(nextTrialID);
+    	}
+      	
+      	
+		
     });
 
 }
@@ -314,18 +323,18 @@ function runInserts() {
 
     //insertBirds(existingBirds1);
     //insertStages(existingStages1);
-    //addDeviceMapping(deviceMappingReset);
+    addDeviceMapping(deviceMappingReset);
 }
 
+// Ensures that the restarting of the server puts it into a good state
 runInserts();
 
 
-//const low = require('lowdb');
-//const storage = require('lowdb/file-async');
- 
-//const db = low('/media/crowDriver/db.json', { storage })
-//var db = low('/media/crowDriver/db.json', { storage: storage })
 
+
+//
+// Module Export Code Below
+//
 
 
 var exports = module.exports = {};
@@ -511,7 +520,7 @@ exports.getTrials = function() {
 }
 
 exports.getNextTrialID = function(birdID, stageID, res) {
-	getNextTrialID(birdID, stageID, res);
+	getNextTrialIDFromDB(birdID, stageID, res);
 }
 
 
