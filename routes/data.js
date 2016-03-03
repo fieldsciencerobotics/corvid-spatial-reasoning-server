@@ -314,7 +314,7 @@ function runInserts() {
 
     //insertBirds(existingBirds1);
     //insertStages(existingStages1);
-    //addDeviceMapping(deviceMappingReset);
+    addDeviceMapping(deviceMappingReset);
 }
 
 runInserts();
