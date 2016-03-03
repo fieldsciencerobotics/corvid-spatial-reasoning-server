@@ -163,7 +163,7 @@ function addDeviceMapping(deviceMapping) {
 		//var stmt = db.prepare("INSERT INTO device_mapping VALUES (?, ?)");
 		var stmt = db.prepare("INSERT OR REPLACE INTO device_mapping (device, expNode) VALUES (?, ?)");
 
-		for (var i = 0; i < 10; i++) {
+		for (var i = 1; i < 11; i++) {
 		    stmt.run(deviceMapping[i], i);
 		}
 		stmt.finalize();
@@ -303,7 +303,7 @@ function runInserts() {
 
     //insertBirds(existingBirds1);
     //insertStages(existingStages1);
-    //addDeviceMapping(expNodeToDeviceName)
+    addDeviceMapping(expNodeToDeviceName);
 }
 
 runInserts();
