@@ -163,8 +163,8 @@ function addDeviceMapping(deviceMapping) {
 		//var stmt = db.prepare("INSERT INTO device_mapping VALUES (?, ?)");
 		var stmt = db.prepare("INSERT OR REPLACE INTO device_mapping (device, expNode) VALUES (?, ?)");
 
-		for (var i = 1; i < 11; i++) {
-		    stmt.run(deviceMapping[i], i);
+		for (var i = 0; i < 10; i++) {
+		    stmt.run(deviceMapping[i].deviceID, deviceMapping[i].nodeID);
 		}
 		stmt.finalize();
 	});
@@ -301,9 +301,20 @@ function runInserts() {
     expNodeToDeviceName = {'1': 'a', '2': 'b', '3': 'c', '4': 'd', '5': 'e',
 	                        '6': 'f', '7': 'g', '8': 'h', '9': 'i', '10': 'j'};
 
+	deviceMappingReset = [{nodeID: 1, deviceID: 'a'}, 
+                            {nodeID: 2, deviceID: 'b'}, 
+                            {nodeID: 3, deviceID: 'c'}, 
+                            {nodeID: 4, deviceID: 'd'}, 
+                            {nodeID: 5, deviceID: 'e'},
+                            {nodeID: 6, deviceID: 'f'}, 
+                            {nodeID: 7, deviceID: 'g'}, 
+                            {nodeID: 8, deviceID: 'h'}, 
+                            {nodeID: 9, deviceID: 'i'}, 
+                            {nodeID: 10, deviceID: 'j'}];
+
     //insertBirds(existingBirds1);
     //insertStages(existingStages1);
-    addDeviceMapping(expNodeToDeviceName);
+    addDeviceMapping(deviceMappingReset);
 }
 
 runInserts();

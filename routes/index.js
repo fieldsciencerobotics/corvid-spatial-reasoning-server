@@ -129,8 +129,8 @@ router.post('/data/getOnlineDeviceListFreeform', function(req, res, next) {
 });
 
 router.post('/data/getTrialsOfBirdInStage', function(req, res, next) {
-  trials = controller.experiment.getTrialsOfBirdInStage(req.body.birdID, req.body.stageID);
-  res.send(trials);
+  trials = controller.experiment.getTrialsOfBirdInStage(req.body.birdID, req.body.stageID, res);
+  //res.send(trials);
 });
 
 router.post('/data/getLeaderBoard', function(req, res, next) {
