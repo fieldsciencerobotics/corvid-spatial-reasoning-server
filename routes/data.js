@@ -415,7 +415,7 @@ function formatDeviceMapping(res, rows){
 			 		{nodeID: 10, deviceID: 'j'}];
 	*/
 	
-
+	console.log("inside formatDeviceMapping: ", rows);
 	deviceMapping = [];
 	for (var i = 0; i < rows.length; i++) {
 	    deviceMapping.push({'nodeID': rows[i].expNode, 'deviceID': rows[i].device});
