@@ -936,8 +936,9 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
             $scope.currentBirdStageTrials = data;
 
-            for(i=0;i<data.length;i++){
-                $scope.currentBirdStageTrials[i].totaltime = (Math.round( ($scope.currentBirdStageTrials[i].totalTime / 1000) * 10 ) / 10) + " secs";                 
+            for(i=0; i<$scope.currentBirdStageTrials.length; i++){
+                $scope.currentBirdStageTrials[i].totaltime = (Math.round( ($scope.currentBirdStageTrials[i].totalTime / 1000) * 10 ) / 10) + " secs";   
+                console.log($scope.currentBirdStageTrials[i].totaltime);            
             }
 
         }).error(function (data, status, headers, config) {
