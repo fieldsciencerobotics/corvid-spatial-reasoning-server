@@ -209,6 +209,7 @@ var experiment = new machina.Fsm( {
             startExperiment: function(birdID, stage) {
                 currentBirdID = birdID;
                 currentStage = stage;
+                console.log("before create next trial ID");
                 data.getNextTrialID(birdID, stageID, generateNextTrialIDInAdvance);
                 this.transition( "experiment" );
 

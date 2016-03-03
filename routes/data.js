@@ -229,11 +229,14 @@ function getRangeOfTrialsInStageByBird(birdID, stageID, start, stop) {
 
 // Used for generating the next TrialID
 function getNextTrialIDFromDB(birdID, stageID, res) {
+	console.log("Inside the database method");
 	// finds the highest trial id, for the filtered set of that birdID and stageID
 	var sql = "SELECT * FROM trials WHERE bird = ? AND stage = ?"; // order by, restrict count
 
     db.all(sql, birdID, stageID, function(err, rows) {
+    	console.log("Inside SQL");
     	if (rows.length > 0){
+    		console.log("rows greater than zero");
     		nextTrialID = 1;
     		for (var i = 0; i < rows.length; i++) {
 			   if (rows[i].trialID > nextTrialID) {
@@ -243,6 +246,7 @@ function getNextTrialIDFromDB(birdID, stageID, res) {
 			console.log(nextTrialID + 1);
 			res(nextTrialID + 1);
     	} else {
+    		console.log("rows not greater than zero")
     		nextTrialID = 1;
     		console.log(nextTrialID);
 			res(nextTrialID);
