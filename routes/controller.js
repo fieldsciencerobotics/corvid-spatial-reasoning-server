@@ -855,8 +855,8 @@ meerkat.on('meatUpdate', function(feederID, meatLeft) {
 });
 
 // add a 'lightChange' event listener
-meerkat.on('dunno', function(perchID) {
-    console.log('[dunno] perch event listenter: "%s"', perchID);
+meerkat.on('dunno', function(ID) {
+    console.log('[dunno] unknown event: "%s"', ID);
 
     // Parse deviceID to experimental nodeID
 

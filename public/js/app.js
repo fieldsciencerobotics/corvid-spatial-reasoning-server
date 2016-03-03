@@ -773,6 +773,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
+            sendToServerGetOnlineDeviceListFreeformNoModal();
         }).error(function (data, status, headers, config) {
             $scope.status = status + ' ' + headers;
         });
@@ -886,6 +887,24 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             $scope.onlineDeviceMapping = data['onlineList'];
             // Now open the Modal
             $scope.openMapFeeders();
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+    //GET ONLINE DEVICES FROM FREEFORM MODE: Query what devices are currently online, and what the mapping currently is
+    $scope.sendToServerGetOnlineDeviceListFreeformNoModal = function() {
+        $http({
+            url: '/data/getOnlineDeviceListFreeform',
+            method: "POST",
+            data: angular.toJson([{'id': 2}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            //$scope.existingStages = data;
+            $scope.feeders = data['feederList'];
+            $scope.onlineDeviceMapping = data['onlineList'];
+            // Now open the Modal
         }).error(function (data, status, headers, config) {
             $scope.status = status + ' ' + headers;
         });
