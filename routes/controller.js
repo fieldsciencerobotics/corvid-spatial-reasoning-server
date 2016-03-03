@@ -758,11 +758,12 @@ var experiment = new machina.Fsm( {
         for (var i=0; i<10; i++) {
             deviceNameToExpNode1[newDeviceMapping[i].deviceID] = newDeviceMapping[i].nodeID;
 
-            expNodeToDeviceName1[i] = newDeviceMapping[i].deviceID;
+            expNodeToDeviceName1[i+1] = newDeviceMapping[i].deviceID;
         }
 
         deviceNameToExpNode = deviceNameToExpNode1;
         expNodeToDeviceName = expNodeToDeviceName1;
+        expToDevice = newDeviceMapping;
         console.log("deviceNameToExpNode: ",deviceNameToExpNode);
         console.log("expNodeToDeviceName: ", expNodeToDeviceName)
 
