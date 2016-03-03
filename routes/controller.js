@@ -612,6 +612,13 @@ var experiment = new machina.Fsm( {
         return experiment.getOnlineDeviceList();
     },
 
+    getOnlineDeviceListFreeformNoReIt: function() {
+
+        // But should I also change the current state?
+        console.log("did it enter the controller?");
+        return experiment.getOnlineDeviceList();
+    },
+
     getOnlineDeviceList: function() {
 
         console.log("Insider getDevicesList in controller");
