@@ -918,7 +918,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         }).success(function (data, status, headers, config) {
             console.log(data);
             $scope.existingStages = data;
-            dataExploreStageSelectSetup();
+            $scope.dataExploreStageSelectSetup();
         }).error(function (data, status, headers, config) {
             $scope.status = status + ' ' + headers;
         });
@@ -1044,7 +1044,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
                     return $scope.feeders;
                 },
                 onlineList: function () {
-                    return $scope.onlineList;
+                    return $scope.onlineDeviceMapping;
                 }
             }
         });
