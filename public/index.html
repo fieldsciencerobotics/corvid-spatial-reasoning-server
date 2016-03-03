@@ -64,7 +64,7 @@
                   <label for="select" class="col-lg-2 control-label">Select Device</label>
                   <div class="col-lg-10">
 
-                    <select class="form-control" id="select" placeholder="Bird" ng-model="selectBird">
+                    <select class="form-control" id="select" placeholder="Bird" ng-model="feeder.mappedTo">
                       <option selected="selected">{{feeder.mappedTo}}</option>
                       <option ng-repeat="option in onlineList">{{option.id}} {{option.connect}}</option>
                     </select>
