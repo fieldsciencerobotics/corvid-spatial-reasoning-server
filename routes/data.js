@@ -159,6 +159,7 @@ function getDeviceMappings(format, res) {
 function addDeviceMapping(deviceMapping) {
 	db.serialize(function() {
 
+		db.run("DELETE FROM device_mapping");
 		//var stmt = db.prepare("INSERT INTO device_mapping VALUES (?, ?)");
 		var stmt = db.prepare("INSERT OR REPLACE INTO device_mapping (device, expNode) VALUES (?, ?)");
 
@@ -401,6 +402,7 @@ exports.getDeviceToLagartoMapping = function(res) {
 function formatDeviceMapping(res, rows){
 
 	//console.log(rows);
+	/*
 	deviceMapping = [{nodeID: 1, deviceID: 'a'}, 
 					{nodeID: 2, deviceID: 'b'}, 
 					{nodeID: 3, deviceID: 'c'}, 
@@ -411,6 +413,7 @@ function formatDeviceMapping(res, rows){
 			 		{nodeID: 8, deviceID: 'h'}, 
 			 		{nodeID: 9, deviceID: 'i'}, 
 			 		{nodeID: 10, deviceID: 'j'}];
+	*/
 	
 
 	deviceMapping = [];
@@ -445,9 +448,11 @@ function formatDeviceNameToExpNode(res, rows){
                             'j': '10'};
     */
 
+    // currently returns nothing!! for why?!
+
 	deviceNameToExpNode = {}
 	for (var i = 0; i < rows.length; i++) {
-	    deviceMappings[rows[i].device] = rows[i].expNode;
+	    deviceNameToExpNode[rows[i].device] = rows[i].expNode;
 	}
 
 	res(deviceNameToExpNode);
