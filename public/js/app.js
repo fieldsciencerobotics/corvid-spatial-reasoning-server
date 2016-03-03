@@ -137,8 +137,8 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
                     {'id': 9, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
                     {'id': 10, 'connected': true, 'colour': 'red', 'perch-colour': 'black'  }];
 
-    $scope.existingBirds = [{'id': 'bird1'},{'id': 'bird2'},{'id': 'bird3'}];
-    $scope.existingStages = [{'name': "stage1"},{'name': "stage2"},{'name': "stage3"}];
+    $scope.existingBirds = [];
+    $scope.existingStages = [];
 
     $scope.onlineDeviceMapping = [];
 
