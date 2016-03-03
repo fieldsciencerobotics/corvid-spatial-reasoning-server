@@ -524,6 +524,7 @@ exports.getTrials = function() {
 }
 
 exports.getNextTrialID = function(birdID, stageID, res) {
+	console.log("inside data");
 	getNextTrialIDFromDB(birdID, stageID, res);
 }
 
