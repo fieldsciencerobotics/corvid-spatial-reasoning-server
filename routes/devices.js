@@ -148,7 +148,7 @@ var Meerkat = function() {
 
 			  		switch (functionID) {
 			  			// Perch Events
-				    	case '17.0': //'perchEvent':
+				    	case '25.0': //'perchEvent':
 				        	//console.log("PerchEvent", id, value);
 
 				        	// Pasrse message, and topic
@@ -175,7 +175,7 @@ var Meerkat = function() {
 				        	console.log("Feeder Heartbeat:", id, value);
 
 				        	onlineDevices[id].online = true;
-				        	console.log(onlineDevices);
+				        	//console.log(onlineDevices);
 
 				        	break; 
 
