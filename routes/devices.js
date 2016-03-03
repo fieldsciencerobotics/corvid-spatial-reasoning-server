@@ -106,7 +106,7 @@ var Meerkat = function() {
 
 
 			  	// Listening to Indicator events
-			  	if (id == '39') {
+			  	if (id == '50') {
 			  		//console.log("this is an indicator related message")
 
 
@@ -149,7 +149,7 @@ var Meerkat = function() {
 			  		switch (functionID) {
 			  			// Perch Events
 				    	case '25.0': //'perchEvent':
-				        	//console.log("PerchEvent", id, value);
+				        	console.log("PerchEvent", id, value);
 
 				        	// Pasrse message, and topic
 
@@ -157,6 +157,7 @@ var Meerkat = function() {
 				        	//if (value == '1') {
 				        	//	self.emit('perchEvent', lagartoIDtofeederName[perchID]);
 				        	//}
+
 
 				        	switch (value) {
 				        		case '1':

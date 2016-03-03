@@ -302,7 +302,7 @@ var experiment = new machina.Fsm( {
 
 
                 // DEVICEMAPPING
-                lagarto.turnLightOn(currentBlock[currentTrialNum].intended);
+                lagarto.turnLightOn(currentBlock[currentTrialNum].intended-1);
 
 
                 this.timer = setTimeout( function() {
@@ -318,7 +318,7 @@ var experiment = new machina.Fsm( {
                 currentBlock[currentTrialNum].success = false;
 
                 // DEVICEMAPPING
-                lagarto.turnLightOff(currentBlock[currentTrialNum].intended);
+                lagarto.turnLightOff(currentBlock[currentTrialNum].intended-1);
 
                 console.log(currentBlock[currentTrialNum]);
 
@@ -362,7 +362,7 @@ var experiment = new machina.Fsm( {
                 currentBlock[currentTrialNum].actual = perchID;
 
                 // DEVICEMAPPING
-                lagarto.turnLightOff(currentBlock[currentTrialNum].intended);
+                lagarto.turnLightOff(currentBlock[currentTrialNum].intended-1);
 
                 if (currentBlock[currentTrialNum].intended == currentBlock[currentTrialNum].actual) {
                     currentBlock[currentTrialNum].success = true;
