@@ -125,6 +125,11 @@ router.post('/data/getOnlineDeviceList', function(req, res, next) {
 
 router.post('/data/getOnlineDeviceListFreeform', function(req, res, next) {
   onlineDevices = controller.experiment.getOnlineDeviceListFreeform();
+  res.send(onlineDevices);getOnlineDeviceListFreeformNoReIt
+});
+
+router.post('/data/getOnlineDeviceListFreeformNoReIt', function(req, res, next) {
+  onlineDevices = controller.experiment.getOnlineDeviceListFreeformNoReIt();
   res.send(onlineDevices);
 });
 
