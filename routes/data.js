@@ -559,11 +559,12 @@ exports.getStages = function(res) {
 
 // Deletion Methods
 exports.deleteBird = function(bird, res) {
-
+	console.log("inside data: ", bird);
 	removeBird(bird, res);
 }
 
 exports.deleteStage = function(stage, res) {
+	console.log("inside data: ", bird);
 	removeStage(stage, res);
 }
 
