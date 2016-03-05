@@ -474,6 +474,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $scope.selectedStage = {};
         // Change the View
         $scope.experimentStageSelect(0);
+        $scope.sendToServerGetOnlineDeviceListFreeformNoModal();
     }
 
 
@@ -530,6 +531,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         // Change the View
         $scope.experimentStageSelect(0);
         $scope.currentBlock = [];
+        $scope.sendToServerGetOnlineDeviceListFreeformNoModal();
     }
 
     $scope.getCurrentSessionProgress = function() {
@@ -560,7 +562,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         }).success(function (data, status, headers, config) {
             console.log(data);
             setTimeout(function(){
-                sendToServerGetOnlineDeviceListFreeformNoModal();
+                $scope.sendToServerGetOnlineDeviceListFreeformNoModal();
             }, 1500);
             
         }).error(function (data, status, headers, config) {
