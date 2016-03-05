@@ -959,7 +959,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $http({
             url: '/data/deleteBird',
             method: "POST",
-            data: angular.toJson([{'birdID': birdID}]),
+            data: angular.toJson({'birdID': birdID}),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
@@ -975,7 +975,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         $http({
             url: '/data/deleteStage',
             method: "POST",
-            data: angular.toJson([{'stageID': stageID}]),
+            data: angular.toJson({'stageID': stageID}),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
