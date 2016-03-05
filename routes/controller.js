@@ -650,12 +650,12 @@ var experiment = new machina.Fsm( {
     },
 
     deleteBird: function(bird, res) {
-        console.log("inside controller: ", bird);
+        //console.log("inside controller: ", bird);
         data.deleteBird(bird, res);
     },
 
     deleteStage: function(stage, res) {
-        console.log("inside controller: ", stage);
+        //console.log("inside controller: ", stage);
         data.deleteStage(stage, res);
     },
 
