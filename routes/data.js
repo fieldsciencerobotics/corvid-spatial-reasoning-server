@@ -202,6 +202,7 @@ function getAllTrialsByBird(birdID) {
     var sql = "SELECT * FROM trials WHERE bird = ? ";
     // Print the records as JSON
     db.all(sql, birdID, function(err, rows) {
+      console.log(rows);
       trials = rows; //JSON.stringify(rows);
     });
 }
@@ -287,7 +288,9 @@ function removeTrailsOfBirdAndStage(BirdID, StageID) {
 function removeAllTrials(){
 	console.log("Removing All Trials");
 	// Remove the stage
-	db.run("DELETE FROM trials")
+	db.run("DELETE FROM trials", function(err) {
+    		getAllTrialsByBird('Green');
+    })
 }
 
 
@@ -348,7 +351,7 @@ function runInserts() {
 
 // Ensures that the restarting of the server puts it into a good state
 runInserts();
-
+removeAllTrials();
 
 
 
