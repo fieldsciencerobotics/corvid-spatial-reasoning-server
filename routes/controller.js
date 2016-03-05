@@ -13,6 +13,8 @@ var delayValue = 0;
 var currentBirdID = "";
 var currentStage = null;
 
+var currentPerchDelay = 5;
+
 var initialTrialID = 1;
 
 // Call backs for the data functions below
@@ -64,6 +66,8 @@ var resetAllValues = function() {
     timeoutValue = 0;
     timeOutLeadsToFail = false;
     delayValue = 0;
+
+    currentPerchDelay = 5;
 }
 
 function generateNextTrialIDInAdvance(newID){
@@ -239,8 +243,9 @@ var experiment = new machina.Fsm( {
 
             },
 
-            startSession: function(numOfTrials) {
+            startSession: function(numOfTrials, perchDelay) {
                 currentNumOfTrials = numOfTrials;
+                currentPerchDelay = perchDelay;
                 currentBlock = trialGenerator();
                 this.transition( "session" );
 
@@ -362,7 +367,8 @@ var experiment = new machina.Fsm( {
                 currentBlock[currentTrialNum].actual = perchID;
 
                 // DEVICEMAPPING
-                lagarto.turnLightOff(currentBlock[currentTrialNum].intended-1);
+                // Moved to after a delay
+                //lagarto.turnLightOff(currentBlock[currentTrialNum].intended-1);
 
                 if (currentBlock[currentTrialNum].intended == currentBlock[currentTrialNum].actual) {
                     currentBlock[currentTrialNum].success = true;
@@ -381,13 +387,27 @@ var experiment = new machina.Fsm( {
 
                     // If finished, go to ended session, not session
                     if (currentTrialNum+1 >= currentBlock.length) {
-                        this.transition('endedSession');
+
+                        // Place the delay in lowering the flag
+                        this.timer = setTimeout( function() {
+                            this.handle( "endedSessionFlagTimeout" );
+                        }.bind( this ), currentPerchDelay );
+
+
+                        //this.transition('endedSession');
                     } else {
                         // Log the trial outcome
                         data.logTrial(currentBlock[currentTrialNum]);
 
                         currentTrialNum = currentTrialNum + 1;
-                        this.transition('session');
+
+
+                        // place the delay in lowering the flag
+                        this.timer = setTimeout( function() {
+                            this.handle( "sessionFlagTimeout" );
+                        }.bind( this ), currentPerchDelay );
+
+                        //this.transition('session');
                     }
 
                     
@@ -397,13 +417,25 @@ var experiment = new machina.Fsm( {
 
                     // If finished, go to ended session, not session
                     if (currentTrialNum+1 >= currentBlock.length) {
-                        this.transition('endedSession');
+
+                        // Place the delay in lowering the flag
+                        this.timer = setTimeout( function() {
+                            this.handle( "endedSessionFlagTimeout" );
+                        }.bind( this ), currentPerchDelay );
+
+                        //this.transition('endedSession');
                     } else {
                         // Log the trial outcome
                         data.logTrial(currentBlock[currentTrialNum]);
 
                         currentTrialNum = currentTrialNum + 1;
-                        this.transition('session');
+
+                        // place the delay in lowering the flag
+                        this.timer = setTimeout( function() {
+                            this.handle( "sessionFlagTimeout" );
+                        }.bind( this ), currentPerchDelay );
+
+                        //this.transition('session');
                     }
                 }
 
@@ -415,6 +447,16 @@ var experiment = new machina.Fsm( {
                 // deal with the current trial
 
                 this.transition("endedSession");
+            },
+
+            sessionFlagTimeout: function() {
+                lagarto.turnLightOff(currentBlock[currentTrialNum-1].intended-1);
+                this.transition('session');
+            },
+
+            endedSessionFlagTimeout: function() {
+                lagarto.turnLightOff(currentBlock[currentTrialNum].intended-1);
+                this.handle( "endedSessionFlagTimeout" );
             },
 
         },
@@ -491,9 +533,9 @@ var experiment = new machina.Fsm( {
         this.handle( "cancelExperiment" );
     },
 
-    startSession: function(numOfTrials) {
-        console.log("startSession API", numOfTrials);
-        this.handle("startSession", numOfTrials);
+    startSession: function(numOfTrials, perchDelay) {
+        console.log("startSession API", numOfTrials, perchDelay);
+        this.handle("startSession", numOfTrials, perchDelay);
     },
 
     endSession: function() {
@@ -603,6 +645,14 @@ var experiment = new machina.Fsm( {
 
     getStages: function(res) {
         data.getStages(res);
+    },
+
+    deleteBird: function(bird, res) {
+        data.deleteBird(bird, res);
+    },
+
+    deleteStage: function(stage, res) {
+        data.deleteStage(stage, res);
     },
 
     getOnlineDeviceListFreeform: function() {

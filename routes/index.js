@@ -31,7 +31,7 @@ router.post('/control/cancelExperiment', function(req, res, next) {
 });
 
 router.post('/control/startSession', function(req, res, next) {
-  controller.experiment.startSession(req.body.numOfTrials);
+  controller.experiment.startSession(req.body.numOfTrials, req.body.perchDelay);
   res.send('Session Started');
 });
 
@@ -99,6 +99,16 @@ router.post('/freeForm/resetFeeder', function(req, res, next) {
 router.post('/freeForm/primeFeeder', function(req, res, next) {
   controller.experiment.primeFeeder(req.body.feederID);
   res.send('Meat Dropped');
+});
+
+
+/* Data Deletion Methods */
+router.post('/data/deleteBird', function(req, res, next) {
+  birds = controller.experiment.deleteBird(req.body.birdID, res);
+});
+
+router.post('/data/deleteStage', function(req, res, next) {
+  stages= controller.experiment.deleteStage(req.body.stageID, res);
 });
 
 

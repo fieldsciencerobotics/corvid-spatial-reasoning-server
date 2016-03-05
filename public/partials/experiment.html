@@ -26,7 +26,7 @@ Experiments Tab
 			<!-- View/Add Birds-->
 			<div id="savedBirds" ng-show="currentBirdOrStage[0]">
 				<br />
-				<span class="btn btn-info"ng-click="openNewBird()">New bird</span>
+				<span class="btn btn-info" ng-click="openNewBird()">New bird</span>
 				<br />
 				<table class="table table-striped table-hover ">
 					<thead>
@@ -36,7 +36,8 @@ Experiments Tab
 					</thead>
 					<tbody>
 						<tr ng-repeat="bird in existingBirds">
-							<td tooltip-placement="right" tooltip="{{bird.gender}}">{{bird.id}}</td>
+							<td tooltip-placement="right" tooltip="{{bird.gender}}">{{bird.id}} <span class="glyphicon glyphicon-remove text-danger" style="float:right" ng-click="openBirdDelete(bird.id)"></span></td>
+							
 						</tr>
 					</tbody>
 				</table>
@@ -55,7 +56,8 @@ Experiments Tab
 					</thead>
 					<tbody>
 						<tr ng-repeat="stage in existingStages">
-							<td tooltip-placement="right" tooltip="{{stage.desc}}">{{stage.name}}</td>
+							<td tooltip-placement="right" tooltip="{{stage.desc}}">{{stage.name}} <span class="glyphicon glyphicon-remove text-danger" style="float:right" ng-click="openStageDelete(stage.name)"></span></td>
+							
 						</tr>
 					</tbody>
 				</table>
@@ -122,13 +124,24 @@ Experiments Tab
 						<!-- Delay Between Trials -->
 						<div class="form-group">
 							<label class="col-lg-2 control-label">Number of Trials</label>
-							<div class="col-lg-5">
+							<div class="col-lg-10">
 								<div class="input-group">
 									<input type="text" class="form-control" ng-model="numOfTrials.num">
 								</div>
 								<span class="help-block">Desired / Max Number of Trials</span>
 							</div>
 						</div>
+
+						<div class="form-group">
+							<label class="col-lg-2 control-label">Flag Delay</label>
+							<div class="col-lg-10">
+								<div class="input-group">
+									<input type="text" class="form-control" ng-model="numOfTrials.perchDelay">
+								</div>
+								<span class="help-block">(secs) before flag lowering</span>
+							</div>
+						</div>
+
 						<div class="form-group">
 							<div class="col-lg-10 col-lg-offset-2">
 								<button type="reset" class="btn btn-default" ng-click="cancelExperiment()">Cancel</button>
@@ -137,12 +150,15 @@ Experiments Tab
 						</div>
 					</fieldset>
 				</form>
+
+
 			</div>
 
-			<h2>Red-Blue</h2>
-			<h4>Session 4</h4>
-			<p><span class="label label-danger">Stage 3</span></p>
-
+			<h2>{{selectedBird.id.id}}</h2>
+			<h4>{{selectedStage.id.name}}</h4>
+			<p><span class="label label-danger">Delay: {{selectedStage.id.delay}} secs</span><span class="label label-warning">AutoEnd Trial: {{selectedStage.id.autoEnd}}</span><span class="label label-success">Trial timeout: {{selectedStage.id.autoEndTime}} secs</span></p>
+			<br />
+			<br />
 			<div class="feeder" ng-repeat="feeder in expFeederArrangement" style="text-align: center; width: 60px">
 
 				<svg height="60" width="45">
@@ -435,6 +451,49 @@ Scrips for the Modal Windows
 		</form>
 
 
+	</div>
+
+</script>
+
+
+<!-- Confirm Deletion of Bird - Modal Window -->
+<script type="text/ng-template" id="deleteBird.html">
+	<div class="modal-header">
+		<h3>Confirm Bird Deletion: {{birdID}}</h3> 
+	</div>
+
+	<div class="modal-body">
+		<form class="form-horizontal">
+			<fieldset>
+				<div class="form-group">
+					<div class="col-lg-10 col-lg-offset-2">
+						<button type="reset" class="btn btn-default" ng-click="cancel()">Cancel</button>
+						<button type="submit" class="btn btn-primary" ng-click="ok()">Confirm</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+
+</script>
+
+<!-- Confirm Deletion of Bird - Modal Window -->
+<script type="text/ng-template" id="deleteStage.html">
+	<div class="modal-header">
+		<h3>Confirm Stage Deletion: {{stageID}}</h3> 
+	</div>
+
+	<div class="modal-body">
+		<form class="form-horizontal">
+			<fieldset>
+				<div class="form-group">
+					<div class="col-lg-10 col-lg-offset-2">
+						<button type="reset" class="btn btn-default" ng-click="cancel()">Cancel</button>
+						<button type="submit" class="btn btn-primary" ng-click="ok()">Confirm</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
 	</div>
 
 </script>

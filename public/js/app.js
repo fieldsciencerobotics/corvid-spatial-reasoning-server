@@ -137,8 +137,9 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
                     {'id': 9, 'connected': true, 'colour': 'red', 'perch-colour': 'black' },
                     {'id': 10, 'connected': true, 'colour': 'red', 'perch-colour': 'black'  }];
 
-    $scope.existingBirds = [];
-    $scope.existingStages = [];
+    $scope.existingBirds = [{'id': 'Green', 'gender': 'male', 'age': 'adult', 'notes': ""}];
+    $scope.existingStages = [{'name': 'first 5 feeders', 'desc': "This is training part one", 'delay': 20, 'autoEnd': false, 'autoEndTime': 180, 
+                    'feederArrangement': [true, true, true, true, true, false, false, false, false, false]}];
 
     $scope.onlineDeviceMapping = [];
 
@@ -456,19 +457,21 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         // or a check to make sure it is possible to run this session (make absolute rather than being creative with the experiemtnatl planning as a starting point)
 
         // Reset the values
-        $scope.selectedBird = {};
-        $scope.selectedStage = {};
+        
         $scope.progressBarTotal = 0;
         $scope.progressBarCurrent = 0;
         $scope.currentBlock = [];
         // Change the View
         $scope.experimentStageSelect(1);
+        $scope.numOfTrials.perchDelay = 5;
     }
 
     // Cancel Experiment
     $scope.cancelExperiment = function() {
         // Notify the server
         $scope.sendToServerCancelExperiment();
+        $scope.selectedBird = {};
+        $scope.selectedStage = {};
         // Change the View
         $scope.experimentStageSelect(0);
     }
@@ -480,7 +483,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     $scope.startSession = function() {
         // Notify the server
 
-        $scope.sendToServerStartExperimentalSession(parseInt($scope.numOfTrials.num));
+        $scope.sendToServerStartExperimentalSession(parseInt($scope.numOfTrials.num), parseInt($scope.numOfTrials.perchDelay));
 
         $scope.progressBarTotal = $scope.numOfTrials.num;
 
@@ -495,6 +498,9 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 
         $scope.startProgressPoller();
         $scope.currentTrial = 0;
+
+        $scope.selectedBird = {};
+        $scope.selectedStage = {};
     }
 
     // End Session
@@ -808,11 +814,11 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     };
 
     //START EXPERIMENTAL SESSION: Used to start an Experiment Session
-    $scope.sendToServerStartExperimentalSession = function(numOfTrials) {
+    $scope.sendToServerStartExperimentalSession = function(numOfTrials, perchDelay) {
         $http({
             url: '/control/startSession',
             method: "POST",
-            data: angular.toJson({'numOfTrials': numOfTrials}),
+            data: angular.toJson({'numOfTrials': numOfTrials, 'perchDelay': perchDelay}),
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
@@ -943,6 +949,43 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         });
     };
 
+    //
+    // Deletion Methods
+    //
+
+    //GET EXISTING BIRDS: Used to retrieve all the existing birds defiend in the database
+    $scope.sendToServerDeleteBird = function(birdID) {
+        console.log("deleting bird with id: ", birdID);
+        $http({
+            url: '/data/deleteBird',
+            method: "POST",
+            data: angular.toJson([{'birdID': birdID}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            $scope.existingBirds = data;
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
+    //GET EXISTING STAGES: Used to retrieve all the existing stages defiend in the database
+    $scope.sendToServerDeleteStage = function(stageID) {
+        console.log("deleting stage with id: ", stageID);
+        $http({
+            url: '/data/deleteStage',
+            method: "POST",
+            data: angular.toJson([{'stageID': stageID}]),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            $scope.existingStages = data;
+            $scope.dataExploreStageSelectSetup();
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
+
     //GET BIRD's TRIALS IN STAGE: Used to retrieve all of a birds trials in a particular stage
     $scope.sendToServerGetTrialsOfBirdInStage = function(birdID, stageID) {
         $http({
@@ -1039,24 +1082,66 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         });
     };
 
+    // Confrim Bird Deletion
+    $scope.openBirdDelete = function (birdID) {
+
+        // Creates a new Modal Window 
+        var NewBirdModalInstance = $modal.open({
+            templateUrl: 'deleteBird.html',
+            controller: DeleteBirdModalInstanceCtrl,
+            size: 'md',
+            resolve: {
+                birdID: function () {
+                    return birdID;
+                }
+            }
+        });
+
+        // Handles the Submittion or cancelation of the Modal Window
+        NewBirdModalInstance.result.then(function (birdID) {
+            //$scope.newBird(newBird);
+
+            // Logic for deleting birds
+            $scope.sendToServerDeleteBird(birdID);
+
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+
+    // Confirm Stage Deletion
+    $scope.openStageDelete = function (stageID) {
+
+        // Creates a new Modal Window 
+        var NewStageModalInstance = $modal.open({
+            templateUrl: 'deleteStage.html',
+            controller: DeleteStageModalInstanceCtrl,
+            size: 'md',
+            resolve: {
+                stageID: function () {
+                    return stageID;
+                }
+            }
+        });
+
+        // Handles the Submittion or cancelation of the Modal Window
+        NewStageModalInstance.result.then(function (stageID) {
+            //$scope.newStage(newStage);
+
+            // Logic for deleting Stages
+            $scope.sendToServerDeleteStage(stageID);
+
+
+
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
 
 
     // Map Feeders Modal Window
     $scope.openMapFeeders = function () {
-
-
-        // Get existing Mapping
-
-        // Get connected devices
-
-
-        // Node -> Device ID + (True or False indicating a match)
-
-
-        // Checkboxes for what you actually want??
-        // Each device needs to be shown as Green if there is a mapping, and that device is connected
-
-        // then perhaps a dropdown under each device to all the mapping to be changed?
 
 
         // Creates a new Modal Window 
@@ -1125,7 +1210,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
 // Modal Windows
 // =============================================================================
 
-// New Stage Modal Controller
+// New Bird Modal Controller
 var NewBirdModalInstanceCtrl = function ($scope, $modalInstance) {
 
     // Create a new Bird
@@ -1155,6 +1240,39 @@ var NewStageModalInstanceCtrl = function ($scope, $modalInstance) {
         $modalInstance.dismiss('cancel');
     };
 };
+
+
+
+// Delete Bird Modal Controller
+var DeleteBirdModalInstanceCtrl = function ($scope, $modalInstance, birdID) {
+
+    // Create a new Bird
+    $scope.birdID = birdID;
+
+    $scope.ok = function () {
+        $modalInstance.close($scope.birdID);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+};
+
+// Delete Stage Modal Controller 
+var DeleteStageModalInstanceCtrl = function ($scope, $modalInstance, stageID) {
+
+    $scope.stageID = stageID;
+
+    $scope.ok = function () {
+        $modalInstance.close($scope.stageID);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+};
+
+
 
 // New Stage Modal Controller 
 var MapFeedersModalInstanceCtrl = function ($scope, $modalInstance, feeders, onlineList) {

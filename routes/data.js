@@ -540,20 +540,23 @@ exports.getTrialsOfBirdInStage = function(birdID, stageID, res) {
 
 
 exports.getBirds = function(res) {
-	//db.collection('birds').insert({birdID: birdID, gender: gender, age: age, notes: notes }, function(err, result) {
-    //	if (err) throw err;
-    //	if (result) console.log('Added Bird!');
-	//});
+
 	getBirds(res);
 }
 
 exports.getStages = function(res) {
-	//db.collection('stages').insert({'name': name, 'desc':desc, 'delay': delay, 'autoEnd': autoEnd, 'autoEndTime': autoEndTime, 'feederArrangement': feederArrangement}, function(err, result) {
-    //	if (err) throw err;
-    //	if (result) console.log('Added Stage!');
-	//});
+
 	getStages(res);
 }
 
+// Deletion Methods
+exports.deleteBird = function(bird, res) {
 
+	removeBird(bird, res);
+}
+
+exports.deleteStag = function(stage, res) {
+
+	removeStage(stage, res);
+}
 
