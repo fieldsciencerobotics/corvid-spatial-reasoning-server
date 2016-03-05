@@ -550,6 +550,10 @@ var experiment = new machina.Fsm( {
         this.handle( "wrapUpSession", note);
     },
 
+    ackIndicator: function() {
+        lagarto.ackIndicator();
+    },
+
     // FreeForm Action Methods
     dropMeat: function(feederID) {
         console.log("dropMeat API", feederID);

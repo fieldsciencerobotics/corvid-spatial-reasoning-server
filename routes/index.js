@@ -104,13 +104,19 @@ router.post('/freeForm/primeFeeder', function(req, res, next) {
 
 /* Data Deletion Methods */
 router.post('/data/deleteBird', function(req, res, next) {
-  console.log("inside index: ", req.body.birdID);
+  //console.log("inside index: ", req.body.birdID);
   birds = controller.experiment.deleteBird(req.body.birdID, res);
 });
 
 router.post('/data/deleteStage', function(req, res, next) {
-  console.log("inside index: ", req.body.stageID);
+  //console.log("inside index: ", req.body.stageID);
   stages= controller.experiment.deleteStage(req.body.stageID, res);
+});
+
+/* Ack Indicator*/
+router.post('/freeForm/ackIndicator', function(req, res, next) {
+  controller.experiment.ackIndicator();
+  res.send('ACK');
 });
 
 

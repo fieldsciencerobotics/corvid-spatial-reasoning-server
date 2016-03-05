@@ -219,6 +219,13 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
         
     }
 
+    //
+    // ackIndicator
+    //
+
+    $scope.ackIndicator() {
+        $scope.sendToServerAckIndicator();
+    }
 
     //
     // Feeder Stages
@@ -547,6 +554,20 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     //
     // HTTP Methods for communicating with the Server
     // =========================================================================
+
+    // Ack Indicator
+    $scope.sendToServerAckIndicator = function() {
+        $http({
+            url: '/freeForm/ackIndicator',
+            method: "POST",
+            data: angular.toJson({'id': 2}),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);            
+        }).error(function (data, status, headers, config) {
+            $scope.status = status + ' ' + headers;
+        });
+    };
 
     //
     // FREEFORM METHODS:
