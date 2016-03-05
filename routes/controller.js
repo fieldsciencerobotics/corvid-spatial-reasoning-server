@@ -245,7 +245,7 @@ var experiment = new machina.Fsm( {
 
             startSession: function(numOfTrials, perchDelay) {
                 currentNumOfTrials = numOfTrials;
-                currentPerchDelay = perchDelay;
+                currentPerchDelay = perchDelay * 1000;
                 currentBlock = trialGenerator();
                 this.transition( "session" );
 
@@ -324,7 +324,6 @@ var experiment = new machina.Fsm( {
 
                 // DEVICEMAPPING
                 lagarto.turnLightOff(currentBlock[currentTrialNum].intended-1);
-
                 console.log(currentBlock[currentTrialNum]);
 
                 if (timeOutLeadsToFail) {
