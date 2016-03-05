@@ -457,7 +457,7 @@ var experiment = new machina.Fsm( {
 
             endedSessionFlagTimeout: function() {
                 lagarto.turnLightOff(currentBlock[currentTrialNum].intended-1);
-                this.handle( "endedSessionFlagTimeout" );
+                this.handle( "endedSession" );
             },
 
         },
