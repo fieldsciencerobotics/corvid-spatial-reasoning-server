@@ -289,7 +289,7 @@ function removeAllTrials(){
 	console.log("Removing All Trials");
 	// Remove the stage
 	db.run("DELETE FROM trials", function(err) {
-    		getAllTrialsByBird('Green');
+    		//getAllTrialsByBird('Green');
     })
 }
 
@@ -351,7 +351,7 @@ function runInserts() {
 
 // Ensures that the restarting of the server puts it into a good state
 runInserts();
-removeAllTrials();
+//removeAllTrials();
 
 
 
