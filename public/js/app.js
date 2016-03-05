@@ -223,7 +223,7 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
     // ackIndicator
     //
 
-    $scope.ackIndicator() {
+    $scope.ackIndicator = function() {
         $scope.sendToServerAckIndicator();
     }
 
