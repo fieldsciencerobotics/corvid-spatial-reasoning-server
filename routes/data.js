@@ -65,8 +65,11 @@ function getBirds(res) {
     });
 }
 
-function removeBird(birdID) {
-
+function removeBird(birdID, res) {
+	// Remove the bird
+	db.run("DELETE FROM birds WHERE bird = ?", [birdID], function(err) {
+		getBirds(res);
+	})
 }
 
 function removeBirds() {
@@ -84,7 +87,7 @@ function removeBirds() {
 function insertStage(stage, res, getStages) {
     db.run("INSERT INTO stages VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [stage.name , stage.desc , stage.delay , stage.autoEnd , stage.autoEndTime, stage.feederArrangement[0], stage.feederArrangement[1], stage.feederArrangement[2], stage.feederArrangement[3], stage.feederArrangement[4], stage.feederArrangement[5], stage.feederArrangement[6], stage.feederArrangement[7], stage.feederArrangement[8], stage.feederArrangement[9] ], function(err) {
     		getStages(res);
-    })
+    });
 }
 
 function insertStages(stages) {
@@ -129,8 +132,11 @@ function getStages(res) {
     });
 }
 
-function removeStage(stageID) {
-
+function removeStage(stageID, res) {
+	// Remove the stage
+	db.run("DELETE FROM stages WHERE stage = ?", [stageID], function(err) {
+		getStages(res);
+	})
 }
 
 function removeStages() {
