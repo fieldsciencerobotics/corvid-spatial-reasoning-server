@@ -10,27 +10,32 @@
 				Feeder: {{feeder.id}}
 				<svg height="80" width="80">
 				  <rect x="20" y="20" width="30" height="50" stroke="black" stroke-width="3" ng-attr-fill="{{feeder.colour}}" />
-				  <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle">{{feeder.meatRemaining}}</text>
+				  <text x="40%" y="60%" alignment-baseline="middle" text-anchor="middle">{{feeder.meatRemaining}}</text>
 				</svg>
 
-				<span class="btn btn-xs btn-success" ng-class="{disabled: !feeder.connected}" ng-click="freeFormDropMeat(feeder.id)">Drop</span><br />
-				<span class="btn btn-xs btn-info" ng-class="{disabled: !feeder.connected}" ng-click="primeFeeder(feeder.id)">Prime</span><br />
-				<span class="btn btn-xs btn-warning" ng-class="{disabled: !feeder.connected}" ng-click="resetFeeder(feeder.id)">Reset</span><br />
-				<span class="btn btn-xs btn-danger" ng-class="{disabled: !feeder.connected}" ng-click="stopFeeder(feeder.id)">Stop</span>
+				<span class="btn btn-md btn-success" ng-class="{disabled: !feeder.connected}" ng-click="freeFormDropMeat(feeder.id)">Drop</span><br />
+				<span class="btn btn-md btn-info" ng-class="{disabled: !feeder.connected}" ng-click="primeFeeder(feeder.id)">Prime</span><br />
+				<span class="btn btn-md btn-warning" ng-class="{disabled: !feeder.connected}" ng-click="resetFeeder(feeder.id)">Reset</span><br />
+				<span class="btn btn-md btn-danger" ng-class="{disabled: !feeder.connected}" ng-click="stopFeeder(feeder.id)">Stop</span>
 
 			</div>
 	   </div>
 	  <h1>Feeders</h1>
 	  <p>Press Feeder to Drop Meat</p>
 	  <span class="btn btn-info"ng-click="resetDeivceConfiguration()">Reset Feeders</span>
+	  <br />
+	  <br />
+	  <br />
+	  .
 	</div>
 
 	<div class="jumbotron" style="padding-top: 22px; padding-bottom: 22px;">
 		<div style="float: right;" id="lights">
-			<div class="light" ng-repeat="light in lights" ng-click="freeFormLightToggle(light)">
+			<div class="light" ng-repeat="light in lights" ng-click="freeFormLightToggle(light)" style="text-align: center;">
 				<svg height="80" width="80">
 				  <circle cx="40" cy="40" r="25" stroke="black" stroke-width="3" ng-attr-fill="{{light.colour}}"/>
 				</svg>
+				  {{$index}}
 			</div>
 		</div>
 		<h1>Indicators</h1>
