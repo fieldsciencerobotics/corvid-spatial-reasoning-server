@@ -267,19 +267,27 @@ function getNextTrialIDFromDB(birdID, stageID, res) {
 }
 
 function removeTrialsOfBird(BirdID) {
-
+	console.log("Removing All Trials");
+	// Remove the stage
+	db.run("DELETE FROM trials WHERE bird = ?", [BirdID])
 }
 
 function removeTrialsOfStage(StageID) {
-
+	console.log("Removing All Trials");
+	// Remove the stage
+	db.run("DELETE FROM trials WHERE stage = ?", [StageID])
 }
 
 function removeTrailsOfBirdAndStage(BirdID, StageID) {
-
+	console.log("Removing All Trials");
+	// Remove the stage
+	db.run("DELETE FROM trials WHERE bird = ? AND stage = ?", [BirdID, StageID])
 }
 
 function removeAllTrials(){
-
+	console.log("Removing All Trials");
+	// Remove the stage
+	db.run("DELETE FROM trials")
 }
 
 

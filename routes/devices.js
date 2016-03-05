@@ -284,6 +284,7 @@ var Meerkat = function() {
 					    // Meat Peices Left measure
 					    case '24.0':
 							console.log("Meat Pieces Left: ", id, value);
+							onlineDevices[id].meatRemaining = value;
 					        //self.emit('BatteryUpdated', deviceID)
 
 					        break;  

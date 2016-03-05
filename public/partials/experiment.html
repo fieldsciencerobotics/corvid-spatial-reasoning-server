@@ -156,17 +156,23 @@ Experiments Tab
 
 			<h2>{{selectedBird.id.id}}</h2>
 			<h4>{{selectedStage.id.name}}</h4>
-			<p><span class="label label-danger">Delay: {{selectedStage.id.delay}} secs</span><span class="label label-warning">AutoEnd Trial: {{selectedStage.id.autoEnd}}</span><span class="label label-success">Trial timeout: {{selectedStage.id.autoEndTime}} secs</span></p>
+			<p><span class="label label-danger">Delay: {{selectedStage.id.delay}} secs</span>
+			<span class="label label-warning">AutoEnd Trial: {{selectedStage.id.autoEnd?'true':'false'}}</span>
+			<span class="label label-success">Trial timeout: {{selectedStage.id.autoEndTime}} secs</span></p>
+			<br />
 			<br />
 			<br />
 			<div class="feeder" ng-repeat="feeder in expFeederArrangement" style="text-align: center; width: 60px">
 
 				<svg height="60" width="45">
 				  <rect x="15" y="15" width="22.5" height="37.5" stroke="black" stroke-width="3" ng-attr-fill="{{feeder.colour}}" />
-				  <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle">{{feeder.meatRemaining}}</text>
+				  <text x="55%" y="60%" alignment-baseline="middle" text-anchor="middle">{{feeder.meatRemaining}}</text>
 				</svg>
 
 			</div>
+			<br />
+			<br />
+			.
 
 		</div>
 	</div>
