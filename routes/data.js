@@ -67,6 +67,7 @@ function getBirds(res) {
 
 function removeBird(birdID, res) {
 	// Remove the bird
+	console.log(birdID);
 	db.run("DELETE FROM birds WHERE id = ?", [birdID], function(err) {
 		getBirds(res);
 	})
@@ -133,6 +134,7 @@ function getStages(res) {
 }
 
 function removeStage(stageID, res) {
+	console.log(stageID);
 	// Remove the stage
 	db.run("DELETE FROM stages WHERE name = ?", [stageID], function(err) {
 		getStages(res);
