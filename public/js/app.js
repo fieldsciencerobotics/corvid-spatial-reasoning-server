@@ -559,6 +559,10 @@ myApp.controller('myController', function($scope, $modal, $log, $http) {
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
+            setTimeout(function(){
+                sendToServerGetOnlineDeviceListFreeformNoModal();
+            }, 1500);
+            
         }).error(function (data, status, headers, config) {
             $scope.status = status + ' ' + headers;
         });
